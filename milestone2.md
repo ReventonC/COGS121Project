@@ -14,24 +14,32 @@
 ![pp1](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(1).jpg)
 1. Click on __Submit__ button to login to the app
 ![pp2](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(2).jpg)
-1. Here's the main page. The main page is consist of 5 components. Left is the __Fridge__, right top is the __Spice rack__, right bottom is the __Cupboard__. There's a __Add Ingridents__ button under the __Cupboard__. The three containers are the places you _store_ your ingridents in the app.
+1. Here's the main page. The main page is consist of 5 components. Left is the __Fridge__, right top is the __Spice rack__, right bottom is the __Cupboard__. There's a __Add Ingredients__ button under the __Cupboard__. The three containers are the places you _store_ your ingredients in the app. 
 ![pp3](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(3).jpg)
-1. Let's check what did we put in the __Fridge__
+1. Let's check what did we put in the __Fridge__. Move the cursor on the fridge to open it.
 ![pp4](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(4).jpg)
 1. Seem's like we have a lot of food inside! Oops, it seems like we actually run out of the chicken stock because we used it last night, so let's delete it from the storage.
 ![pp5](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(5).jpg)
-1. Click on the x button on a ingrident to remove it
+1. Click on the x button on a ingredient to remove it
 ![pp6](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(6).jpg)
 1. Chicken stock removed!
 ![pp7](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(7).jpg)
-1. ![pp8](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(8).jpg)
-1. ![pp9](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(9).jpg)
-1. ![pp10](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(10).jpg)
-1. ![pp11](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(11).jpg)
-1. ![pp12](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(12).jpg)
-1. ![pp13](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(13).jpg)
-1. ![pp14](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(14).jpg)
-1. ![pp15](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(15).jpg)
+1. Now let's add an ingredient, soy sauce, into the storage. Click on __Add Ingredients__ button.
+![pp8](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(8).jpg)
+1. A modal will pop up for adding new ingredient.
+![pp9](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(9).jpg)
+1. Let's type _Soy Sauce_ and select catergory of it. After input the new ingredient press on __Add__ button to add it.
+![pp10](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(10).jpg)
+1. Now let's move the cursor to the spice rack and check if we have _Soy Sauce_ updated!
+![pp11](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(11).jpg)
+1. Yeah it's there!
+![pp12](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(12).jpg)
+1. Now we can start cooking a meal! What dishes can we make basing on what we have now? Click on __Cook your meal__ button and find the answer out!
+![pp13](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(13).jpg)
+1. The app will show us all the recipes we might be able to make based on the ingredients in the storage. It will also show that how many different kind of ingredients we need to use and how many we are missing. It seems like we can make _Teriyaki Chicken_! Let's click on it and check the recipe!
+[pp14](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(14).jpg)
+1. We got all the ingredients and recipe. Everything looks great! Let's start cooking!
+![pp15](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(15).jpg)
 
 
 ### Paper Prototype 2
