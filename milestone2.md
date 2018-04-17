@@ -5,6 +5,7 @@
 ### Story board 1
 
 ### Story board 2
+![sb2](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyBoard_2.jpg)
 
 ## Paper Prototypes
 
@@ -37,7 +38,7 @@
 1. Now we can start cooking a meal! What dishes can we make basing on what we have now? Click on __Cook your meal__ button and find the answer out!
 ![pp13](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(13).jpg)
 1. The app will show us all the recipes we might be able to make based on the ingredients in the storage. It will also show that how many different kind of ingredients we need to use and how many we are missing. It seems like we can make _Teriyaki Chicken_! Let's click on it and check the recipe!
-[pp14](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(14).jpg)
+![pp14](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(14).jpg)
 1. We got all the ingredients and recipe. Everything looks great! Let's start cooking!
 ![pp15](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_1%20(15).jpg)
 
