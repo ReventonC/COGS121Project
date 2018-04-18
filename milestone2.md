@@ -51,7 +51,7 @@ In this storybaord, the top four scenes represent a situation in which someone d
 1. Landing page for those who visit the website without an account. You can sign in or create an account from here.
 ![pp16](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_2%20(1).JPG)
 1. Login screen.
-![pp17] (https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_2%20(2).JPG)
+![pp17](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_2%20(2).JPG)
 1. The home screen shows recipe suggestions based on time of day and what is currently in your __Fridge__. We will show how to update your fridge later. The home page allows you to explore different categories of recipes. Here, we can see __Quick and Easy__, __Healthy__, and __Gourmet__. If you want to explore more recipes of one category, you can click on the title to see more.
 ![pp18](https://github.com/ReventonC/COGS121Project/blob/master/paperPrototypes/paperPrototype_2%20(3).JPG)
 1. We want to explore more __Quick and Easy__ recipes.
