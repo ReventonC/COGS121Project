@@ -3,7 +3,7 @@
 ## Story boards
 
 ### Story board 1
-![sb1](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyBoard_1.jpg)
+![sb1](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyBoard_1.png)
 In this storyboard, we explore a scenario where the user wants to cook something based off of what is in the fridge. In the top scenario without the app, the user is confused on what to cook so the user looks up recipes online, but nothing comes up with the ingredients that the user has. As a result, a mess is made. With the app, the user can find recipes based on what the user has in the fridge, so the result is a clean dish.
 
 ### Story board 2
