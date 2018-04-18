@@ -3,15 +3,11 @@
 ## Story boards
 
 ### Story board 1
-<<<<<<< HEAD
 ![sb1](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyBoard_1.jpg)
-=======
-![sb2](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyBoard_1.jpg)
->>>>>>> 21405f28c29b19589c195e5beba66cb961f2cec1
 In this storyboard, we explore a scenario where the user wants to cook something based off of what is in the fridge. In the top scenario without the app, the user is confused on what to cook so the user looks up recipes online, but nothing comes up with the ingredients that the user has. As a result, a mess is made. With the app, the user can find recipes based on what the user has in the fridge, so the result is a clean dish.
 
 ### Story board 2
-![sb2](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyboard%20_2.jpg)
+![sb2](https://github.com/ReventonC/COGS121Project/blob/master/storyBoards/storyboard_2.jpg)
 In this storybaord, the top four scenes represent a situation in which someone does not have our web application. The bottom four scenes represent the same situation, but someone has our web application at hand. At the top, someone wants to eat a particular food. They know they need to go out and buy that food and maybe some condiments to go along with it. They search online for recipes. The recipes are complicated and need way too many ingredients that the person does not have. They just wanted to go buy ribs and cook it with things they already had at home. The bottom four scenes also represent someone who wants to eat a particular food they don’t have at home, say chicken. They want to use mostly ingredients they have and just go 2 minutes to the store to get a pound of chicken. They input that item, alongside ingredients they have at home, and our app spits out a recipe that can be made entirely of the ingredients they asked for. There might also be one or two extra items which they will have to get, because they were already headed to the store anyway for the chicken.
 
 ## Paper Prototypes
