@@ -7,14 +7,28 @@ header {
     border: solid black 1px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-content: center;
     height: 50px;
-}
 
+    #logo {
+        border: solid black 1px;
+        margin: 9px;
+    }
 
-#logo {
-    border: solid black 1px;
-    margin: 9px;
+    #accountBox {
+        margin: 9px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+
+        #avatarImg {
+            border: solid black 2px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+    }
 }
 
 .content {
@@ -24,16 +38,123 @@ header {
     border: solid red 1px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     overflow: auto;
+
     .block {
         margin: 10px;
+        padding: 20px;
         border: solid green 1px;
         max-width: 400px;
         min-width: 350px;
         width: 33%;
         min-height: 700px;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6, 200px);
+        grid-template-rows: 200px 200px 200px;
+        grid-auto-flow: row;
+        grid-gap: 20px;
+        justify-content: center;
+
+        .recipeBox {
+            border: solid brown 1px;
+            &:hover {
+                background-color: bisque;
+            }
+        }
+    }
+
+    .ingredientList {
+        list-style: none;
+        width: 80%;
+        border: solid purple 1px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        overflow: auto;
+        padding: 20px;
+        max-height: 650px;
+
+        .ingredient {
+            width: 100%;
+            min-height: 50px;
+            border: palevioletred solid 1px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+
+            p {
+                margin-left: 20px;
+            }
+
+            button {
+                width: 20px;
+                margin-right: 20px;
+            }
+        }
+    }
+
+    #accountSettings {
+        width: 100%;
+    }
+
+    #recipe {
+        width: 100%;        
+    }
+
+    #fridge {
+        border: solid orange 1px;
+        height: 700px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #spiceRack {
+        position: relative;
+        top: 100px;
+        border: solid orange 1px;
+        height: 250px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #cupboard {
+        position: relative;
+        top: 110px;
+        border: solid orange 1px;
+        height: 700px - 360px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    #stove {
+        position: relative;
+        top: 350px;
+        border: orange solid 1px;
+        height: 350px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        button {
+            margin-top: 100px;
+            height: 200px;
+            width: 300px;
+        }
     }
 }
 
@@ -47,7 +168,8 @@ header {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
     * {
-        margin: 20px;        
+        margin: 20px;
     }
 }

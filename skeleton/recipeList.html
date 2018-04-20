@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/css/style.min.css" />
+    <script src="../public/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <img onclick="window.location='kitchen.html'" id="logo" src="../public/img/logo.png" alt="logo" style="width:30px;height:30px"
+        />
+        <div id="accountBox" onclick="window.location='account.html'">
+            <p>Hello, userName</p>
+            <img id="avatarImg" src="../public/img/avatar.png" alt="avatar" style="width:30px; height:30px" />
+        </div>
+    </header>
+
+    <div class="content">
+        <div id="resultList">
+            <button onclick="window.location='kitchen.html'">back</button>
+            <div class="wrapper">
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <div class="recipeBox"></div>
+                <script>
+                    $('.recipeBox').on('click', () => {
+                        window.location = "recipeResult.html";
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
