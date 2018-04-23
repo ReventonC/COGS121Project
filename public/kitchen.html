@@ -20,28 +20,40 @@ $(document).ready(() => {
     // Get all the ingredients from the Fridge
     const fridge_list = [];
     for (const item of $(".fridge_list")) {
-        fridge_list.push($(item).val());
+      const value = $(item).val();
+      if(value != ''){
+        fridge_list.push(value);
+      }
     }
 
     // Get all the ingredients from the spice rack
     const spice_rack = [];
     for (const item of $(".spice_rack")) {
-        spice_rack.push($(item).val());
+      const value = $(item).val();
+      if(value != ''){
+        spice_rack.push(value);
+      }
     }
 
     // Get all the ingredients from the cupboard
     const cupboard = [];
     for (const item of $(".cupboard")) {
-        cupboard.push($(item).val());
+      const value = $(item).val();
+      if(value != ''){
+        cupboard.push(value);
+      }
     }
 
+    //console.log(fridge_list);
     // All ingredients
     const all_ingredients = [];
+
+    const ingredients = {fridge: fridge_list, spices: spice_rack, cupboard: cupboard};
 
     $.ajax({
       type: 'POST',
       dataType: 'json',
-      data: {fridge: fridge_list, spices: spice_rack, cupboard: cupboard}
+      data: ingredients
     });
   });
 });

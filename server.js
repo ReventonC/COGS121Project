@@ -14,22 +14,28 @@ app.post('/login.html', (req, res) => {
   console.log("Username: " + req.body.user);
   console.log("Password: " + req.body.pass);
 
-  // Check to see if the username and password are in the database
+  // TODO: check to see if the username and password are in the database
 
 });
 
 // Grab ingredients list and manipulate it
 app.post('/kitchen.html', (req, res) => {
 
-  console.log("Fridge List: ");
-  for(const i of req.body.fridge){
-    console.log(i);
-  }
-  
-  console.log("Spice Rack: " + req.body.spices);
-  console.log("Cupboard: " + req.body.cupboard);
+  const my_list = req.body;
 
-  // Check to see if the username and password are in the database
+  const fridge_list = my_list['fridge[]'];
+  const spice_rack = my_list['spices[]'];
+  const cupboard = my_list['cupboard[]'];
+
+  //TODO: check whether these 3 lists are empty or not
+  if(fridge_list == undefined){};
+  if(spice_rack == undefined){};
+  if(cupboard == undefined){};
+
+console.log(my_list);
+  console.log("Fridge List: " + fridge_list);
+  console.log("Spice Rack: " + spice_rack);
+  console.log("Cupboard: " + cupboard);
 
 });
 
