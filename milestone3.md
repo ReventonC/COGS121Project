@@ -6,3 +6,15 @@ Our homepage is similar to the Paper Prototype 1 from Milestone 2. It depicts th
 
 ## Screen 2
 ![ss2](https://github.com/ReventonC/COGS121Project/blob/master/screenshots/m3Screen2.png)
+
+## Screen 3
+![ss3](https://github.com/ReventonC/COGS121Project/blob/master/screenshots/m3Screen3.png)
+
+## Screen 4
+![ss4](https://github.com/ReventonC/COGS121Project/blob/master/screenshots/m3Screen4.png)
+
+## Screen 5
+![ss5](https://github.com/ReventonC/COGS121Project/blob/master/screenshots/m3Screen5.png)
+
+
+
