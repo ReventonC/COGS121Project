@@ -1,8 +1,47 @@
 const express = require('express');
+const http = require('http');
 const handlebars = require('handlebars')
 const bodyParser = require("body-parser");
 const path = require('path');
 const app = express();
+
+//use express's router
+const router = express.Router();
+module.exports = router;
+
+
+
+// all environments
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+//app.engine('handlebars', require('handlebars').__express);
+app.set('view engine', 'handlebars');
+//app.use(express.favicon());
+//app.use(express.logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded());
+//app.use(express.methodOverride());
+//app.use(express.cookieParser('IxD secret key'));
+//app.use(express.session());
+//app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+//routes
+const login = require('./routes/login');
+const account = require('./routes/account');
+const kitchen = require('./routes/kitchen');
+const recipeList = require('./routes/recipeList');
+const recipeResult = require('./routes/recipeResult');
+
+app.get('/', login.view)
+app.get('/account', account.view);
+app.get('/kitchen', kitchen.view);
+app.get('/recipeList', recipeList.view);
+app.get('/recipeResult', recipeResult.view);
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 //Here we are configuring express to use body-parser as middle-ware.
@@ -13,7 +52,7 @@ app.use(bodyParser.json());
 const my_ingredients = {};
 
 // Check the login credentials
-app.post('/login.html', (req, res) => {
+app.post('/login', (req, res) => {
   console.log("Username: " + req.body.user);
   console.log("Password: " + req.body.pass);
 
@@ -22,7 +61,7 @@ app.post('/login.html', (req, res) => {
 });
 
 // Grab ingredients list and manipulate it
-app.post('/kitchen.html', (req, res) => {
+app.post('/kitchen', (req, res) => {
 
   // Object of all ingredient types
   const my_list = req.body;
@@ -52,7 +91,7 @@ app.post('/kitchen.html', (req, res) => {
 // Grab all of the user recipes from the DB and send them to the users
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
-app.post('/recipeList.html', (req, res) => {
+app.post('/recipeList', (req, res) => {
   res.send(my_ingredients);
 });
 
