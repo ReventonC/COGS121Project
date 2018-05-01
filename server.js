@@ -14,25 +14,6 @@ const unirest = require('unirest');
 const router = express.Router();
 module.exports = router;
 
-// all environments
-app.use(bodyParser.urlencoded({ extended: true }));
-app.set('port', process.env.PORT || 3000);
-
-app.set('views', path.join(__dirname, 'views'));
-//app.engine('handlebars', require('handlebars').__express);
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-//app.use(express.favicon());
-//app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-//app.use(express.methodOverride());
-//app.use(express.cookieParser('IxD secret key'));
-//app.use(express.session());
-//app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-
-
 //routes
 const login = require('./routes/login');
 const account = require('./routes/account');
@@ -100,6 +81,7 @@ app.post('/recipeList', (req, res) => {
 });
 
 //TODO: find out how to break the api call into seperate strings
+//get the recipe information
 let ingredientsList = ['apple', 'ice cream'];
 let  ingredients = '';
 const numResults = 10;
@@ -110,12 +92,24 @@ ingredientsList.forEach((i) => {
 const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=" + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
 
 
+//work with the actual recipe steps
+
+
 //testing the api
 //get gets all the parameters and sends it to the server for a request
 //headers are used as authentication
 //end specifies what to do with the request
 //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
 unirest.get(apiCall)
+.header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+.header("Accept", "application/json")
+.end(function (result) {
+  console.log(result.status, result.headers, result.body);
+});
+
+
+//get the actual recipe(gets info from recipe ID)
+unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/178582/information?includeNutrition=true")
 .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
 .header("Accept", "application/json")
 .end(function (result) {
