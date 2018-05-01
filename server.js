@@ -99,16 +99,30 @@ app.post('/recipeList', (req, res) => {
     res.send(my_ingredients);
 });
 
+//TODO: find out how to break the api call into seperate strings
+let ingredientsList = ['apple', 'ice cream'];
+let  ingredients = '';
+const numResults = 10;
+ingredientsList.forEach((i) => {
+    i.replace(" ", "+");
+    ingredients += i + "%2C";
+});
+const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=" + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
+
+
 //testing the api
 //get gets all the parameters and sends it to the server for a request
 //headers are used as authentication
 //end specifies what to do with the request
-unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1")
+//unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
+unirest.get(apiCall)
 .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
 .header("Accept", "application/json")
 .end(function (result) {
   console.log(result.status, result.headers, result.body);
 });
+
+
 
 app.listen(3000, () => {
     console.log("Server started on http://localhost:3000/");
