@@ -7,26 +7,15 @@ const path = require('path');
 const app = express();
 const hbs = exphbs.create();
 
-<<<<<<< HEAD:server2.js
-//require the API
+//require unirest for api
 const unirest = require('unirest');
 
-//use express's router
-const router = express.Router();
-module.exports = router;
-
-
-
-// all environments from cogs 120
-app.use(bodyParser.urlencoded({extended: true}));
-=======
 //use express's router  
 const router = express.Router();
 module.exports = router;
 
 // all environments
 app.use(bodyParser.urlencoded({ extended: true }));
->>>>>>> 7b18b364a46034d85fef10a495fae3e551740d19:server.js
 app.set('port', process.env.PORT || 3000);
 
 app.set('views', path.join(__dirname, 'views'));
@@ -109,9 +98,6 @@ app.post('/kitchen', (req, res) => {
 app.post('/recipeList', (req, res) => {
     res.send(my_ingredients);
 });
-
-
-
 
 //testing the api
 //get gets all the parameters and sends it to the server for a request

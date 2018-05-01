@@ -1,0 +1,27 @@
+{
+  "name": "cogs121project",
+  "version": "1.0.0",
+  "description": "Find recipe base on what you have in your fridge!!",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReventonC/COGS121Project.git"
+  },
+  "author": "Zehua Chen, Yahav Erlich, Erika Nunotani, Aaron Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ReventonC/COGS121Project/issues"
+  },
+  "homepage": "https://github.com/ReventonC/COGS121Project#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.11",
+    "nodemon": "^1.17.3",
+    "unirest": "^0.5.1"
+  }
+}
