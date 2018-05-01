@@ -5,13 +5,16 @@ const bodyParser = require("body-parser");
 const path = require('path');
 const app = express();
 
+//require the API
+const unirest = require('unirest');
+
 //use express's router
 const router = express.Router();
 module.exports = router;
 
 
 
-// all environments
+// all environments from cogs 120
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -93,6 +96,20 @@ app.post('/kitchen', (req, res) => {
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
   res.send(my_ingredients);
+});
+
+
+
+
+//testing the api
+//get gets all the parameters and sends it to the server for a request
+//headers are used as authentication
+//end specifies what to do with the request
+unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=5&ranking=1")
+.header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+.header("Accept", "application/json")
+.end(function (result) {
+  console.log(result.status, result.headers, result.body);
 });
 
 app.listen(3000, () => {
