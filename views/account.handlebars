@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/style.min.css" />
+    <script src="/js/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px"
+        />
+        <div id="accountBox" onclick="window.location='account'">
+            <p>Hello, userName</p>
+            <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:30px; height:30px" />
+        </div>
+    </header>
+
+    <div class="content">
+        <div id="accountSettings">
+            <button onclick="window.location='recipeList'">back</button>
+            <h1>User Info</h1>
+            <p>username</p>
+            <p>avatar pic</p>
+            <p>preference</p>
+            <p>alergic</p>
+            <p>etc.</p>
+            <button onclick="window.location='/'">Log out</button>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

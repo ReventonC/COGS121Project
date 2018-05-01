@@ -1,3 +1,3 @@
-exports.view = function(req, res){
-  res.send('login');
+exports.view = function (req, res) {
+    res.render('login');
 };

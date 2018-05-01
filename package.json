@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/ReventonC/COGS121Project.git"
   },
-  "author": "Zehua Chen, Yahav, Erlich, Erika Nunotani, Aaron Wong",
+  "author": "Zehua Chen, Yahav Erlich, Erika Nunotani, Aaron Wong",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ReventonC/COGS121Project/issues"
@@ -19,6 +19,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.11",
     "nodemon": "^1.17.3"
   }
