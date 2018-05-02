@@ -4,13 +4,15 @@ const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
 const path = require('path');
+const sqlite3 = require('sqlite3');
 const app = express();
 const hbs = exphbs.create();
+const db = new sqlite3.Database('recipes.db');
 
 //require unirest for api
 const unirest = require('unirest');
 
-//use express's router  
+//use express's router
 const router = express.Router();
 module.exports = router;
 
@@ -42,15 +44,69 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Database
-const my_ingredients = {};
+// Object holding all the ingredients to be inserted into the DB
+const my_ingredients = {fridge: [], spices: [], cupboard: []};
+
+// The name of the user
+const username = '';
+
 
 // Check the login credentials
-app.post('/login', (req, res) => {
-    console.log("Username: " + req.body.user);
-    console.log("Password: " + req.body.pass);
+app.post('/', (req, res) => {
 
-    // TODO: check to see if the username and password are in the database
+  //The inputted username and password
+  const user = req.body.user;
+  const pass = req.body.pass;
+  const type = req.body.type;
+  console.log("Username: " + user);
+  console.log("Password: " + pass);
+
+  username = user;
+
+  // This is a Sign-in Attempt
+  if( type == 0){
+
+    db.all(
+
+      'SELECT * FROM users WHERE username=$user AND password=$pass',
+
+      {
+        $user: user,
+        $pass: pass
+      },
+
+      (err, rows) => {
+        console.log(rows);
+        if(rows.length == 1){
+          console.log("successfully logged in");
+        }else{
+          console.log("username or password is incorrect");
+        }
+      }
+    );
+  }
+
+  // Sign up attempt
+  if( type == 1){
+
+    db.run(
+
+      'INSERT INTO users VALUES ($user, $pass)',
+
+      {
+        $user: user,
+        $pass: pass
+      },
+
+      (err) => {
+        if(err){
+          console.log("There was an error inserting username and password")
+        }else{
+          console.log("Successfully inserted new user into DB with username:",user,"and password:",pass);
+        }
+      }
+    );
+  }
 
 });
 
@@ -65,16 +121,38 @@ app.post('/kitchen', (req, res) => {
     const spice_rack = my_list['spices[]'];
     const cupboard = my_list['cupboard[]'];
 
+    //my_ingredients = {fridge: fridge_list, spices: spice_rack, cupboard: cupboard};
+
     // Add all the ingredients to the database
     my_ingredients.fridge = fridge_list;
     my_ingredients.spices = spice_rack;
     my_ingredients.cupboard = cupboard;
+    const my_ingredients_text = JSON.stringify(my_ingredients);
+    console.log(my_ingredients_text);
 
     //TODO: check whether these 3 lists are empty or not
     if (fridge_list == undefined) { };
     if (spice_rack == undefined) { };
     if (cupboard == undefined) { };
 
+    // Insert the ingredients list into the DB as a single object,
+    // where each item is a list of fridge items, spice items, cupboard items
+    db.run(
+      'INSERT INTO ingredients VALUES ($username, $my_ingredients)',
+
+      {
+        $username: username,
+        $my_ingredients: my_ingredients_text
+      },
+
+      (err) => {
+        if(err){
+          console.log("There was an error inserting ingredients")
+        }else{
+          console.log("Successfully inserted ingredients into DB");
+        }
+      }
+    );
     // Print ingredients list
     console.log("Fridge List: " + fridge_list);
     console.log("Spice Rack: " + spice_rack);
@@ -98,7 +176,8 @@ ingredientsList.forEach((i) => {
     i.replace(" ", "+");
     ingredients += i + "%2C";
 });
-const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=" + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
+const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
+                + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
 
 
 //work with the actual recipe steps
@@ -118,11 +197,11 @@ unirest.get(apiCall)
 
   //push the id numbers that would be used to find the recipeslater
   result.body.forEach((i) => {
-    id.push(i.id);    
+    id.push(i.id);
   });
-  
+
   //show the results
-  console.log(result.status, result.headers, result.body);
+  //console.log(result.status, result.headers, result.body);
 
   //store apiRecipe string here
   apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
@@ -133,7 +212,7 @@ unirest.get(apiCall)
   .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
   .header("Accept", "application/json")
   .end(function (result) {
-    console.log(result.status, result.headers, result.body);
+    //console.log(result.status, result.headers, result.body);
   });
 });
 

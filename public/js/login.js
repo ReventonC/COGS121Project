@@ -6,7 +6,16 @@ $(document).ready(() => {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            data: { user: $("#user").val(), pass: $("#pass").val() }
+            data: { user: $("#user").val(), pass: $("#pass").val(), type: 0 }
         });
     });
+
+    $("#signup_btn").click(() => {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: { user: $("#user").val(), pass: $("#pass").val(), type: 1 }
+        });
+    });
+
 });
