@@ -7,7 +7,7 @@ const db = new sqlite3.Database('recipes.db');
 db.serialize(() => {
   // create a new database table:
   db.run("CREATE TABLE users (username TEXT, password TEXT)");
-  db.run("CREATE TABLE ingredients (username TEXT, ingredient_list TEXT)");
+  db.run("CREATE TABLE ingredients (username TEXT, fridge_list TEXT, spice_rack TEXT, cupboard TEXT)");
 
   console.log('successfully created users and ingredients tables in recipes.db');
 });

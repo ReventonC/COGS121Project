@@ -48,7 +48,7 @@ app.use(bodyParser.json());
 const my_ingredients = {fridge: [], spices: [], cupboard: []};
 
 // The name of the user
-const username = '';
+let username = '';
 
 
 // Check the login credentials
@@ -127,32 +127,114 @@ app.post('/kitchen', (req, res) => {
     my_ingredients.fridge = fridge_list;
     my_ingredients.spices = spice_rack;
     my_ingredients.cupboard = cupboard;
-    const my_ingredients_text = JSON.stringify(my_ingredients);
-    console.log(my_ingredients_text);
+    const fridge_list_text = JSON.stringify(fridge_list);
+    const spice_rack_text = JSON.stringify(spice_rack);
+    const cupboard_text = JSON.stringify(cupboard);
+    console.log(fridge_list_text);
+    console.log(spice_rack_text);
+    console.log(cupboard_text);
 
     //TODO: check whether these 3 lists are empty or not
-    if (fridge_list == undefined) { };
-    if (spice_rack == undefined) { };
-    if (cupboard == undefined) { };
+    // if (fridge_list == undefined) {
+    //   my_ingredients.fridge = [];
+    //   fridge_list = [];
+    // };
+    // if (spice_rack == undefined) {
+    //   my_ingredients.spices = [];
+    //   spice_rack = [];
+    // };
+    // if (cupboard == undefined) {
+    //   my_ingredients.cupboard= [];
+    //   cupboard = [];
+    // };
 
     // Insert the ingredients list into the DB as a single object,
     // where each item is a list of fridge items, spice items, cupboard items
-    db.run(
-      'INSERT INTO ingredients VALUES ($username, $my_ingredients)',
-
+    db.all(
+      'SELECT * FROM ingredients WHERE username=$user',
       {
-        $username: username,
-        $my_ingredients: my_ingredients_text
+        $user: username
       },
+      (err, rows) => {
+        if(rows.length == 1){
+          const fridge_list = JSON.parse(rows[0].fridge_list);
+          const spice_rack = JSON.parse(rows[0].spice_rack);
+          const cupboard = JSON.parse(rows[0].cupboard);
 
-      (err) => {
-        if(err){
-          console.log("There was an error inserting ingredients")
+          console.log("I AM HEREEEE:", fridge_list);
+          console.log(fridge_list.concat(my_ingredients.fridge));
+
+          let new_fridge_text = '';
+          let new_spices_text = '';
+          let new_cupboard_text = '';
+
+          // Append or don't append new ingredients  (I think this is temporary because it seems like a lot of ifs)
+          if(fridge_list != null && my_ingredients.fridge != null){
+            new_fridge_text = JSON.stringify(fridge_list.concat(my_ingredients.fridge));
+          }else if(fridge_list != null && my_ingredients.fridge == null){
+            new_fridge_text = JSON.stringify(fridge_list);
+          }else if(fridge_list == null && my_ingredients.fridge != null){
+            new_fridge_text = JSON.stringify(my_ingredients.fridge);
+          }
+
+          if(spice_rack != null && my_ingredients.spices != null){
+            new_spices_text = JSON.stringify(spice_rack.concat(my_ingredients.spices));
+          }else if(spice_rack != null && my_ingredients.spices == null){
+            new_spices_text = JSON.stringify(spice_rack);
+          }else if(spice_rack == null && my_ingredients.spices != null){
+            new_spices_text = JSON.stringify(my_ingredients.spices);
+          }
+
+          if(cupboard != null && my_ingredients.cupboard != null){
+            new_cupboard_text = JSON.stringify(cupboard.concat(my_ingredients.cupboard));
+          }else if(cupboard != null && my_ingredients.cupboard == null){
+            new_cupboard_text = JSON.stringify(cupboard);
+          }else if(cupboard == null && my_ingredients.cupboard != null){
+            new_cupboard_text = JSON.stringify(my_ingredients.cupboard);
+          }
+
+          db.run(
+            'UPDATE ingredients SET fridge_list=$fridge, ' +
+            'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
+
+            {
+              $fridge: new_fridge_text,
+              $spices: new_spices_text,
+              $cupboard: new_cupboard_text,
+              $user: username
+            },
+
+            (err) => {
+              if(err){
+                console.log("There was an error updating ingredients")
+              }else{
+                console.log("Successfully updated ingredients in DB");
+              }
+            }
+          );
         }else{
-          console.log("Successfully inserted ingredients into DB");
+          db.run(
+            'INSERT INTO ingredients VALUES ($username, $fridge, $spices, $cupboard)',
+
+            {
+              $username: username,
+              $fridge: fridge_list_text,
+              $spices: spice_rack_text,
+              $cupboard: cupboard_text,
+            },
+
+            (err) => {
+              if(err){
+                console.log("There was an error inserting ingredients")
+              }else{
+                console.log("Successfully inserted ingredients into DB");
+              }
+            }
+          );
         }
       }
     );
+
     // Print ingredients list
     console.log("Fridge List: " + fridge_list);
     console.log("Spice Rack: " + spice_rack);
@@ -164,57 +246,72 @@ app.post('/kitchen', (req, res) => {
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
-    res.send(my_ingredients);
-});
 
-//TODO: find out how to break the api call into seperate strings
-//get the recipe information
-let ingredientsList = ['apple', 'ice cream'];
-let  ingredients = '';
-const numResults = 2;
-ingredientsList.forEach((i) => {
-    i.replace(" ", "+");
-    ingredients += i + "%2C";
-});
-const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
-                + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
+  // Grab the recipes from the list
+  db.all(
+    'SELECT * FROM ingredients WHERE username=$user',
 
+    {
+      $user: username
+    },
 
-//work with the actual recipe steps
-let id = []; //make a list of ids
-let apiRecipe = ''
-
-
-//testing the api
-//get gets all the parameters and sends it to the server for a request
-//headers are used as authentication
-//end specifies what to do with the request
-//unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
-unirest.get(apiCall)
-.header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-.header("Accept", "application/json")
-.end(function (result) {
-
-  //push the id numbers that would be used to find the recipeslater
-  result.body.forEach((i) => {
-    id.push(i.id);
+    (err, rows) => {
+      console.log('Grabbing ingredients for API call:', rows[0]);
+    }
+  );
+  //TODO: find out how to break the api call into seperate strings
+  //get the recipe information
+  let ingredientsList = ['apple', 'ice cream'];
+  let  ingredients = '';
+  const numResults = 2;
+  ingredientsList.forEach((i) => {
+      i.replace(" ", "+");
+      ingredients += i + "%2C";
   });
+  const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
+                  + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
 
-  //show the results
-  //console.log(result.status, result.headers, result.body);
 
-  //store apiRecipe string here
-  apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
-  //get the actual recipe(gets info from recipe ID)
+  //work with the actual recipe steps
+  let id = []; //make a list of ids
+  let apiRecipe = ''
 
-  //recipe instructions
-  unirest.get(apiRecipe)
+
+  //testing the api
+  //get gets all the parameters and sends it to the server for a request
+  //headers are used as authentication
+  //end specifies what to do with the request
+  //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
+  unirest.get(apiCall)
   .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
   .header("Accept", "application/json")
   .end(function (result) {
+
+    //push the id numbers that would be used to find the recipeslater
+    result.body.forEach((i) => {
+      id.push(i.id);
+    });
+
+    //show the results
     //console.log(result.status, result.headers, result.body);
+
+    //store apiRecipe string here
+    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+    //get the actual recipe(gets info from recipe ID)
+
+    //recipe instructions
+    unirest.get(apiRecipe)
+    .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+    .header("Accept", "application/json")
+    .end(function (result) {
+      //console.log(result.status, result.headers, result.body);
+    });
   });
+
+    res.send(my_ingredients);
 });
+
+
 
 
 
