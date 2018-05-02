@@ -266,7 +266,9 @@ header #accountBox #avatarImg {
 }
 
 .content #accountSettings {
-  width: 100%;
+  width: 98vw;
+  margin-left: 1vw;
+  margin-right: 1vw;  
 }
 
 .content #recipe {
