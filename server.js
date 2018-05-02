@@ -80,11 +80,11 @@ app.post('/recipeList', (req, res) => {
     res.send(my_ingredients);
 });
 
-//TODO: find out how to break the api call into seperate strings
+
 //get the recipe information
 let ingredientsList = ['apple', 'ice cream'];
 let  ingredients = '';
-const numResults = 10;
+const numResults = 2;
 ingredientsList.forEach((i) => {
     i.replace(" ", "+");
     ingredients += i + "%2C";
@@ -93,6 +93,8 @@ const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/reci
 
 
 //work with the actual recipe steps
+let id = []; //make a list of ids
+let apiRecipe = ''
 
 
 //testing the api
@@ -104,17 +106,28 @@ unirest.get(apiCall)
 .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
 .header("Accept", "application/json")
 .end(function (result) {
+
+  //push the id numbers that would be used to find the recipeslater
+  result.body.forEach((i) => {
+    id.push(i.id);    
+  });
+  
+  //show the results
   console.log(result.status, result.headers, result.body);
+
+  //store apiRecipe string here
+  apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+  //get the actual recipe(gets info from recipe ID)
+
+  //recipe instructions
+  unirest.get(apiRecipe)
+  .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+  .header("Accept", "application/json")
+  .end(function (result) {
+    console.log(result.status, result.headers, result.body);
+  });
 });
 
-
-//get the actual recipe(gets info from recipe ID)
-unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/178582/information?includeNutrition=true")
-.header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-.header("Accept", "application/json")
-.end(function (result) {
-  console.log(result.status, result.headers, result.body);
-});
 
 
 
