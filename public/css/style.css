@@ -1,28 +1,71 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  color: white;
+  border-radius: 6.18px;
+  background-color: #EA4622;
+}
+
+#addIngredientBtn {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  opacity: 0.6;
+}
+
+#addIngredientBtn:hover {
+  opacity: 1;
 }
 
 header {
-  border: solid black 1px;
+  border-bottom: rgba(128, 128, 128, 0.1) solid 1.5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-content: center;
   height: 50px;
+  padding: 0 20px 0 20px;
 }
 
-header #logo {
-  border: solid black 1px;
+header #brandBox {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+header #brandBox #logo {
   margin: 9px;
+}
+
+header #brandBox #appName {
+  padding-top: 10px;
+  font-size: 25px;
 }
 
 header #accountBox {
-  margin: 9px;
+  cursor: pointer;
+  padding: 9px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
+}
+
+header #accountBox p {
+  padding-top: 6px;
+  height: 20px;
+  font-size: 20px;
+}
+
+header #accountBox p #accountBoxUserName {
+  color: #EA4622;
 }
 
 header #accountBox #avatarImg {
@@ -33,24 +76,8 @@ header #accountBox #avatarImg {
 
 .content {
   top: 50px;
-  padding: 50px;
   height: 100%;
-  border: solid red 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
   overflow: auto;
-}
-
-.content .block {
-  margin: 10px;
-  padding: 20px;
-  border: solid green 1px;
-  max-width: 400px;
-  min-width: 350px;
-  width: 33%;
-  min-height: 700px;
 }
 
 .content .wrapper {
@@ -71,23 +98,52 @@ header #accountBox #avatarImg {
   background-color: bisque;
 }
 
+.content .wrapperPantry {
+  margin: 50px 20px 0 20px;
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  grid-auto-flow: row;
+  grid-gap: 20px;
+  align-content: center;
+  justify-content: center;
+  min-width: 1110px;
+}
+
+.content .wrapperPantry .block {
+  min-height: 750px;
+  min-width: 370px;
+  padding: 20px;
+}
+
+.content .pantryContainer {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.content .pantryContainer:hover {
+  background-color: rgba(159, 216, 226, 0.2);
+}
+
 .content .ingredientList {
+  margin: 20px 0 0 0;
   list-style: none;
-  width: 80%;
-  border: solid purple 1px;
+  min-width: 330px;
+  padding: 10px;
+  border: solid #9fd8e2 2px;
+  border-radius: 10px;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
   overflow: auto;
-  padding: 20px;
-  max-height: 650px;
 }
 
 .content .ingredientList .ingredient {
   width: 100%;
   min-height: 50px;
-  border: palevioletred solid 1px;
+  border: #F2847A solid 2px;
+  border-radius: 5px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -100,20 +156,15 @@ header #accountBox #avatarImg {
 }
 
 .content .ingredientList .ingredient button {
-  width: 20px;
+  padding: 0px;
+  border-radius: 50%;
+  background-color: #F2847A;
+  width: 24px;
+  height: 24px;
   margin-right: 20px;
 }
 
-.content #accountSettings {
-  width: 100%;
-}
-
-.content #recipe {
-  width: 100%;
-}
-
 .content #fridge {
-  border: solid orange 1px;
   height: 700px;
   width: 100%;
   display: flex;
@@ -124,7 +175,6 @@ header #accountBox #avatarImg {
 .content #spiceRack {
   position: relative;
   top: 100px;
-  border: solid orange 1px;
   height: 250px;
   width: 100%;
   display: flex;
@@ -135,7 +185,6 @@ header #accountBox #avatarImg {
 .content #cupboard {
   position: relative;
   top: 110px;
-  border: solid orange 1px;
   height: 340px;
   width: 100%;
   display: flex;
@@ -146,7 +195,6 @@ header #accountBox #avatarImg {
 .content #stove {
   position: relative;
   top: 350px;
-  border: orange solid 1px;
   height: 350px;
   display: flex;
   align-items: center;
@@ -157,6 +205,14 @@ header #accountBox #avatarImg {
   margin-top: 100px;
   height: 200px;
   width: 300px;
+}
+
+.content #accountSettings {
+  width: 100%;
+}
+
+.content #recipe {
+  width: 100%;
 }
 
 #loginBox {

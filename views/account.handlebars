@@ -13,17 +13,19 @@
 
 <body>
     <header>
-        <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px"
-        />
+        <div id="brandBox">
+            <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px;display:none" />
+            <p id="appName"><span style="color: #EA4622">This&nbsp;</span><span style="color: #9fd8e2">is a&nbsp;</span><span style="color: #F2847A">Pantry.</span></p>
+        </div>
         <div id="accountBox" onclick="window.location='account'">
-            <p>Hello, userName</p>
-            <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:30px; height:30px" />
+            <p>Hello, <span id="accountBoxUserName">userName</span></p>
+            <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:35px; height:35px" />
         </div>
     </header>
 
     <div class="content">
         <div id="accountSettings">
-            <button onclick="window.location='recipeList'">back</button>
+            <button onclick="window.location='kitchen'">back</button>
             <h1>User Info</h1>
             <p>username</p>
             <p>avatar pic</p>

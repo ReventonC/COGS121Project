@@ -13,126 +13,137 @@
 
 <body>
     <header>
-        <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px"
-        />
+        <div id="brandBox">
+            <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px;display:none"
+            />
+            <p id="appName">
+                <span style="color: #EA4622">This&nbsp;</span>
+                <span style="color: #9fd8e2">is a&nbsp;</span>
+                <span style="color: #F2847A">Pantry.</span>
+            </p>
+        </div>
         <div id="accountBox" onclick="window.location='account'">
-            <p>Hello, userName</p>
-            <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:30px; height:30px" />
+            <p>Hello,
+                <span id="accountBoxUserName">userName</span>
+            </p>
+            <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:35px; height:35px" />
         </div>
     </header>
 
     <div class="content">
-        <div class="block">
-            <div id="fridge">
-                <h1>Fridge (closed)</h1>
-                <ul class="ingredientList">
-                    <li class="ingredient">
-                        <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='fridge_list' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
+        <div class="wrapperPantry">
+                <div class="block">
+                <div id="fridge" class="pantryContainer">
+                    <h1>Fridge (closed)</h1>
+                    <ul class="ingredientList">
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='fridge_list' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="block">
-            <div id="stove">
-                <h1>Stove</h1>
-                <button id="make_meal" onclick="window.location='recipeList'">Make a Meal!</button>
+            <div class="block">
+                <div id="stove" class="pantryContainer">
+                    <h1>Stove</h1>
+                    <button id="make_meal" onclick="window.location='recipeList'">Make a Meal!</button>
+                </div>
             </div>
-        </div>
-        <div class="block">
-            <div id="spiceRack">
-                <h1>Spice Rack (closed)</h1>
-                <ul class="ingredientList">
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='spice_rack' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
+            <div class="block">
+                <div id="spiceRack" class="pantryContainer">
+                    <h1>Spice Rack (closed)</h1>
+                    <ul class="ingredientList">
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='spice_rack' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
-            <div id="cupboard">
-                <h1>cupboard (closed)</h1>
-                <ul class="ingredientList">
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
-                    <li class="ingredient">
-                      <input class='cupboard' placeholder="Ingredient Name...">
-                        <button>x</button>
-                    </li>
+                <div id="cupboard" class="pantryContainer">
+                    <h1>cupboard (closed)</h1>
+                    <ul class="ingredientList">
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
+                        <li class="ingredient">
+                            <input class='cupboard' placeholder="Ingredient Name...">
+                            <button>x</button>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
         <button id="addIngredientBtn">Add ingredient!</button>
