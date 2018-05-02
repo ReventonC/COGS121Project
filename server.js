@@ -117,6 +117,12 @@ app.post('/kitchen', (req, res) => {
     const my_list = req.body;
 
     // List of each type of ingredient
+    // let fridge_list;
+    // if(my_list['fridge[]'].length == 1){
+    //   fridge_list = [my_list['fridge[]']];
+    // }else{
+    //   fridge_list = my_list['fridge[]'];
+    // }
     const fridge_list = my_list['fridge[]'];
     const spice_rack = my_list['spices[]'];
     const cupboard = my_list['cupboard[]'];
@@ -157,12 +163,12 @@ app.post('/kitchen', (req, res) => {
       },
       (err, rows) => {
         if(rows.length == 1){
+
+          //TODO: fix this so that you can append to the ingredients list when there's more than 1 item.
+          // currently 1 item is shown as a string and not a list so it messes up
           const fridge_list = JSON.parse(rows[0].fridge_list);
           const spice_rack = JSON.parse(rows[0].spice_rack);
           const cupboard = JSON.parse(rows[0].cupboard);
-
-          console.log("I AM HEREEEE:", fridge_list);
-          console.log(fridge_list.concat(my_ingredients.fridge));
 
           let new_fridge_text = '';
           let new_spices_text = '';
@@ -247,6 +253,7 @@ app.post('/kitchen', (req, res) => {
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
 
+  let ingredientsList = [];
   // Grab the recipes from the list
   db.all(
     'SELECT * FROM ingredients WHERE username=$user',
@@ -257,59 +264,66 @@ app.post('/recipeList', (req, res) => {
 
     (err, rows) => {
       console.log('Grabbing ingredients for API call:', rows[0]);
+      ingredientsList = ((JSON.parse(rows[0].fridge_list)).
+      concat(JSON.parse(rows[0].spice_rack))).concat(JSON.parse(rows[0].cupboard));
+
+      //TODO: find out how to break the api call into seperate strings
+      //get the recipe information
+      //let ingredientsList = ['apple', 'ice cream'];
+
+      console.log("The given ingredients list is:", ingredientsList);
+      let ingredients = '';
+      const numResults = 2;
+      ingredientsList.forEach((i) => {
+          i.replace(" ", "+");
+          ingredients += i + "%2C";
+      });
+      const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
+                      + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
+
+
+      //work with the actual recipe steps
+      let id = []; //make a list of ids
+      let apiRecipe = ''
+
+
+      //testing the api
+      //get gets all the parameters and sends it to the server for a request
+      //headers are used as authentication
+      //end specifies what to do with the request
+      //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
+      unirest.get(apiCall)
+      .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+      .header("Accept", "application/json")
+      .end(function (result) {
+
+        //push the id numbers that would be used to find the recipeslater
+        result.body.forEach((i) => {
+          id.push(i.id);
+        });
+
+        //show the results
+        console.log(result.status, result.headers, result.body);
+
+        //store apiRecipe string here
+        apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+        //get the actual recipe(gets info from recipe ID)
+
+        //recipe instructions
+        unirest.get(apiRecipe)
+        .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+        .header("Accept", "application/json")
+        .end(function (result) {
+          console.log(result.status, result.headers, result.body);
+        });
+        res.send(result);
+
+      });
+        //res.send(my_ingredients);
+    });
     }
   );
-  //TODO: find out how to break the api call into seperate strings
-  //get the recipe information
-  let ingredientsList = ['apple', 'ice cream'];
-  let  ingredients = '';
-  const numResults = 2;
-  ingredientsList.forEach((i) => {
-      i.replace(" ", "+");
-      ingredients += i + "%2C";
-  });
-  const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
-                  + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
 
-
-  //work with the actual recipe steps
-  let id = []; //make a list of ids
-  let apiRecipe = ''
-
-
-  //testing the api
-  //get gets all the parameters and sends it to the server for a request
-  //headers are used as authentication
-  //end specifies what to do with the request
-  //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
-  unirest.get(apiCall)
-  .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-  .header("Accept", "application/json")
-  .end(function (result) {
-
-    //push the id numbers that would be used to find the recipeslater
-    result.body.forEach((i) => {
-      id.push(i.id);
-    });
-
-    //show the results
-    //console.log(result.status, result.headers, result.body);
-
-    //store apiRecipe string here
-    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
-    //get the actual recipe(gets info from recipe ID)
-
-    //recipe instructions
-    unirest.get(apiRecipe)
-    .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-    .header("Accept", "application/json")
-    .end(function (result) {
-      //console.log(result.status, result.headers, result.body);
-    });
-  });
-
-    res.send(my_ingredients);
-});
 
 
 

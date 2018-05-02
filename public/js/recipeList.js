@@ -12,7 +12,7 @@ $(document).ready(() => {
             $("#print_test_data").append(cupboard + "      ");
         }
     });
-    
+
     $('.recipeBox').on('click', () => {
         window.location = "recipeResult";
     })
