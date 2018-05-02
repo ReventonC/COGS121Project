@@ -19,3 +19,5 @@ Users have control over their profiles. Users can chose to delete their account 
 
 ## Account Details
 ![ss5](https://github.com/ReventonC/COGS121Project/blob/master/screenshots/m4Screen5.png)
+
+The changes on UI skeleton is mainly on the header and kitchen page. We change the display layout from flex to grid, and modify the css so that each block aligns to each other correctly. Instead of having simple border to divide each element, we add actural css styles to most of the elements on home page. We add a modal for add ingredient button too. Also, we unified the button style and primary colors.
