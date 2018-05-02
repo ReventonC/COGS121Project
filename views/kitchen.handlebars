@@ -108,22 +108,25 @@
         $("#closeModal").on('click', () => {
             $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
             $("header,.content").removeClass("is-blurred");
-        });
+        }); 
 
         // When the user clicks anywhere outside of the modal, close it
-        /*$(window).on('click', (e) => {
+        $(window).on('click', (e) => {
             if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('#addIngredientModal')) {
                 $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
                 $("header,.content").removeClass("is-blurred");
+                //$(".modal-content").style.display = "none";
                 
             }
-        });*/
+        });
 
         $(window).on('click', (e) => {
+            console.log(e.target);
             if (e.target == $('#addIngredientModal')) {
                 console.log("hi");
-            }
-        });
+            } 
+        }); 
+
     </script>
 
 </body>
