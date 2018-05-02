@@ -112,17 +112,17 @@
 
         // When the user clicks anywhere outside of the modal, close it
         $(window).on('click', (e) => {
-            if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('#addIngredientModal')) {
+            if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('.modal-content')[0]) {
                 $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
                 $("header,.content").removeClass("is-blurred");
-                //$(".modal-content").style.display = "none";
+                $(".modal-content").display = "none";
                 
             }
         });
 
         $(window).on('click', (e) => {
             console.log(e.target);
-            if (e.target == $('#addIngredientModal')) {
+            if (e.target == $('.modal-content')) {
                 console.log("hi");
             } 
         }); 
