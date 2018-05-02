@@ -78,7 +78,19 @@
     <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
         <div class="modal-content">
             <span id="closeModal" class="Close">&times;</span>
-            <p>Add Ingredient</p>
+
+            <form action="/action_page.php">
+                Ingredient Name: <input type="text" name="Ingredient" value="Ingredient"><br>           
+            </form>
+            
+            <select>
+              <option value="Fridge">Fridge</option>
+              <option value="Spice Rack">Spice Rack</option>
+              <option value="Cupboard">Cupboard</option>             
+            </select> 
+
+            <input type="submit" value="Submit"> 
+
         </div>
     </div>
 
@@ -103,6 +115,7 @@
             if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('#addIngredientModal')) {
                 $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
                 $("header,.content").removeClass("is-blurred");
+                //addIngredientModal.style.display = "none";
             }
         });
     </script>
