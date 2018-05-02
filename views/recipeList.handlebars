@@ -8,25 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.min.css" />
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/recipeList.js"></script>
 </head>
 
-<script>
-  $(document).ready(() => {
-    $.ajax({
-      type: 'POST',
-      dataType: 'json',
-      success: (ingredients) => {
-        const fridge_list = ingredients['fridge'];
-        const spice_rack = ingredients['spices'];
-        const cupboard = ingredients['cupboard'];
-
-        $("#print_test_data").html(fridge_list + "      ");
-        $("#print_test_data").append(spice_rack + "       ");
-        $("#print_test_data").append(cupboard + "      ");
-      }
-    });
-  });
-</script>
 <body>
     <header>
         <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:30px;height:30px"
