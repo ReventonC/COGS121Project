@@ -14,6 +14,15 @@ const unirest = require('unirest');
 const router = express.Router();
 module.exports = router;
 
+// all environments
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.set('port', process.env.PORT || 3000);
+//app.set('views', path.join(__dirname, 'views'));
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+
+
 //routes
 const login = require('./routes/login');
 const account = require('./routes/account');
@@ -80,7 +89,7 @@ app.post('/recipeList', (req, res) => {
     res.send(my_ingredients);
 });
 
-
+//TODO: find out how to break the api call into seperate strings
 //get the recipe information
 let ingredientsList = ['apple', 'ice cream'];
 let  ingredients = '';
