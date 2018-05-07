@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.min.css" />
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/kitchen.js"></script>
+    <script src="/js/vue.js"></script>
 </head>
 
 <body>
@@ -75,60 +76,46 @@
         <button id="addIngredientBtn">Add ingredient!</button>
     </div>
 
-    <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
+    <!--class="modal is-hidden is-visuallyHidden">-->
+    <div id="addIngredientModal" class="modal">
         <div class="modal-content">
             <span id="closeModal" class="Close">&times;</span>
+            <div id="addIngredientModalContent">
+                <h1>Add Ingredient</h1>
+                <h3>Name</h3>
+                <input placeholder="Pork, Lettuce, Milk..." />
+                <h3>Category</h3>
+                <select>
+                    <option disabled selected value style="display:none"> - select an option - </option>
+                    <option disabled>-Fridge-</option>
+                    <option value="Meat">Meat</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Diary">Diary</option>
+                    <option value="Seafood">Seafood</option>
+                    <option value="Fruit">Fruit</option>
+                    <option value="Liquid">Liquid</option>
+                    <option disabled>-Spice Rack-</option>
+                    <option value="Oil">Oil</option>
+                    <option value="Sauce">Sauce</option>
+                    <option value="Spice">Spice</option>
+                    <option disabled>-Cupboard-</option>
+                    <option value="Grain">Grain</option>
+                    <option value="Misc>">Miscellaneous</option>
+                </select>
 
-            <form action="/action_page.php">
-                Ingredient Name: <input type="text" name="Ingredient" value="Ingredient"><br>
-            </form>
+                <h3>Note</h3>
+                <textarea placeholder="Any notes..."></textarea>
 
-            <select>
-              <option value="Fridge">Fridge</option>
-              <option value="Spice Rack">Spice Rack</option>
-              <option value="Cupboard">Cupboard</option>
-            </select>
+                <button id="addIngredientToBtn">Add!</button>
 
-            <input type="submit" value="Submit">
-
+                <script>
+                    const app = Vue({
+                        
+                    })
+                </script>
+            </div>
         </div>
     </div>
-
-    <script>
-        // Open the modal
-        $('#addIngredientBtn').on('click', (e) => {
-            $("#addIngredientModal").attr("class", "modal is-visuallyHidden");
-            setTimeout(function () {
-                $("header,.content").addClass("is-blurred");
-                $("#addIngredientModal").attr("class", "modal");
-            }, 100);
-        });
-
-        // Close the modal
-        $("#closeModal").on('click', () => {
-            $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-            $("header,.content").removeClass("is-blurred");
-        }); 
-
-        // When the user clicks anywhere outside of the modal, close it
-        $(window).on('click', (e) => {
-            if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('.modal-content')[0]) {
-                $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-                $("header,.content").removeClass("is-blurred");
-                $(".modal-content").display = "none";
-                
-            }
-        });
-
-        $(window).on('click', (e) => {
-            console.log(e.target);
-            if (e.target == $('.modal-content')) {
-                console.log("hi");
-            } 
-        }); 
-
-    </script>
-
 </body>
 
 </html>
