@@ -44,5 +44,32 @@ $(document).ready(() => {
         });
     });
 
+    $('#addIngredientBtn').on('click', (e) => {
+        $("#addIngredientModal").attr("class", "modal is-visuallyHidden");
+        setTimeout(function () {
+            $("header,.content").addClass("is-blurred");
+            $("#addIngredientModal").attr("class", "modal");
+        }, 100);
+    });
+    // Close the modal
+    $("#closeModal").on('click', () => {
+        $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
+        $("header,.content").removeClass("is-blurred");
+    }); 
+    // When the user clicks anywhere outside of the modal, close it
+    $(window).on('click', (e) => {
+        if (!($("#addIngredientModal").hasClass("is-visuallyHidden")) && e.target != $('.modal-content')[0]) {
+            $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
+            $("header,.content").removeClass("is-blurred");
+            $(".modal-content").display = "none";
+            
+        }
+    });
+    $(window).on('click', (e) => {
+        console.log(e.target);
+        if (e.target == $('.modal-content')) {
+            console.log("hi");
+        } 
+    }); 
     
 });
