@@ -58,6 +58,7 @@ app.post('/', (req, res) => {
   const user = req.body.user;
   const pass = req.body.pass;
   const type = req.body.type;
+  console.log(req.body);
   console.log("Username: " + user);
   console.log("Password: " + pass);
 
