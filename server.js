@@ -19,7 +19,7 @@ module.exports = router;
 // all environments
 //app.use(bodyParser.urlencoded({ extended: true }));
 //app.set('port', process.env.PORT || 3000);
-//app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

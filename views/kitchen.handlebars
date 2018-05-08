@@ -36,13 +36,7 @@
             <div class="block">
                 <div id="fridge" class="pantryContainer">
                     <h1>Fridge</h1>
-                    <ul class="ingredientList">
-                        <li class="ingredient">
-                            <input class='fridge_list' placeholder="Ingredient Name...">
-                            <button>x</button>
-                        </li>
-
-                    </ul>
+                    <div id="fridgeList"></div>
                 </div>
             </div>
             <div class="block">
@@ -91,7 +85,6 @@
                     <option value="Meat">Meat</option>
                     <option value="Vegetable">Vegetable</option>
                     <option value="Diary">Diary</option>
-                    <option value="Seafood">Seafood</option>
                     <option value="Fruit">Fruit</option>
                     <option value="Liquid">Liquid</option>
                     <option disabled>-Spice Rack-</option>
@@ -109,9 +102,44 @@
                 <button id="addIngredientToBtn">Add!</button>
 
                 <script>
-                    const app = Vue({
-                        
-                    })
+                    window.onload = () => {
+                        const fridge = new Vue({
+                            el: "#fridgeList",
+                            data: {
+                                text: "test",
+                                ingredients: [
+                                    {
+                                        name: "Pork Belly",
+                                        category: "Meat",
+                                        note: "2 pounds"
+                                    },
+                                    {
+                                        name: "Salmon",
+                                        category: "Meat",
+                                        note: "1 piece"
+                                    },
+                                    {
+                                        name: "Lettuce",
+                                        category: "Vegetable",
+                                        note: "2 packs"
+                                    },
+                                    {
+                                        name: "Carrot",
+                                        category: "Vegetable",
+                                        note: "1 pound"
+                                    }
+                                ]
+                            },
+                            template: `
+                        <ul class="ingredientList">
+                        <li v-for="ingredient in ingredients" class="ingredient">
+                            \{{ingredient.name}}
+                            <button>x</button>
+                        </li>
+                        </ul>
+                        `
+                        });
+                    }
                 </script>
             </div>
         </div>
