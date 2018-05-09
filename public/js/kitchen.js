@@ -18,8 +18,8 @@ $(document).ready(() => {
     // Get all the ingredients from the Fridge
     const fridge_list = [];
     for (const item of $("#fridgeList")) {
-        console.log(item)
-        console.log(item.data.ingredients.name);
+        //console.log(item)
+        //console.log(item.data.ingredients.name);
         const value = $(item).val();
         if (value != '') {
             fridge_list.push(value);
@@ -48,7 +48,7 @@ $(document).ready(() => {
     //AJAX calls to the datbase to get the ingredients  
     $.ajax({
         type: {
-            'GET': db.run(
+            'GET': 'recipes.db'.run(
                 'UPDATE ingredients SET fridge_list=$fridge, ' +
                 'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
                     {
@@ -59,15 +59,8 @@ $(document).ready(() => {
                     }
                 )
             },
-        
-        /*dataType: 'json',
-        data: { 
-                user: $("#user").val(), 
-                fridge_list: fridge_list, 
-                spice_rack: spice_rack, 
-                cupboard: cupboard 
-               },*/
     });
+    console.log(username);
     
 
 
