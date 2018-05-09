@@ -1,35 +1,80 @@
 $(document).ready(() => {
 
+    const fridgeComponent = new Vue({
+        el: "#fridgeList",
+        data: {
+            ingredients: [
+                {
+                    name: "Pork Belly",
+                    category: "Meat",
+                    note: "2 pounds"
+                }
+            ]
+        }
+    });
+
+    //console.log($("#user").val());
+
+    // Get all the ingredients from the Fridge
+    const fridge_list = [];
+    for (const item of $("#fridgeList")) {
+        console.log(item)
+        console.log(item.data.ingredients.name);
+        const value = $(item).val();
+        if (value != '') {
+            fridge_list.push(value);
+        }
+    }
+    console.log("fridgeList: " + fridge_list);
+
+    // Get all the ingredients from the spice rack
+    const spice_rack = [];
+    for (const item of $(".spice_rack")) {
+        const value = $(item).val();
+        if (value != '') {
+            spice_rack.push(value);
+        }
+    }
+
+    // Get all the ingredients from the cupboard
+    const cupboard = [];
+    for (const item of $(".cupboard")) {
+        const value = $(item).val();
+        if (value != '') {
+            cupboard.push(value);
+        }
+    }
+
+    //AJAX calls to the datbase to get the ingredients  
+    $.ajax({
+        type: {
+            'GET': db.run(
+                'UPDATE ingredients SET fridge_list=$fridge, ' +
+                'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
+                    {
+                        $fridge: new_fridge_text,
+                        $spices: new_spices_text,
+                        $cupboard: new_cupboard_text,
+                        $user: username
+                    }
+                )
+            },
+        
+        /*dataType: 'json',
+        data: { 
+                user: $("#user").val(), 
+                fridge_list: fridge_list, 
+                spice_rack: spice_rack, 
+                cupboard: cupboard 
+               },*/
+    });
+    
+
+
+
     // When user clicks "Submit", send the username and
     // password to the server to check if it is in the DB
     $("#make_meal").click(() => {
-
-        // Get all the ingredients from the Fridge
-        const fridge_list = [];
-        for (const item of $(".fridge_list")) {
-            const value = $(item).val();
-            if (value != '') {
-                fridge_list.push(value);
-            }
-        }
-
-        // Get all the ingredients from the spice rack
-        const spice_rack = [];
-        for (const item of $(".spice_rack")) {
-            const value = $(item).val();
-            if (value != '') {
-                spice_rack.push(value);
-            }
-        }
-
-        // Get all the ingredients from the cupboard
-        const cupboard = [];
-        for (const item of $(".cupboard")) {
-            const value = $(item).val();
-            if (value != '') {
-                cupboard.push(value);
-            }
-        }
 
         //console.log(fridge_list);
         // All ingredients
@@ -65,20 +110,8 @@ $(document).ready(() => {
         }
     });
 
-    const fridgeComponent = new Vue({
-        el: "#fridgeList",
-        data: {
-            ingredients: [
-                {
-                    name: "Pork Belly",
-                    category: "Meat",
-                    note: "2 pounds"
-                }
-            ]
-        }
-    });
-
     $("#addIngredientToBtn").on('click', (e) => {
+
         console.log({
             name: $("#ingredientNameInput").val(),
             category: $("#ingredientCategorySelect").val(),
@@ -93,15 +126,6 @@ $(document).ready(() => {
         $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
         $("header,.content").removeClass("is-blurred");
         $(".modal-content").display = "none";
-    });
-
-    //AJAX calls to the datbase
-    $("#signup_btn").click(() => {
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            data: { user: $("#user").val(), pass: $("#pass").val(), type: 1 }
-        });
     });
 
 });
