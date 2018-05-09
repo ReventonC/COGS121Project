@@ -77,4 +77,16 @@ $(document).ready(() => {
             ]
         }
     });
+
+
+
+    //AJAX calls to the datbase
+    $("#signup_btn").click(() => {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            data: { user: $("#user").val(), pass: $("#pass").val(), type: 1 }
+        });
+    });
+
 });
