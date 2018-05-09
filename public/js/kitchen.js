@@ -55,7 +55,7 @@ $(document).ready(() => {
     $("#closeModal").on('click', () => {
         $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
         $("header,.content").removeClass("is-blurred");
-    }); 
+    });
     // When the user clicks anywhere outside of the modal, close it
     $(window).on('click', (e) => {
         if (e.target == $('#addIngredientModal')[0]) {
@@ -78,7 +78,22 @@ $(document).ready(() => {
         }
     });
 
+    $("#addIngredientToBtn").on('click', (e) => {
+        console.log({
+            name: $("#ingredientNameInput").val(),
+            category: $("#ingredientCategorySelect").val(),
+            note: $("#ingredientNoteTextarea").val()
+        });
+        fridgeComponent.ingredients.push({
+            name: $("#ingredientNameInput").val(),
+            category: $("#ingredientCategorySelect").val(),
+            note: $("#ingredientNoteTextarea").val()
+        });
 
+        $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
+        $("header,.content").removeClass("is-blurred");
+        $(".modal-content").display = "none";
+    });
 
     //AJAX calls to the datbase
     $("#signup_btn").click(() => {
