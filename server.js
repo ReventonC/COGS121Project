@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Object holding all the ingredients to be inserted into the DB
-const my_ingredients = {fridge: [], spices: [], cupboard: []};
+const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 
 // The name of the user
 let username = '';
@@ -54,60 +54,59 @@ let username = '';
 // Check the login credentials
 app.post('/', (req, res) => {
 
-  //The inputted username and password
-  const user = req.body.user;
-  const pass = req.body.pass;
-  const type = req.body.type;
-  console.log(req.body);
-  console.log("Username: " + user);
-  console.log("Password: " + pass);
+    //The inputted username and password
+    const user = req.body.user;
+    const pass = req.body.pass;
+    const type = req.body.type;
+    console.log("Username: " + user);
+    console.log("Password: " + pass);
 
-  username = user;
+    username = user;
 
-  // This is a Sign-in Attempt
-  if( type == 0){
+    // This is a Sign-in Attempt
+    if (type == 0) {
 
-    db.all(
+        db.all(
 
-      'SELECT * FROM users WHERE username=$user AND password=$pass',
+            'SELECT * FROM users WHERE username=$user AND password=$pass',
 
-      {
-        $user: user,
-        $pass: pass
-      },
+            {
+                $user: user,
+                $pass: pass
+            },
 
-      (err, rows) => {
-        console.log(rows);
-        if(rows.length == 1){
-          console.log("successfully logged in");
-        }else{
-          console.log("username or password is incorrect");
-        }
-      }
-    );
-  }
+            (err, rows) => {
+                console.log(rows);
+                if (rows.length == 1) {
+                    console.log("successfully logged in");
+                } else {
+                    console.log("username or password is incorrect");
+                }
+            }
+        );
+    }
 
-  // Sign up attempt
-  if( type == 1){
+    // Sign up attempt
+    if (type == 1) {
 
-    db.run(
+        db.run(
 
-      'INSERT INTO users VALUES ($user, $pass)',
+            'INSERT INTO users VALUES ($user, $pass)',
 
-      {
-        $user: user,
-        $pass: pass
-      },
+            {
+                $user: user,
+                $pass: pass
+            },
 
-      (err) => {
-        if(err){
-          console.log("There was an error inserting username and password")
-        }else{
-          console.log("Successfully inserted new user into DB with username:",user,"and password:",pass);
-        }
-      }
-    );
-  }
+            (err) => {
+                if (err) {
+                    console.log("There was an error inserting username and password")
+                } else {
+                    console.log("Successfully inserted new user into DB with username:", user, "and password:", pass);
+                }
+            }
+        );
+    }
 
 });
 
@@ -158,88 +157,88 @@ app.post('/kitchen', (req, res) => {
     // Insert the ingredients list into the DB as a single object,
     // where each item is a list of fridge items, spice items, cupboard items
     db.all(
-      'SELECT * FROM ingredients WHERE username=$user',
-      {
-        $user: username
-      },
-      (err, rows) => {
-        if(rows.length == 1){
+        'SELECT * FROM ingredients WHERE username=$user',
+        {
+            $user: username
+        },
+        (err, rows) => {
+            if (rows.length == 1) {
 
-          //TODO: fix this so that you can append to the ingredients list when there's more than 1 item.
-          // currently 1 item is shown as a string and not a list so it messes up
-          const fridge_list = JSON.parse(rows[0].fridge_list);
-          const spice_rack = JSON.parse(rows[0].spice_rack);
-          const cupboard = JSON.parse(rows[0].cupboard);
+                //TODO: fix this so that you can append to the ingredients list when there's more than 1 item.
+                // currently 1 item is shown as a string and not a list so it messes up
+                const fridge_list = JSON.parse(rows[0].fridge_list);
+                const spice_rack = JSON.parse(rows[0].spice_rack);
+                const cupboard = JSON.parse(rows[0].cupboard);
 
-          let new_fridge_text = '';
-          let new_spices_text = '';
-          let new_cupboard_text = '';
+                let new_fridge_text = '';
+                let new_spices_text = '';
+                let new_cupboard_text = '';
 
-          // Append or don't append new ingredients  (I think this is temporary because it seems like a lot of ifs)
-          if(fridge_list != null && my_ingredients.fridge != null){
-            new_fridge_text = JSON.stringify(fridge_list.concat(my_ingredients.fridge));
-          }else if(fridge_list != null && my_ingredients.fridge == null){
-            new_fridge_text = JSON.stringify(fridge_list);
-          }else if(fridge_list == null && my_ingredients.fridge != null){
-            new_fridge_text = JSON.stringify(my_ingredients.fridge);
-          }
+                // Append or don't append new ingredients  (I think this is temporary because it seems like a lot of ifs)
+                if (fridge_list != null && my_ingredients.fridge != null) {
+                    new_fridge_text = JSON.stringify(fridge_list.concat(my_ingredients.fridge));
+                } else if (fridge_list != null && my_ingredients.fridge == null) {
+                    new_fridge_text = JSON.stringify(fridge_list);
+                } else if (fridge_list == null && my_ingredients.fridge != null) {
+                    new_fridge_text = JSON.stringify(my_ingredients.fridge);
+                }
 
-          if(spice_rack != null && my_ingredients.spices != null){
-            new_spices_text = JSON.stringify(spice_rack.concat(my_ingredients.spices));
-          }else if(spice_rack != null && my_ingredients.spices == null){
-            new_spices_text = JSON.stringify(spice_rack);
-          }else if(spice_rack == null && my_ingredients.spices != null){
-            new_spices_text = JSON.stringify(my_ingredients.spices);
-          }
+                if (spice_rack != null && my_ingredients.spices != null) {
+                    new_spices_text = JSON.stringify(spice_rack.concat(my_ingredients.spices));
+                } else if (spice_rack != null && my_ingredients.spices == null) {
+                    new_spices_text = JSON.stringify(spice_rack);
+                } else if (spice_rack == null && my_ingredients.spices != null) {
+                    new_spices_text = JSON.stringify(my_ingredients.spices);
+                }
 
-          if(cupboard != null && my_ingredients.cupboard != null){
-            new_cupboard_text = JSON.stringify(cupboard.concat(my_ingredients.cupboard));
-          }else if(cupboard != null && my_ingredients.cupboard == null){
-            new_cupboard_text = JSON.stringify(cupboard);
-          }else if(cupboard == null && my_ingredients.cupboard != null){
-            new_cupboard_text = JSON.stringify(my_ingredients.cupboard);
-          }
+                if (cupboard != null && my_ingredients.cupboard != null) {
+                    new_cupboard_text = JSON.stringify(cupboard.concat(my_ingredients.cupboard));
+                } else if (cupboard != null && my_ingredients.cupboard == null) {
+                    new_cupboard_text = JSON.stringify(cupboard);
+                } else if (cupboard == null && my_ingredients.cupboard != null) {
+                    new_cupboard_text = JSON.stringify(my_ingredients.cupboard);
+                }
 
-          db.run(
-            'UPDATE ingredients SET fridge_list=$fridge, ' +
-            'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
+                db.run(
+                    'UPDATE ingredients SET fridge_list=$fridge, ' +
+                    'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
 
-            {
-              $fridge: new_fridge_text,
-              $spices: new_spices_text,
-              $cupboard: new_cupboard_text,
-              $user: username
-            },
+                    {
+                        $fridge: new_fridge_text,
+                        $spices: new_spices_text,
+                        $cupboard: new_cupboard_text,
+                        $user: username
+                    },
 
-            (err) => {
-              if(err){
-                console.log("There was an error updating ingredients")
-              }else{
-                console.log("Successfully updated ingredients in DB");
-              }
+                    (err) => {
+                        if (err) {
+                            console.log("There was an error updating ingredients")
+                        } else {
+                            console.log("Successfully updated ingredients in DB");
+                        }
+                    }
+                );
+            } else {
+                db.run(
+                    'INSERT INTO ingredients VALUES ($username, $fridge, $spices, $cupboard)',
+
+                    {
+                        $username: username,
+                        $fridge: fridge_list_text,
+                        $spices: spice_rack_text,
+                        $cupboard: cupboard_text,
+                    },
+
+                    (err) => {
+                        if (err) {
+                            console.log("There was an error inserting ingredients")
+                        } else {
+                            console.log("Successfully inserted ingredients into DB");
+                        }
+                    }
+                );
             }
-          );
-        }else{
-          db.run(
-            'INSERT INTO ingredients VALUES ($username, $fridge, $spices, $cupboard)',
-
-            {
-              $username: username,
-              $fridge: fridge_list_text,
-              $spices: spice_rack_text,
-              $cupboard: cupboard_text,
-            },
-
-            (err) => {
-              if(err){
-                console.log("There was an error inserting ingredients")
-              }else{
-                console.log("Successfully inserted ingredients into DB");
-              }
-            }
-          );
         }
-      }
     );
 
     // Print ingredients list
@@ -254,76 +253,76 @@ app.post('/kitchen', (req, res) => {
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
 
-  let ingredientsList = [];
-  // Grab the recipes from the list
-  db.all(
-    'SELECT * FROM ingredients WHERE username=$user',
+    let ingredientsList = [];
+    // Grab the recipes from the list
+    db.all(
+        'SELECT * FROM ingredients WHERE username=$user',
 
-    {
-      $user: username
-    },
+        {
+            $user: username
+        },
 
-    (err, rows) => {
-      console.log('Grabbing ingredients for API call:', rows[0]);
-      ingredientsList = ((JSON.parse(rows[0].fridge_list)).
-      concat(JSON.parse(rows[0].spice_rack))).concat(JSON.parse(rows[0].cupboard));
+        (err, rows) => {
+            console.log('Grabbing ingredients for API call:', rows[0]);
+            ingredientsList = ((JSON.parse(rows[0].fridge_list)).
+                concat(JSON.parse(rows[0].spice_rack))).concat(JSON.parse(rows[0].cupboard));
 
-      //TODO: find out how to break the api call into seperate strings
-      //get the recipe information
-      //let ingredientsList = ['apple', 'ice cream'];
+            //TODO: find out how to break the api call into seperate strings
+            //get the recipe information
+            //let ingredientsList = ['apple', 'ice cream'];
 
-      console.log("The given ingredients list is:", ingredientsList);
-      let ingredients = '';
-      const numResults = 2;
-      ingredientsList.forEach((i) => {
-          i.replace(" ", "+");
-          ingredients += i + "%2C";
-      });
-      const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
-                      + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
-
-
-      //work with the actual recipe steps
-      let id = []; //make a list of ids
-      let apiRecipe = ''
+            console.log("The given ingredients list is:", ingredientsList);
+            let ingredients = '';
+            const numResults = 2;
+            ingredientsList.forEach((i) => {
+                i.replace(" ", "+");
+                ingredients += i + "%2C";
+            });
+            const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
+                + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
 
 
-      //testing the api
-      //get gets all the parameters and sends it to the server for a request
-      //headers are used as authentication
-      //end specifies what to do with the request
-      //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
-      unirest.get(apiCall)
-      .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-      .header("Accept", "application/json")
-      .end(function (result) {
+            //work with the actual recipe steps
+            let id = []; //make a list of ids
+            let apiRecipe = ''
 
-        //push the id numbers that would be used to find the recipeslater
-        result.body.forEach((i) => {
-          id.push(i.id);
+
+            //testing the api
+            //get gets all the parameters and sends it to the server for a request
+            //headers are used as authentication
+            //end specifies what to do with the request
+            //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
+            unirest.get(apiCall)
+                .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+                .header("Accept", "application/json")
+                .end(function (result) {
+
+                    //push the id numbers that would be used to find the recipeslater
+                    result.body.forEach((i) => {
+                        id.push(i.id);
+                    });
+
+                    //show the results
+                    console.log(result.status, result.headers, result.body);
+
+                    //store apiRecipe string here
+                    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+                    //get the actual recipe(gets info from recipe ID)
+
+                    //recipe instructions
+                    unirest.get(apiRecipe)
+                        .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+                        .header("Accept", "application/json")
+                        .end(function (result) {
+                            console.log(result.status, result.headers, result.body);
+                        });
+                    res.send(result);
+
+                });
+            //res.send(my_ingredients);
         });
-
-        //show the results
-        console.log(result.status, result.headers, result.body);
-
-        //store apiRecipe string here
-        apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
-        //get the actual recipe(gets info from recipe ID)
-
-        //recipe instructions
-        unirest.get(apiRecipe)
-        .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
-        .header("Accept", "application/json")
-        .end(function (result) {
-          console.log(result.status, result.headers, result.body);
-        });
-        res.send(result);
-
-      });
-        //res.send(my_ingredients);
-    });
-    }
-  );
+}
+);
 
 
 

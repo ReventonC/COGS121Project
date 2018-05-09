@@ -5,6 +5,12 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#testBtn {
+  position: absolute;
+  left: 500px;
+  top: 500px;
+}
+
 button {
   padding: 10px;
   border: none;
@@ -232,22 +238,39 @@ header #accountBox #avatarImg {
 
 .content .ingredientList .ingredient:hover {
   border: #F2847A solid 2px;
+  background-color: #efefef;
 }
 
 .content .ingredientList .ingredient:hover button {
-  background-color: #EA4622;
-}
-
-.content .ingredientList .ingredient p {
-  margin-left: 20px;
+  display: inline;
 }
 
 .content .ingredientList .ingredient button {
   padding: 0px;
+  height: 24px;
+}
+
+.content .ingredientList .ingredient .ingredientEditBtn {
+  display: none;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 0 12px 0 10px;
+}
+
+.content .ingredientList .ingredient .ingredientEditBtn:hover {
+  background-color: #9fd8e2;
+}
+
+.content .ingredientList .ingredient .ingredientDeleteBtn {
+  display: none;
   border-radius: 50%;
+  margin-left: 10px;
   background-color: #F2847A;
   width: 24px;
-  height: 24px;
+}
+
+.content .ingredientList .ingredient .ingredientDeleteBtn:hover {
+  background-color: #EA4622;
 }
 
 .content #fridge {

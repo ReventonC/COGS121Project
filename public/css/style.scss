@@ -9,6 +9,12 @@ $color-primary-red: #EA4622;
 $color-primary-lightBlue: #9fd8e2;
 $color-primary-flamingo: #F2847A;
 
+#testBtn {
+    position: absolute;
+    left: 500px;
+    top: 500px;
+}
+
 button {
     padding: 10px;
     border: none;
@@ -218,7 +224,7 @@ header {
         justify-content: space-between;
         flex-direction: column;
         overflow: auto;
-
+        
         .ingredient {
             width: 100%;
             padding: 0 10px 0 10px;
@@ -233,25 +239,38 @@ header {
 
             &:hover {
                 border: $color-primary-flamingo solid 2px;
-
+                background-color: #efefef;
                 button {
-                    background-color: $color-primary-red;
+                    display: inline;
                 }
             }
 
-            p {
-                margin-left: 20px;
-            }
-
+            $button-ingredient-close-width-height: 24px;
             button {
                 padding: 0px;
-                border-radius: 50%;
-                background-color: $color-primary-flamingo;
-
-                $button-ingredient-close-width-height: 24px;
-
-                width: $button-ingredient-close-width-height;
                 height: $button-ingredient-close-width-height;
+            }
+
+            .ingredientEditBtn {
+                display: none;
+                border-radius: 5px;
+                background-color: rgba(grey, 0.5);
+                padding: 0 12px 0 10px;
+                &:hover {
+                    background-color: $color-primary-lightBlue;                    
+                }   
+            }
+
+            .ingredientDeleteBtn {
+                display: none;
+                border-radius: 50%;
+                margin-left: 10px;
+                background-color: $color-primary-flamingo;
+                width: $button-ingredient-close-width-height;
+                
+                &:hover {
+                    background-color: $color-primary-red;                    
+                }   
             }
         }
     }

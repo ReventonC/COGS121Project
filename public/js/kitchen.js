@@ -64,4 +64,17 @@ $(document).ready(() => {
             $(".modal-content").display = "none";
         }
     });
+
+    const fridgeComponent = new Vue({
+        el: "#fridgeList",
+        data: {
+            ingredients: [
+                {
+                    name: "Pork Belly",
+                    category: "Meat",
+                    note: "2 pounds"
+                }
+            ]
+        }
+    });
 });

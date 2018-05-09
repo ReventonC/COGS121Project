@@ -10,6 +10,8 @@
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/kitchen.js"></script>
     <script src="/js/vue.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
 </head>
 
 <body>
@@ -36,7 +38,15 @@
             <div class="block">
                 <div id="fridge" class="pantryContainer">
                     <h1>Fridge</h1>
-                    <div id="fridgeList"></div>
+                    <ul class="ingredientList" id="fridgeList">
+                        <li v-for="ingredient in ingredients" class="ingredient">
+                            <p class="ingredientName">\{{ingredient.name}}</p>
+                            <div>
+                                <button class="ingredientEditBtn">Edit</button>
+                                <button class="ingredientDeleteBtn">x</button>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="block">
@@ -71,15 +81,15 @@
     </div>
 
     <!--class="modal is-hidden is-visuallyHidden">-->
-    <div id="addIngredientModal" class="modal">
+    <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
         <div class="modal-content">
             <span id="closeModal" class="Close">&times;</span>
             <div id="addIngredientModalContent">
                 <h1>Add Ingredient</h1>
                 <h3>Name</h3>
-                <input placeholder="Pork, Lettuce, Milk..." />
+                <input type="text" id="ingredientNameInput" placeholder="Pork, Lettuce, Milk..." />
                 <h3>Category</h3>
-                <select>
+                <select id="ingredientCategorySelect">
                     <option disabled selected value style="display:none"> - select an option - </option>
                     <option disabled>-Fridge-</option>
                     <option value="Meat">Meat</option>
@@ -97,47 +107,24 @@
                 </select>
 
                 <h3>Note</h3>
-                <textarea placeholder="Any notes..."></textarea>
+                <textarea id="ingredientNoteTextarea" placeholder="Any notes..."></textarea>
 
                 <button id="addIngredientToBtn">Add!</button>
 
                 <script>
                     window.onload = () => {
-                        const fridge = new Vue({
-                            el: "#fridgeList",
-                            data: {
-                                text: "test",
-                                ingredients: [
-                                    {
-                                        name: "Pork Belly",
-                                        category: "Meat",
-                                        note: "2 pounds"
-                                    },
-                                    {
-                                        name: "Salmon",
-                                        category: "Meat",
-                                        note: "1 piece"
-                                    },
-                                    {
-                                        name: "Lettuce",
-                                        category: "Vegetable",
-                                        note: "2 packs"
-                                    },
-                                    {
-                                        name: "Carrot",
-                                        category: "Vegetable",
-                                        note: "1 pound"
-                                    }
-                                ]
-                            },
-                            template: `
-                        <ul class="ingredientList">
-                        <li v-for="ingredient in ingredients" class="ingredient">
-                            \{{ingredient.name}}
-                            <button>x</button>
-                        </li>
-                        </ul>
-                        `
+
+                        $("#addIngredientToBtn").on('click', (e) => {
+                            console.log({
+                                 name: $("#ingredientNameInput").val(),
+                                 category: $("#ingredientCategorySelect").val(),
+                                 note: $("#ingredientNoteTextarea").val()
+                             });
+                             fridgeComponent.ingredients.push({
+                                 name: $("#ingredientNameInput").val(),
+                                 category: $("#ingredientCategorySelect").val(),
+                                 note: $("#ingredientNoteTextarea").val()
+                             });
                         });
                     }
                 </script>
