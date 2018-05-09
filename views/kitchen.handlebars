@@ -114,22 +114,7 @@
                 <script>
                     window.onload = () => {
 
-                        $("#addIngredientToBtn").on('click', (e) => {
-                            console.log({
-                                name: $("#ingredientNameInput").val(),
-                                category: $("#ingredientCategorySelect").val(),
-                                note: $("#ingredientNoteTextarea").val()
-                            });
-                            fridgeComponent.ingredients.push({
-                                name: $("#ingredientNameInput").val(),
-                                category: $("#ingredientCategorySelect").val(),
-                                note: $("#ingredientNoteTextarea").val()
-                            });
-
-                            $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-                            $("header,.content").removeClass("is-blurred");
-                            $(".modal-content").display = "none";
-                        });
+                        
                     }
                 </script>
             </div>
