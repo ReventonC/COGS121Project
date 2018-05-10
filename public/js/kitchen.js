@@ -1,5 +1,8 @@
 $(document).ready(() => {
 
+
+    console.log(username);
+
     const fridgeComponent = new Vue({
         el: "#fridgeList",
         data: {
@@ -18,8 +21,8 @@ $(document).ready(() => {
     // Get all the ingredients from the Fridge
     const fridge_list = [];
     for (const item of $("#fridgeList")) {
-        //console.log(item)
-        //console.log(item.data.ingredients.name);
+        console.log(item)
+        console.log(name);
         const value = $(item).val();
         if (value != '') {
             fridge_list.push(value);
@@ -43,7 +46,7 @@ $(document).ready(() => {
         if (value != '') {
             cupboard.push(value);
         }
-    }
+    }  
 
     //AJAX calls to the datbase to get the ingredients  
     $.ajax({
@@ -52,17 +55,16 @@ $(document).ready(() => {
                 'UPDATE ingredients SET fridge_list=$fridge, ' +
                 'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
                     {
-                        $fridge: new_fridge_text,
-                        $spices: new_spices_text,
-                        $cupboard: new_cupboard_text,
+                        //const list: from recipesdb
+                        fridge_list: fridge_list,
+                        spice_rack: spice_rack,
+                        cupboard: cupboard,
                         $user: username
                     }
                 )
             },
-    });
-    console.log(username);
-    
-
+    }); 
+    //console.log(fridge_list);
 
 
     // When user clicks "Submit", send the username and
