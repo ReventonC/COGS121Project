@@ -1,8 +1,5 @@
 $(document).ready(() => {
-
-
-    console.log(username);
-
+   
     const fridgeComponent = new Vue({
         el: "#fridgeList",
         data: {
@@ -52,6 +49,7 @@ $(document).ready(() => {
     $.ajax({
         type: {
             'GET': 'recipes.db'.run(
+                //change to select
                 'UPDATE ingredients SET fridge_list=$fridge, ' +
                 'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
                     {

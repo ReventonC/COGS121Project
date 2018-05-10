@@ -172,11 +172,11 @@ app.post('/kitchen', (req, res) => {
 
                 //TODO: fix this so that you can append to the ingredients list when there's more than 1 item.
                 // currently 1 item is shown as a string and not a list so it messes up
-                if(rows[0].fridge_list != 0)
+                if(rows[0].fridge_list != undefined)
                   fridge_list = JSON.parse(rows[0].fridge_list);
-                if(rows[0].spice_rack != 0)
+                if(rows[0].spice_rack != undefined)
                   spice_rack = JSON.parse(rows[0].spice_rack);
-                if(rows[0].cupboard != 0)
+                if(rows[0].cupboard != undefined)
                   cupboard = JSON.parse(rows[0].cupboard);
 
                 let new_fridge_text = '';
