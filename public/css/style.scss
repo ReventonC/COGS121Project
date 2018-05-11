@@ -81,6 +81,13 @@ button {
     position: fixed;
     right: 50px;
     bottom: 50px;
+    background-color: rgba($color-primary-red, 0.0);
+    border: solid 1px $color-primary-red;
+    color: $color-primary-red;
+    &:hover {
+        color: white;
+        background-color: rgba($color-primary-red, 1.0);
+    }
 }
 
 #addIngredientModalContent {

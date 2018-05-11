@@ -77,6 +77,14 @@ button {
   position: fixed;
   right: 50px;
   bottom: 50px;
+  background-color: rgba(234, 70, 34, 0);
+  border: solid 1px #EA4622;
+  color: #EA4622;
+}
+
+#addIngredientBtn:hover {
+  color: white;
+  background-color: #ea4622;
 }
 
 #addIngredientModalContent {
