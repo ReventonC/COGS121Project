@@ -44,57 +44,6 @@ $(document).ready(() => {
         });
     });
 
-    $('#addIngredientBtn').on('click', (e) => {
-        $("#addIngredientModal").attr("class", "modal is-visuallyHidden");
-        setTimeout(function () {
-            $("header,.content").addClass("is-blurred");
-            $("#addIngredientModal").attr("class", "modal");
-        }, 100);
-    });
-    // Close the modal
-    $("#closeModal").on('click', () => {
-        $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-        $("header,.content").removeClass("is-blurred");
-    });
-    // When the user clicks anywhere outside of the modal, close it
-    $(window).on('click', (e) => {
-        if (e.target == $('#addIngredientModal')[0]) {
-            $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-            $("header,.content").removeClass("is-blurred");
-            $(".modal-content").display = "none";
-        }
-    });
-
-    const fridgeComponent = new Vue({
-        el: "#fridgeList",
-        data: {
-            ingredients: [
-                {
-                    name: "Pork Belly",
-                    category: "Meat",
-                    note: "2 pounds"
-                }
-            ]
-        }
-    });
-
-    $("#addIngredientToBtn").on('click', (e) => {
-        console.log({
-            name: $("#ingredientNameInput").val(),
-            category: $("#ingredientCategorySelect").val(),
-            note: $("#ingredientNoteTextarea").val()
-        });
-        fridgeComponent.ingredients.push({
-            name: $("#ingredientNameInput").val(),
-            category: $("#ingredientCategorySelect").val(),
-            note: $("#ingredientNoteTextarea").val()
-        });
-
-        $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
-        $("header,.content").removeClass("is-blurred");
-        $(".modal-content").display = "none";
-    });
-
     //AJAX calls to the datbase
     $("#signup_btn").click(() => {
         $.ajax({

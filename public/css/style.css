@@ -223,17 +223,92 @@ header #accountBox #avatarImg {
   overflow: auto;
 }
 
+.content .ingredientList .selected {
+  width: 100%;
+  padding: 11px 10px 12px 10px;
+  min-height: 50px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-direction: column;
+  border: rgba(128, 128, 128, 0.2) solid 2px;
+  min-height: 100px;
+}
+
+.content .ingredientList .selected .rowOne {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.content .ingredientList .selected .ingredientHide, .content .ingredientList .selected .ingredientNote {
+  display: inline;
+}
+
+.content .ingredientList .selected:hover {
+  border: #F2847A solid 2px;
+  background-color: #efefef;
+}
+
+.content .ingredientList .selected:hover button {
+  display: inline;
+}
+
+.content .ingredientList .selected button {
+  padding: 0px;
+  height: 24px;
+}
+
+.content .ingredientList .selected .ingredientEditBtn {
+  display: none;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 0 12px 0 10px;
+}
+
+.content .ingredientList .selected .ingredientEditBtn:hover {
+  background-color: #9fd8e2;
+}
+
+.content .ingredientList .selected .ingredientDeleteBtn {
+  display: none;
+  border-radius: 50%;
+  margin-left: 10px;
+  background-color: #F2847A;
+  width: 24px;
+}
+
+.content .ingredientList .selected .ingredientDeleteBtn:hover {
+  background-color: #EA4622;
+}
+
 .content .ingredientList .ingredient {
   width: 100%;
   padding: 0 10px 0 10px;
   min-height: 50px;
   border-radius: 5px;
   margin-bottom: 10px;
+  border: rgba(128, 128, 128, 0.2) solid 2px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  border: rgba(128, 128, 128, 0.2) solid 2px;
+}
+
+.content .ingredientList .ingredient .rowOne {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.content .ingredientList .ingredient .ingredientHide, .content .ingredientList .ingredient .ingredientNote {
+  display: none;
 }
 
 .content .ingredientList .ingredient:hover {

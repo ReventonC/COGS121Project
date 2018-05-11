@@ -224,6 +224,68 @@ header {
         justify-content: space-between;
         flex-direction: column;
         overflow: auto;
+
+        .selected {
+            width: 100%;
+            padding: 11px 10px 12px 10px;
+            min-height: 50px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-direction: column;
+            border: rgba(grey, 0.2) solid 2px;
+            min-height: 100px;
+
+            .rowOne {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .ingredientHide, .ingredientNote {
+                display: inline;
+            }
+
+            &:hover {
+                border: $color-primary-flamingo solid 2px;
+                background-color: #efefef;
+                button {
+                    display: inline;
+                }
+            }
+
+            $button-ingredient-close-width-height: 24px;
+            button {
+                padding: 0px;
+                height: $button-ingredient-close-width-height;
+            }
+
+            .ingredientEditBtn {
+                display: none;
+                border-radius: 5px;
+                background-color: rgba(grey, 0.5);
+                padding: 0 12px 0 10px;
+                &:hover {
+                    background-color: $color-primary-lightBlue;                    
+                }   
+            }
+
+            .ingredientDeleteBtn {
+                display: none;
+                border-radius: 50%;
+                margin-left: 10px;
+                background-color: $color-primary-flamingo;
+                width: $button-ingredient-close-width-height;
+                
+                &:hover {
+                    background-color: $color-primary-red;                    
+                }   
+            }
+        }
         
         .ingredient {
             width: 100%;
@@ -231,11 +293,23 @@ header {
             min-height: 50px;
             border-radius: 5px;
             margin-bottom: 10px;
+            border: rgba(grey, 0.2) solid 2px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-direction: row;
-            border: rgba(grey, 0.2) solid 2px;
+
+            .rowOne {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-direction: row;
+            }
+
+            .ingredientHide, .ingredientNote {
+                display: none;
+            }
 
             &:hover {
                 border: $color-primary-flamingo solid 2px;

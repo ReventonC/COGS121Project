@@ -33,19 +33,31 @@
         </div>
     </header>
 
-    <div class="content">
+    <div class="content" id="app">
         <div class="wrapperPantry">
             <div class="block">
                 <div id="fridge" class="pantryContainer">
                     <h1>Fridge</h1>
-                    <ul class="ingredientList" id="fridgeList">
-                        <li v-for="ingredient in ingredients" class="ingredient">
-                            <p class="ingredientName">\{{ingredient.name}}</p>
-                            <div>
-                                <button class="ingredientEditBtn">Edit</button>
-                                <button class="ingredientDeleteBtn">x</button>
+                    <ul v-if="checkFridge()" class="ingredientList">
+                        <li v-for="ingredient in fridgeItems" class="ingredient" v-on:click="selectIngredient">
+                            <div class="rowOne">
+                                <p>
+                                    <span class="ingredientName">\{{ingredient.name}}</span>
+                                    <span class="ingredientHide">
+                                        |
+                                        <span class="ingredientCategory">\{{ingredient.category}}</span>
+                                    </span>
+                                </p>
+                                <div>
+                                    <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
+                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                </div>
                             </div>
+                            <p class="ingredientNote">\{{ingredient.note}}</p>
                         </li>
+                    </ul>
+                    <ul v-else class="ingredientList">
+                        <p class="emptyText">Oops! Nothing is in your Fridge D:</p>
                     </ul>
                 </div>
             </div>
@@ -58,68 +70,276 @@
             <div class="block">
                 <div id="spiceRack" class="pantryContainer">
                     <h1>Spice Rack</h1>
-                    <ul class="ingredientList">
-                        <li class="ingredient">
-                            <input class='spice_rack' placeholder="Ingredient Name...">
-                            <button>x</button>
+                    <ul v-if="checkSpiceRack()" class="ingredientList">
+                        <li v-for="ingredient in spiceRackItems" class="ingredient" v-on:click="selectIngredient">
+                            <div class="rowOne">
+                                <p>
+                                    <span class="ingredientName">\{{ingredient.name}}</span>
+                                    <span class="ingredientHide">
+                                        |
+                                        <span class="ingredientCategory">\{{ingredient.category}}</span>
+                                    </span>
+                                </p>
+                                <div>
+                                    <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
+                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                </div>
+                            </div>
+                            <p class="ingredientNote">\{{ingredient.note}}</p>
                         </li>
+                    </ul>
+                    <ul v-else class="ingredientList">
+                        <p class="emptyText">Oops! Nothing is in your Spice Rack D:</p>
                     </ul>
                 </div>
 
                 <div id="cupboard" class="pantryContainer">
                     <h1>Cupboard</h1>
-                    <ul class="ingredientList">
-                        <li class="ingredient">
-                            <input class='cupboard' placeholder="Ingredient Name...">
-                            <button>x</button>
+                    <ul v-if="checkCupboard()" class="ingredientList">
+                        <li v-for="ingredient in cupboardItems" class="ingredient" v-on:click="selectIngredient">
+                            <div class="rowOne">
+                                <p>
+                                    <span class="ingredientName">\{{ingredient.name}}</span>
+                                    <span class="ingredientHide">
+                                        |
+                                        <span class="ingredientCategory">\{{ingredient.category}}</span>
+                                    </span>
+                                </p>
+                                <div>
+                                    <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
+                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                </div>
+                            </div>
+                            <p class="ingredientNote">\{{ingredient.note}}</p>
                         </li>
+                    </ul>
+                    <ul v-else class="ingredientList">
+                        <p class="emptyText">Oops! Nothing is in your Cupboard D:</p>
                     </ul>
                 </div>
             </div>
         </div>
         <button id="addIngredientBtn">Add ingredient!</button>
-    </div>
 
-    <!--class="modal is-hidden is-visuallyHidden">-->
-    <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
-        <div class="modal-content">
-            <span id="closeModal" class="Close">&times;</span>
-            <div id="addIngredientModalContent">
-                <h1>Add Ingredient</h1>
-                <h3>Name</h3>
-                <input type="text" id="ingredientNameInput" placeholder="Pork, Lettuce, Milk..." />
-                <h3>Category</h3>
-                <select id="ingredientCategorySelect">
-                    <option disabled selected value style="display:none"> - select an option - </option>
-                    <option disabled>-Fridge-</option>
-                    <option value="Meat">Meat</option>
-                    <option value="Vegetable">Vegetable</option>
-                    <option value="Diary">Diary</option>
-                    <option value="Fruit">Fruit</option>
-                    <option value="Liquid">Liquid</option>
-                    <option disabled>-Spice Rack-</option>
-                    <option value="Oil">Oil</option>
-                    <option value="Sauce">Sauce</option>
-                    <option value="Spice">Spice</option>
-                    <option disabled>-Cupboard-</option>
-                    <option value="Grain">Grain</option>
-                    <option value="Misc>">Miscellaneous</option>
-                </select>
+        <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
+            <div class="modal-content">
+                <span id="closeModal" class="Close">&times;</span>
+                <div id="addIngredientModalContent">
+                    <h1 v-if="edit">Edit Ingredient</h1>
+                    <h1 v-else>Add Ingredient</h1>
+                    <h3>Name</h3>
+                    <input type="text" id="ingredientNameInput" placeholder="Pork, Lettuce, Milk..." v-model="newName" />
+                    <h3>Category</h3>
+                    <select id="ingredientCategorySelect" v-model="newCategory">
+                        <option disabled selected value style="display:none"> - select an option - </option>
+                        <option disabled>-Fridge-</option>
+                        <option value="Meat">Meat</option>
+                        <option value="Vegetable">Vegetable</option>
+                        <option value="Diary">Diary</option>
+                        <option value="Fruit">Fruit</option>
+                        <option value="Drinks">Drinks</option>
+                        <option disabled>-Spice Rack-</option>
+                        <option value="Oil">Oil</option>
+                        <option value="Sauce">Sauce</option>
+                        <option value="Spice">Spice</option>
+                        <option disabled>-Cupboard-</option>
+                        <option value="Grain">Grain</option>
+                        <option value="Misc">Miscellaneous</option>
+                    </select>
 
-                <h3>Note</h3>
-                <textarea id="ingredientNoteTextarea" placeholder="Any notes..."></textarea>
+                    <h3>Note</h3>
+                    <textarea id="ingredientNoteTextarea" placeholder="Any notes..." v-model="newNote"></textarea>
 
-                <button id="addIngredientToBtn">Add!</button>
+                    <button v-if="edit" id="addIngredientToBtn" v-on:click="addIngredient(newName, newCategory, newNote)">Done!</button>
+                    <button v-else id="addIngredientToBtn" v-on:click="addIngredient(newName, newCategory, newNote)">Add!</button>
 
-                <script>
-                    window.onload = () => {
-
-                        
-                    }
-                </script>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        window.onload = () => {
+
+            function openModal(e) {
+                console.log("Open Modal");
+                $("#addIngredientModal").attr("class", "modal is-visuallyHidden");
+                setTimeout(function () {
+                    $("header,.wrapperPantry, #addIngredientBtn").addClass("is-blurred");
+                    $("#addIngredientModal").attr("class", "modal");
+                }, 100);
+            }
+
+            function closeModal(e) {
+                console.log("Close Modal");
+                $("#addIngredientModal").attr("class", "modal is-hidden is-visuallyHidden");
+                $("header,.wrapperPantry, #addIngredientBtn").removeClass("is-blurred");
+                $(".modal-content").display = "none";
+            }
+
+
+            const fridgeComponent = new Vue({
+                el: "#app",
+                data: {
+                    newName: '',
+                    newCategory: '',
+                    newNote: '',
+                    ingredients: [],
+                    fridgeCategories: ["Meat", "Vegetable", "Diary", "Fruit", "Drinks"],
+                    spiceRackCategories: ["Spice", "Oil", "Sauce"],
+                    cupboardCategories: ["Grain", "Misc"],
+                    selectedIngredientName: '',
+                    selectedIngredientCategory: '',
+                    selectedIngredientNote: '',
+                    selectedIngredientTarget: null,
+                    edit: false
+                },
+                computed: {
+                    fridgeItems() {
+                        return this.ingredients.filter(ingredient => {
+                            return this.fridgeCategories.includes(ingredient.category);
+                        })
+                    },
+                    spiceRackItems() {
+                        return this.ingredients.filter(ingredient => {
+                            return this.spiceRackCategories.includes(ingredient.category);
+                        })
+                    },
+                    cupboardItems() {
+                        return this.ingredients.filter(ingredient => {
+                            return this.cupboardCategories.includes(ingredient.category);
+                        })
+                    }
+                },
+                methods: {
+                    addIngredient: function (newName, newCategory, newNote) {
+                        if (this.edit) {
+                            this.edit = false;
+                            console.log("Editing from " + JSON.stringify({ name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote }));
+                            $(this.selectedIngredientTarget).closest("li").find(".ingredientName").text(newName);
+                            $(this.selectedIngredientTarget).closest("li").find(".ingredientCategory").text(newCategory);
+                            $(this.selectedIngredientTarget).closest("li").find(".ingredientNote").text(newNote);
+                            this.selectedIngredientName = newName;
+                            this.selectedIngredientCategory = newCategory;
+                            this.selectedIngredientNote = newNote;
+                            console.log("Editing to " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
+                        } else {
+                            console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
+                            this.ingredients.push({ name: newName, category: newCategory, note: newNote });
+                        }
+
+                        this.newName = "";
+                        this.newCategory = "";
+                        this.newNote = "";
+                        closeModal();
+                    },
+                    removeIngredient: function (ingredient) {
+                        console.log("Ingredients before" + JSON.stringify(this.ingredients));
+
+                        for (i = 0; i < this.ingredients.length; i++) {
+                            if (ingredient.name === this.ingredients[i].name) {
+                                console.log("Removing " + JSON.stringify(ingredient));
+                                this.ingredients.splice(i, 1);
+                            }
+                        }
+                        console.log("Ingredients after" + JSON.stringify(this.ingredients));
+
+                    },
+                    checkFridge: function () {
+                        for (i = 0; i < this.ingredients.length; i++)
+                            if (this.fridgeCategories.includes(this.ingredients[i].category))
+                                return true;
+                        return false;
+                    },
+                    checkSpiceRack: function () {
+                        for (i = 0; i < this.ingredients.length; i++)
+                            if (this.spiceRackCategories.includes(this.ingredients[i].category))
+                                return true;
+                        return false;
+                    },
+                    checkCupboard: function () {
+                        for (i = 0; i < this.ingredients.length; i++)
+                            if (this.cupboardCategories.includes(this.ingredients[i].category))
+                                return true;
+                        return false;
+                    },
+                    selectIngredient: function (e) {
+
+                        this.selectedIngredientTarget = e.target;
+                        this.selectedIngredientName = $(e.target).closest('li').find(".ingredientName").text();
+                        this.selectedIngredientCategory = $(e.target).closest('li').find(".ingredientCategory").text();
+                        this.selectedIngredientNote = $(e.target).closest('li').find(".ingredientNote").text();
+
+                        console.log("Selecting " + JSON.stringify({ name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote }));
+                        if ($(e.target).closest('li').hasClass("selected")) {
+                            $(e.target).closest('li').removeClass("selected");
+                            $(e.target).closest('li').addClass("ingredient");
+                        } else {
+                            $(e.target).closest('li').removeClass("ingredient");
+                            $(e.target).closest('li').addClass("selected");
+                        }
+                    },
+                    editIngredient: function (e) {
+                        openModal();
+                        this.edit = true;
+                        this.selectedIngredientTarget = e.target;
+                        this.selectedIngredientName = $(e.target).closest('li').find(".ingredientName").text();
+                        this.selectedIngredientCategory = $(e.target).closest('li').find(".ingredientCategory").text();
+                        this.selectedIngredientNote = $(e.target).closest('li').find(".ingredientNote").text();
+                        console.log("Editing " + JSON.stringify({ name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote }));
+                        this.newName = this.selectedIngredientName;
+                        this.newCategory = this.selectedIngredientCategory;
+                        this.newNote = this.selectedIngredientNote;
+                        e.stopPropagation();
+                    }
+                },
+                mounted: function () {
+
+                    this.ingredients = [
+                        {
+                            name: "Pork Belly",
+                            category: "Meat",
+                            note: "2 pounds"
+                        }, {
+                            name: "Lettuce",
+                            category: "Vegetable",
+                            note: "1 pack"
+                        }, {
+                            name: "Salt",
+                            category: "Spice",
+                            note: "Sea Salt"
+                        }, {
+                            name: "Rice",
+                            category: "Grain",
+                            note: "Never buy this brand again"
+                        }, {
+                            name: "Beef Sirloin",
+                            category: "Meat",
+                            note: "1 pound from Ralphs"
+                        }, {
+                            name: "Soy Sauce",
+                            category: "Sauce",
+                            note: "1 bottle"
+                        }
+                    ];
+
+                    $('#addIngredientBtn').on('click', openModal);
+
+                    $("#closeModal").on('click', closeModal);
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    $(window).on('click', (e) => {
+                        if (e.target == $('#addIngredientModal')[0]) {
+                            if (this.edit) this.edit = false;
+                            closeModal();
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
+
 </body>
 
 </html>
