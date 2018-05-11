@@ -226,6 +226,32 @@
                         } else {
                             console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
                             this.ingredients.push({ name: newName, category: newCategory, note: newNote });
+                            //console.log(newName); //add this to the dataBase
+                            //console.log(typeof(newName)); //is a string    
+
+
+                            //Belongs in the fridge
+                            if(newCategory == "Meat" || newCategory == "Vegetable" || newCategory == "Diary" || newCategory == "Fruit" || newCategory == "Drinks"){
+                                console.log("we in da fridge");
+                                 /*$.ajax({
+                                    type: {
+                                        'GET': 'recipes.db'.run(
+                                            'INSERT INTO ingredients VALUES WHERE username=$user'
+                                                {                                                    
+                                                    fridge_list: newName,                                                   
+                                                    $user: username,
+                                                }
+                                                (err) => {
+                                                    if (err) {
+                                                        console.log("There was an error inserting ingredients")
+                                                    } else {
+                                                        console.log("Successfully inserted " + newName + " into the fridge for " +  username);
+                                                    }
+                                                }
+                                            )
+                                        },
+                                });*/                            
+                           }
                         }
 
                         this.newName = "";

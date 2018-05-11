@@ -114,7 +114,11 @@ app.post('/', (req, res) => {
 app.post('/kitchen', (req, res) => {
     //console.log(req.body);
     // Object of all ingredient types
-    const my_list = req.body;
+    
+
+    //const user = req.body.user;
+    //console.log("hello");
+    //console.log("user in kitchen ", username);
 
     // List of each type of ingredient
     // let fridge_list;
