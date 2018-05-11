@@ -112,7 +112,7 @@ app.post('/', (req, res) => {
 
 // Grab ingredients list and manipulate it
 app.post('/kitchen', (req, res) => {
-
+    //console.log(req.body);
     // Object of all ingredient types
     const my_list = req.body;
 
@@ -123,9 +123,9 @@ app.post('/kitchen', (req, res) => {
     // }else{
     //   fridge_list = my_list['fridge[]'];
     // }
-    const fridge_list = my_list['fridge[]'];
-    const spice_rack = my_list['spices[]'];
-    const cupboard = my_list['cupboard[]'];
+    let fridge_list = my_list['fridge[]'];
+    let spice_rack = my_list['spices[]'];
+    let cupboard = my_list['cupboard[]'];
 
     //my_ingredients = {fridge: fridge_list, spices: spice_rack, cupboard: cupboard};
 
@@ -133,26 +133,26 @@ app.post('/kitchen', (req, res) => {
     my_ingredients.fridge = fridge_list;
     my_ingredients.spices = spice_rack;
     my_ingredients.cupboard = cupboard;
-    const fridge_list_text = JSON.stringify(fridge_list);
-    const spice_rack_text = JSON.stringify(spice_rack);
-    const cupboard_text = JSON.stringify(cupboard);
+    let fridge_list_text = JSON.stringify(fridge_list);
+    let spice_rack_text = JSON.stringify(spice_rack);
+    let cupboard_text = JSON.stringify(cupboard);
     console.log(fridge_list_text);
     console.log(spice_rack_text);
     console.log(cupboard_text);
 
     //TODO: check whether these 3 lists are empty or not
-    // if (fridge_list == undefined) {
-    //   my_ingredients.fridge = [];
-    //   fridge_list = [];
-    // };
-    // if (spice_rack == undefined) {
-    //   my_ingredients.spices = [];
-    //   spice_rack = [];
-    // };
-    // if (cupboard == undefined) {
-    //   my_ingredients.cupboard= [];
-    //   cupboard = [];
-    // };
+    if (fridge_list == undefined) {
+      my_ingredients.fridge = [];
+      fridge_list = [];
+    };
+    if (spice_rack == undefined) {
+      my_ingredients.spices = [];
+      spice_rack = [];
+    };
+    if (cupboard == undefined) {
+      my_ingredients.cupboard= [];
+      cupboard = [];
+    };
 
     // Insert the ingredients list into the DB as a single object,
     // where each item is a list of fridge items, spice items, cupboard items
@@ -164,11 +164,20 @@ app.post('/kitchen', (req, res) => {
         (err, rows) => {
             if (rows.length == 1) {
 
+
+                let fridge_list = [];
+                let spice_rack = [];
+                let cupboard = [];
+
+
                 //TODO: fix this so that you can append to the ingredients list when there's more than 1 item.
                 // currently 1 item is shown as a string and not a list so it messes up
-                const fridge_list = JSON.parse(rows[0].fridge_list);
-                const spice_rack = JSON.parse(rows[0].spice_rack);
-                const cupboard = JSON.parse(rows[0].cupboard);
+                if(rows[0].fridge_list != undefined)
+                  fridge_list = JSON.parse(rows[0].fridge_list);
+                if(rows[0].spice_rack != undefined)
+                  spice_rack = JSON.parse(rows[0].spice_rack);
+                if(rows[0].cupboard != undefined)
+                  cupboard = JSON.parse(rows[0].cupboard);
 
                 let new_fridge_text = '';
                 let new_spices_text = '';
@@ -245,6 +254,7 @@ app.post('/kitchen', (req, res) => {
     console.log("Fridge List: " + fridge_list);
     console.log("Spice Rack: " + spice_rack);
     console.log("Cupboard: " + cupboard);
+    //console.log("end of kitchen");
 
 });
 
