@@ -79,6 +79,7 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");
+                    localStorage.setItem('username', user);
                 } else {
                     console.log("username or password is incorrect");
                 }
