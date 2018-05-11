@@ -237,7 +237,7 @@
 
 
                             //Belongs in the fridge
-                            if(newCategory == "Meat" || newCategory == "Vegetable" || newCategory == "Diary" || newCategory == "Fruit" || newCategory == "Drinks"){
+                            if(this.fridgeCategories.includes(newCategory)){
                                 console.log("we in da fridge");
                                 let user = $.ajax({
                                     type: {
