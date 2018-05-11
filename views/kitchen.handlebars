@@ -119,11 +119,11 @@
                 </div>
             </div>
         </div>
-        <button id="addIngredientBtn">Add ingredient!</button>
+        <button id="addIngredientBtn" v-on:click="openAddModal">Add ingredient!</button>
 
         <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
             <div class="modal-content">
-                <span id="closeModal" class="Close">&times;</span>
+                <span id="closeModal" class="Close" v-on:click="closeModal">&times;</span>
                 <div id="addIngredientModalContent">
                     <h1 v-if="edit">Edit Ingredient</h1>
                     <h1 v-else>Add Ingredient</h1>
@@ -177,6 +177,12 @@
                 $(".modal-content").display = "none";
             }
 
+            $(window).on('click', (e) => {
+                        if (e.target == $('#addIngredientModal')[0]) {
+                            if (this.edit) this.edit = false;
+                            closeModal();
+                        }
+                    });
 
             const fridgeComponent = new Vue({
                 el: "#app",
@@ -291,6 +297,15 @@
                         this.newCategory = this.selectedIngredientCategory;
                         this.newNote = this.selectedIngredientNote;
                         e.stopPropagation();
+                    },
+                    openAddModal: function (e) {
+                        this.newName = "";
+                        this.newCategory = "";
+                        this.newNote = "";
+                        openModal();
+                    },
+                    closeModal: function(e) {
+                        closeModal();
                     }
                 },
                 mounted: function () {
@@ -322,18 +337,6 @@
                             note: "1 bottle"
                         }
                     ];
-
-                    $('#addIngredientBtn').on('click', openModal);
-
-                    $("#closeModal").on('click', closeModal);
-
-                    // When the user clicks anywhere outside of the modal, close it
-                    $(window).on('click', (e) => {
-                        if (e.target == $('#addIngredientModal')[0]) {
-                            if (this.edit) this.edit = false;
-                            closeModal();
-                        }
-                    });
                 }
             });
         }
