@@ -239,10 +239,22 @@
                             //Belongs in the fridge
                             if(newCategory == "Meat" || newCategory == "Vegetable" || newCategory == "Diary" || newCategory == "Fruit" || newCategory == "Drinks"){
                                 console.log("we in da fridge");
-                                 /*$.ajax({
+                                let user = $.ajax({
                                     type: {
                                         'GET': 'recipes.db'.run(
-                                            'INSERT INTO ingredients VALUES WHERE username=$user'
+                                            'SELECT DISTINCT username FROM users',
+                                            {
+                                                $user: username,
+                                            }
+                                            /*(err) => {
+                                                if (err) {
+                                                    console.log("There was an error finding the user");
+                                                } else {
+                                                    console.log("User: "  username);
+                                                }
+                                            }*/
+                                            
+                                            /*'INSERT INTO ingredients VALUES ($username, $fridge)',
                                                 {                                                    
                                                     fridge_list: newName,                                                   
                                                     $user: username,
@@ -253,10 +265,10 @@
                                                     } else {
                                                         console.log("Successfully inserted " + newName + " into the fridge for " +  username);
                                                     }
-                                                }
+                                                }*/
                                             )
                                         },
-                                });*/                            
+                                });                            
                            }
                         }
 

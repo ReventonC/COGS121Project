@@ -234,7 +234,6 @@ app.post('/kitchen', (req, res) => {
             } else {
                 db.run(
                     'INSERT INTO ingredients VALUES ($username, $fridge, $spices, $cupboard)',
-
                     {
                         $username: username,
                         $fridge: fridge_list_text,
