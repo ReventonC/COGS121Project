@@ -232,44 +232,26 @@
                         } else {
                             console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
                             this.ingredients.push({ name: newName, category: newCategory, note: newNote });
-                            //console.log(newName); //add this to the dataBase
-                            //console.log(typeof(newName)); //is a string    
 
-                            let username = localStorage.getItem("username");
+                            //decode cookie
+                            let username = decodeURIComponent(document.cookie).split(';')[3].split('=')[1];
                             console.log(username);
+                           
+
+                            //let username = localStorage.getItem("username");
+                            //console.log(username);
                             //Belongs in the fridge
                             if(this.fridgeCategories.includes(newCategory)){
                                 console.log("we in da fridge");
-                                let user = $.ajax({
+                                /*let user = $.ajax({
                                     type: {
                                         'GET': 'recipes.db'.run(
                                             'SELECT DISTINCT username FROM users',
                                             {
                                                 $user: username,
-                                            }
-                                            /*(err) => {
-                                                if (err) {
-                                                    console.log("There was an error finding the user");
-                                                } else {
-                                                    console.log("User: "  username);
-                                                }
-                                            }*/
-                                            
-                                            /*'INSERT INTO ingredients VALUES ($username, $fridge)',
-                                                {                                                    
-                                                    fridge_list: newName,                                                   
-                                                    $user: username,
-                                                }
-                                                (err) => {
-                                                    if (err) {
-                                                        console.log("There was an error inserting ingredients")
-                                                    } else {
-                                                        console.log("Successfully inserted " + newName + " into the fridge for " +  username);
-                                                    }
-                                                }*/
-                                            )
+                                            }                                       
                                         },
-                                });                            
+                                });*/                           
                            }
                         }
 
