@@ -10,7 +10,7 @@ const hbs = exphbs.create();
 const db = new sqlite3.Database('recipes.db');
 
 //for cookies
-//const cookie = require('cookie');
+const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
@@ -89,14 +89,15 @@ app.post('/', (req, res) => {
                   console.log("username or password is incorrect");
                   //console.log(user);
 
-                  res.cookie('username', username).send('cookie set');
-                  console.log(req.cookies.username);
+                  //other way to cookie
+                  /*res.cookie('username', username).send('cookie set');
+                  console.log(req.cookies.username);*/
 
-                  /*cookie.serialize ("username", username);
+                  cookie.serialize ("username", username);
                   var cookies = cookie.parse(req.headers.cookie || '');
                   // Get the visitor name set in the cookie
                   console.log(cookie.username);
-                  res.send({loginRes: 1});*/
+                  res.send({loginRes: 1});
 
                 }
             }
