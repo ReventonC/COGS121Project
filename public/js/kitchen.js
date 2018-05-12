@@ -1,6 +1,4 @@
 $(document).ready(() => {
-  const username = Cookies.get('user');
-  console.log(username);
     const fridgeComponent = new Vue({
         el: "#fridgeList",
         data: {
@@ -160,7 +158,7 @@ $(document).ready(() => {
                         //console.log(typeof(newName)); //is a string
 
                         //let username = localStorage.getItem("username");
-                        console.log(username);
+                        const username = Cookies.get('user');
                         //Belongs in the fridge
                         if(this.fridgeCategories.includes(newCategory)){
                             console.log("we in da fridge");
