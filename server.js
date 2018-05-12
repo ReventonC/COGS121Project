@@ -84,20 +84,19 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");
-                    res.send({loginRes: 0});
+                    res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
                   //console.log(user);
-
-                  res.cookie('username', username).send('cookie set');
-                  console.log(req.cookies.username);
+                  res.send({user: 0, pass: 0, loginRes: 1});
+                  //res.cookie('username', username).send('cookie set');
+                  //console.log(req.cookies.username);
 
                   /*cookie.serialize ("username", username);
                   var cookies = cookie.parse(req.headers.cookie || '');
                   // Get the visitor name set in the cookie
                   console.log(cookie.username);
-                  res.send({loginRes: 1});*/
-
+                  res.send({user: 0, pass: 0, loginRes: 1});*/
                 }
             }
         );

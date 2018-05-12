@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="/css/style.min.css" />
     <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/js-cookie.js"></script>
     <script src="/js/kitchen.js"></script>
     <script src="/js/vue.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
@@ -236,7 +237,7 @@
                             //decode cookie
                             let username = decodeURIComponent(document.cookie).split(';')[3].split('=')[1];
                             console.log(username);
-                           
+
 
                             //let username = localStorage.getItem("username");
                             //console.log(username);
@@ -249,9 +250,9 @@
                                             'SELECT DISTINCT username FROM users',
                                             {
                                                 $user: username,
-                                            }                                       
+                                            }
                                         },
-                                });*/                           
+                                });*/
                            }
                         }
 
