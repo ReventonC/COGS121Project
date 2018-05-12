@@ -42,26 +42,7 @@ $(document).ready(() => {
         if (value != '') {
             cupboard.push(value);
         }
-    }
-
-    //AJAX calls to the datbase to get the ingredients
-    $.ajax({
-        type: {
-            'GET': 'recipes.db'.run(
-                //change to select
-                'UPDATE ingredients SET fridge_list=$fridge, ' +
-                'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
-                    {
-                        //const list: from recipesdb
-                        $fridge: fridge_list,
-                        $spices: spice_rack,
-                        $cupboard: cupboard,
-                        $user: username
-                    }
-                )
-            },
-    });
-    //console.log(fridge_list);
+    }   
 
 
     // When user clicks "Submit", send the username and
@@ -157,42 +138,47 @@ $(document).ready(() => {
                         //console.log(newName); //add this to the dataBase
                         //console.log(typeof(newName)); //is a string
 
+                        const db = new sqlite3.Database('recipes.db');
                         //let username = localStorage.getItem("username");
                         const username = Cookies.get('user');
                         //Belongs in the fridge
-                        if(this.fridgeCategories.includes(newCategory)){
-                            console.log("we in da fridge");
-                            let user = $.ajax({
-                                type: {
-                                    'GET': 'recipes.db'.run(
-                                        'SELECT DISTINCT username FROM users',
-                                        {
-                                            $user: username,
-                                        }
-                                        /*(err) => {
-                                            if (err) {
-                                                console.log("There was an error finding the user");
-                                            } else {
-                                                console.log("User: "  username);
-                                            }
-                                        }*/
-
-                                        /*'INSERT INTO ingredients VALUES ($username, $fridge)',
-                                            {
-                                                fridge_list: newName,
-                                                $user: username,
-                                            }
-                                            (err) => {
-                                                if (err) {
-                                                    console.log("There was an error inserting ingredients")
-                                                } else {
-                                                    console.log("Successfully inserted " + newName + " into the fridge for " +  username);
-                                                }
-                                            }*/
-                                        )
+                      
+                        console.log("we in da fridge");
+                         /*$.post("recipes.db",
+                            {
+                                $user: username,
+                                $ingredient: newName
+                            },
+                            function(err){
+                                if (err) {
+                                    console.log("There was an error finding the user");
+                                } else {
+                                    console.log("User: " + username);
+                                }
+                            });*/
+                       let user = $.ajax({
+                            type: {
+                                'POST': db.run(
+                                    'INSERT INTO ingredients VALUES ($user, $ingredient)',
+                                    {
+                                        $user: username,
+                                        $ingredient: newName,
+                                        //$category: newCategory,
+                                        //$note: newNote,
                                     },
-                            });
-                       }
+                                    /*(err) => {
+                                        if (err) {
+                                            console.log("There was an error finding the user");
+                                        } else {
+                                            console.log("User: "  username);
+                                        }
+                                    }*/
+                                    
+                                        
+                                    )
+                                },
+                        });
+                                              
                     }
 
                     this.newName = "";

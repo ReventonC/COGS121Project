@@ -96,7 +96,7 @@ app.post('/', (req, res) => {
                   var cookies = cookie.parse(req.headers.cookie || '');
                   // Get the visitor name set in the cookie
                   console.log(cookie.username);
-                  res.send({user: 0, pass: 0, loginRes: 1});*/
+                  //res.send({user: 0, pass: 0, loginRes: 1});
                 }
             }
         );
