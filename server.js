@@ -82,14 +82,15 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");
-                    
+                    res.send({loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
                   //console.log(user);
                   cookie.serialize ("username", username);
-                  var cookies = cookie.parse(req.headers.cookie || ''); 
+                  var cookies = cookie.parse(req.headers.cookie || '');
                   // Get the visitor name set in the cookie
                   console.log(cookie.username);
+                  res.send({loginRes: 1});
                 }
             }
         );
@@ -123,7 +124,7 @@ app.post('/', (req, res) => {
 app.post('/kitchen', (req, res) => {
     //console.log(req.body);
     // Object of all ingredient types
-    
+
 
     //const user = req.body.user;
     //console.log("hello");
@@ -339,7 +340,7 @@ app.post('/recipeList', (req, res) => {
                         .end(function (result) {
                             console.log(result.status, result.headers, result.body);
                         });
-                   
+
 
                 });
             //res.send(my_ingredients);
