@@ -1,5 +1,5 @@
 $(document).ready(() => {
-   
+
     const fridgeComponent = new Vue({
         el: "#fridgeList",
         data: {
@@ -43,9 +43,9 @@ $(document).ready(() => {
         if (value != '') {
             cupboard.push(value);
         }
-    }  
+    }
 
-    //AJAX calls to the datbase to get the ingredients  
+    //AJAX calls to the datbase to get the ingredients
     $.ajax({
         type: {
             'GET': 'recipes.db'.run(
@@ -54,14 +54,14 @@ $(document).ready(() => {
                 'spice_rack=$spices, cupboard=$cupboard WHERE username=$user',
                     {
                         //const list: from recipesdb
-                        fridge_list: fridge_list,
-                        spice_rack: spice_rack,
-                        cupboard: cupboard,
+                        $fridge: fridge_list,
+                        $spices: spice_rack,
+                        $cupboard: cupboard,
                         $user: username
                     }
                 )
             },
-    }); 
+    });
     //console.log(fridge_list);
 
 
