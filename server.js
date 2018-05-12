@@ -274,7 +274,7 @@ app.post('/kitchen', (req, res) => {
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
-
+    let temp;
     let ingredientsList = [];
     // Grab the recipes from the list
     db.all(
@@ -294,6 +294,7 @@ app.post('/recipeList', (req, res) => {
             //let ingredientsList = ['apple', 'ice cream'];
 
             console.log("The given ingredients list is:", ingredientsList);
+            temp = ingredientsList;jjjjjjjjjjj
             let ingredients = '';
             const numResults = 2;
             ingredientsList.forEach((i) => {
@@ -338,10 +339,12 @@ app.post('/recipeList', (req, res) => {
                         .end(function (result) {
                             console.log(result.status, result.headers, result.body);
                         });
-                    res.send(result);
+                   
 
                 });
             //res.send(my_ingredients);
+            console.log("HEEEERE:", temp);
+            res.send({list: temp});
         });
 }
 );
