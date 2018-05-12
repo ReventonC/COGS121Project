@@ -9,6 +9,9 @@ const app = express();
 const hbs = exphbs.create();
 const db = new sqlite3.Database('recipes.db');
 
+//for cookies
+const cookie = require('cookie');
+
 //require unirest for api
 const unirest = require('unirest');
 
@@ -79,9 +82,14 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");
-                    localStorage.setItem('username', user);
+                    
                 } else {
-                    console.log("username or password is incorrect");
+                  console.log("username or password is incorrect");
+                  //console.log(user);
+                  cookie.serialize ("username", username);
+                  var cookies = cookie.parse(req.headers.cookie || ''); 
+                  // Get the visitor name set in the cookie
+                  console.log(cookie.username);
                 }
             }
         );
