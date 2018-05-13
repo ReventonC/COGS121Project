@@ -9,10 +9,10 @@ const app = express();
 const hbs = exphbs.create();
 const db = new sqlite3.Database('recipes.db');
 
-//for cookies
-const cookie = require('cookie');
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
+//for
+//const cookie = require('cookie');
+//const cookieParser = require('cookie-parser');
+//app.use(cookieParser());
 
 //require unirest for api
 const unirest = require('unirest');
@@ -90,12 +90,12 @@ app.post('/', (req, res) => {
                   //console.log(user);
                   res.send({user: 0, pass: 0, loginRes: 1});
                   //res.cookie('username', username).send('cookie set');
-                  //console.log(req.cookies.username);
+                  //console.log(req..username);
 
-                  cookie.serialize ("username", username);
-                  var cookies = cookie.parse(req.headers.cookie || '');
+                  //cookie.serialize ("username", username);
+                  //var cookies = cookie.parse(req.headers.cookie || '');
                   // Get the visitor name set in the cookie
-                  console.log(cookie.username);
+                  //console.log(cookie.username);
                   //res.send({user: 0, pass: 0, loginRes: 1});
                 }
             }
@@ -128,22 +128,22 @@ app.post('/', (req, res) => {
 
 // Grab ingredients list and manipulate it
 app.post('/kitchen', (req, res) => {
-    //console.log(req.body);
     // Object of all ingredient types
+    console.log(req.body);
+    console.log(JSON.stringify());
 
+    const user = req.body.user;
+    console.log("hello");
+    console.log("user in kitchen ", username);
 
-    //const user = req.body.user;
-    //console.log("hello");
-    //console.log("user in kitchen ", username);
-
-    // List of each type of ingredient
-    // let fridge_list;
-    // if(my_list['fridge[]'].length == 1){
-    //   fridge_list = [my_list['fridge[]']];
-    // }else{
-    //   fridge_list = my_list['fridge[]'];
-    // }
-    let fridge_list = my_list['fridge[]'];
+    //List of each type of ingredient
+    let fridge_list;
+    if(my_list['fridge[]'].length == 1){
+      fridge_list = [my_list['fridge[]']];
+    }else{
+      fridge_list = my_list['fridge[]'];
+    }
+    //let fridge_list = my_list['fridge[]'];
     let spice_rack = my_list['spices[]'];
     let cupboard = my_list['cupboard[]'];
 
@@ -174,12 +174,13 @@ app.post('/kitchen', (req, res) => {
       cupboard = [];
     };
 
+
     // Insert the ingredients list into the DB as a single object,
     // where each item is a list of fridge items, spice items, cupboard items
     db.all(
         'SELECT * FROM ingredients WHERE username=$user',
         {
-            $user: username
+            $user: Cookies.get('user')
         },
         (err, rows) => {
             if (rows.length == 1) {

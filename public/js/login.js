@@ -10,7 +10,7 @@ $(document).ready(() => {
             success: (login_res) => {
               if(login_res['loginRes'] == 0){
                 Cookies.set('user', login_res['user']);
-                window.location.href = "http://localhost:3000/kitchen";
+                window.location.href = window.location + "kitchen";
               }else{
                 $('#invalid_login').html("Incorrect username or password, please try again");
               }
