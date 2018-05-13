@@ -301,7 +301,7 @@ app.post('/recipeList', (req, res) => {
             //let ingredientsList = ['apple', 'ice cream'];
 
             console.log("The given ingredients list is:", ingredientsList);
-            temp = ingredientsList;jjjjjjjjjjj
+            temp = ingredientsList;
             let ingredients = '';
             const numResults = 2;
             ingredientsList.forEach((i) => {
