@@ -136,6 +136,12 @@ app.post('/kitchen', (req, res) => {
     console.log("hello");
     console.log("user in kitchen ", username);
 
+    /*db.run(
+      'INSERT INTO ingredients VALUES ($user, $ingredient)'   
+    //       $user: username,
+    //       $ingredient: newName,
+    ),*/
+
     //List of each type of ingredient
     let fridge_list;
     if(my_list['fridge[]'].length == 1){
