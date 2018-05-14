@@ -14,6 +14,7 @@ const cookie = require('cookie');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+
 //require unirest for api
 const unirest = require('unirest');
 
@@ -86,8 +87,8 @@ app.post('/', (req, res) => {
                     console.log("successfully logged in");  
 
                     cookie.serialize ("username", username);
-                    var cookies = cookie.parse(req.headers.cookie || '');                  
-                    console.log ("cookie: " + cookies)
+                    cookies = cookie.parse(req.headers.cookie || '');                  
+                    console.log ("cookie: " + cookies.username);
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -135,9 +136,9 @@ app.post('/kitchen', (req, res) => {
     console.log(req.body);
     console.log(JSON.stringify());
 
-    console.log(cookie.username);
-    const username = cookie.username;
-    console.log("hello");
+    //console.log(cookie.username);
+    const username = cookies.username;
+    //console.log("hello");
     console.log("user in kitchen ", username);
     const newIngredient = req.body.name;
 
@@ -152,7 +153,7 @@ app.post('/kitchen', (req, res) => {
           if(err)
               console.log("error adding " + newIngredient);
           else
-              console.log("successfully added " + newIngredient);
+              console.log("successfully added " + newIngredient + " for " + username);
         } 
     );
 
