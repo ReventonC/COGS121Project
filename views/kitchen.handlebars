@@ -162,9 +162,7 @@
         console.log("hello");
         $.ajax({
             type: 'GET',
-            dataType: 'json',
-            url: '/js/kitchen.js',
-            //data: ingredients,
+            dataType: 'json',            
             success: (ingredients, status) => {                
                 console.log(status);
                 //this.ingredients.push({ name: newName, category: newCategory, note: newNote });
