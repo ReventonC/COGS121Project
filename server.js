@@ -9,6 +9,12 @@ const app = express();
 const hbs = exphbs.create();
 const db = new sqlite3.Database('recipes.db');
 
+//for cookie
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+
 //require unirest for api
 const unirest = require('unirest');
 
@@ -78,10 +84,24 @@ app.post('/', (req, res) => {
             (err, rows) => {
                 console.log(rows);
                 if (rows.length == 1) {
-                    console.log("successfully logged in");
-                    localStorage.setItem('username', user);
+                    console.log("successfully logged in");  
+
+                    cookie.serialize ("username", username);
+                    cookies = cookie.parse(req.headers.cookie || '');                  
+                    console.log ("cookie: " + cookies.username);
+                    res.send({user: user, pass: pass, loginRes: 0});
                 } else {
-                    console.log("username or password is incorrect");
+                  console.log("username or password is incorrect");
+                  //console.log(user);
+                  res.send({user: 0, pass: 0, loginRes: 1});
+                  //res.cookie('username', username).send('cookie set');
+                  //console.log(req..username);
+
+                  //cookie.serialize ("username", username);
+                  //var cookies = cookie.parse(req.headers.cookie || '');
+                  //Get the visitor name set in the cookie
+                  //console.log(cookie.username);
+                  //res.send({user: 0, pass: 0, loginRes: 1});
                 }
             }
         );
@@ -93,7 +113,6 @@ app.post('/', (req, res) => {
         db.run(
 
             'INSERT INTO users VALUES ($user, $pass)',
-
             {
                 $user: user,
                 $pass: pass
@@ -113,29 +132,50 @@ app.post('/', (req, res) => {
 
 // Grab ingredients list and manipulate it
 app.post('/kitchen', (req, res) => {
-    //console.log(req.body);
+    //get the ingredients from the database
+
     // Object of all ingredient types
-    
+    console.log(req.body);
+    console.log(JSON.stringify());
 
-    //const user = req.body.user;
+    //console.log(cookie.username);
+    const username = cookies.username;
     //console.log("hello");
-    //console.log("user in kitchen ", username);
+    console.log("user in kitchen ", username);
+    const newIngredient = req.body.name;
 
-    // List of each type of ingredient
-    // let fridge_list;
-    // if(my_list['fridge[]'].length == 1){
-    //   fridge_list = [my_list['fridge[]']];
-    // }else{
-    //   fridge_list = my_list['fridge[]'];
-    // }
-    let fridge_list = my_list['fridge[]'];
+    //run this when the add ingredient button is pressed
+    db.run(
+      'INSERT INTO ingredients VALUES ($user, $ingredient)',
+        { 
+           $user: username,
+           $ingredient: newIngredient,
+        },
+
+        (err) =>{
+          if(err)
+              console.log("error adding " + newIngredient);
+          else
+              console.log("successfully added " + newIngredient + " for " + username);
+        } 
+    );
+
+
+    //List of each type of ingredient
+    /*let fridge_list;
+    if(my_list['fridge[]'].length == 1){
+      fridge_list = [my_list['fridge[]']];
+    }else{
+      fridge_list = my_list['fridge[]'];
+    }
+    //let fridge_list = my_list['fridge[]'];
     let spice_rack = my_list['spices[]'];
-    let cupboard = my_list['cupboard[]'];
+    let cupboard = my_list['cupboard[]'];*/
 
     //my_ingredients = {fridge: fridge_list, spices: spice_rack, cupboard: cupboard};
 
     // Add all the ingredients to the database
-    my_ingredients.fridge = fridge_list;
+    /*my_ingredients.fridge = fridge_list;
     my_ingredients.spices = spice_rack;
     my_ingredients.cupboard = cupboard;
     let fridge_list_text = JSON.stringify(fridge_list);
@@ -143,10 +183,10 @@ app.post('/kitchen', (req, res) => {
     let cupboard_text = JSON.stringify(cupboard);
     console.log(fridge_list_text);
     console.log(spice_rack_text);
-    console.log(cupboard_text);
+    console.log(cupboard_text);*/
 
     //TODO: check whether these 3 lists are empty or not
-    if (fridge_list == undefined) {
+    /*if (fridge_list == undefined) {
       my_ingredients.fridge = [];
       fridge_list = [];
     };
@@ -157,14 +197,15 @@ app.post('/kitchen', (req, res) => {
     if (cupboard == undefined) {
       my_ingredients.cupboard= [];
       cupboard = [];
-    };
+    };*/
+
 
     // Insert the ingredients list into the DB as a single object,
     // where each item is a list of fridge items, spice items, cupboard items
-    db.all(
+    /*db.all(
         'SELECT * FROM ingredients WHERE username=$user',
         {
-            $user: username
+            $user: Cookies.get('user')
         },
         (err, rows) => {
             if (rows.length == 1) {
@@ -226,7 +267,7 @@ app.post('/kitchen', (req, res) => {
 
                     (err) => {
                         if (err) {
-                            console.log("There was an error updating ingredients")
+                            console.log("There was an error updating ingredients");
                         } else {
                             console.log("Successfully updated ingredients in DB");
                         }
@@ -257,16 +298,18 @@ app.post('/kitchen', (req, res) => {
     // Print ingredients list
     console.log("Fridge List: " + fridge_list);
     console.log("Spice Rack: " + spice_rack);
-    console.log("Cupboard: " + cupboard);
+    console.log("Cupboard: " + cupboard);*/
     //console.log("end of kitchen");
 
 });
+
+
 
 // Grab all of the user recipes from the DB and send them to the users
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
-
+    let temp;
     let ingredientsList = [];
     // Grab the recipes from the list
     db.all(
@@ -286,6 +329,7 @@ app.post('/recipeList', (req, res) => {
             //let ingredientsList = ['apple', 'ice cream'];
 
             console.log("The given ingredients list is:", ingredientsList);
+            temp = ingredientsList;
             let ingredients = '';
             const numResults = 2;
             ingredientsList.forEach((i) => {
@@ -330,10 +374,12 @@ app.post('/recipeList', (req, res) => {
                         .end(function (result) {
                             console.log(result.status, result.headers, result.body);
                         });
-                    res.send(result);
+
 
                 });
             //res.send(my_ingredients);
+            console.log("HEEEERE:", temp);
+            res.send({list: temp});
         });
 }
 );
