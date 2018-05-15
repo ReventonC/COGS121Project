@@ -158,6 +158,16 @@
         </div>
     </div>
     <script>
+    $(document).ready(() => {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            success: (ingredients) => {
+                console.log("kitchen ingredients: " + ingredients);
+             };
+        });
+    });
+
     window.onload = () => {
 
         function openModal(e) {
@@ -354,7 +364,7 @@
                     closeModal();
                 }
             },
-            mounted: function () {
+           /* mounted: function () {
 
                 this.ingredients = [
                     {
@@ -383,7 +393,7 @@
                         note: "1 bottle"
                     }
                 ];
-            }
+            }*/
         });
     }
     </script>

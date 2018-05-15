@@ -132,6 +132,8 @@ app.post('/', (req, res) => {
 
 // Grab ingredients list and manipulate it
 app.post('/kitchen', (req, res) => {
+    //get the ingredients from the database
+
     // Object of all ingredient types
     console.log(req.body);
     console.log(JSON.stringify());
@@ -142,6 +144,7 @@ app.post('/kitchen', (req, res) => {
     console.log("user in kitchen ", username);
     const newIngredient = req.body.name;
 
+    //run this when the add ingredient button is pressed
     db.run(
       'INSERT INTO ingredients VALUES ($user, $ingredient)',
         { 
