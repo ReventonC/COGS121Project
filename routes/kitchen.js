@@ -26,6 +26,9 @@ exports.view = function(req,res){
 		}
 
 	);
-	res.render('kitchen');
-	
+	res.render('kitchen', (err, html) => {
+		//console.log(html);
+	  //res.send(ingredientsDB);
+	});
+		
 }
