@@ -12,7 +12,7 @@ $(document).ready(() => {
                 Cookies.set('user', login_res['user']);
                 window.location.href = window.location + "kitchen";
               }else{
-                $('#invalid_login').html("Incorrect username or password, please try again");
+                alert("Incorrect username or password, please try again");
               }
             }
 

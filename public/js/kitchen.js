@@ -12,39 +12,6 @@ $(document).ready(() => {
         }
     });
 
-    //console.log($("#user").val());
-
-    // Get all the ingredients from the Fridge
-    const fridge_list = [];
-    for (const item of $("#fridgeList")) {
-        console.log(item)
-        console.log(name);
-        const value = $(item).val();
-        if (value != '') {
-            fridge_list.push(value);
-        }
-    }
-    console.log("fridgeList: " + fridge_list);
-
-    // Get all the ingredients from the spice rack
-    const spice_rack = [];
-    for (const item of $(".spice_rack")) {
-        const value = $(item).val();
-        if (value != '') {
-            spice_rack.push(value);
-        }
-    }
-
-    // Get all the ingredients from the cupboard
-    const cupboard = [];
-    for (const item of $(".cupboard")) {
-        const value = $(item).val();
-        if (value != '') {
-            cupboard.push(value);
-        }
-    }
-
-
     // When user clicks "Submit", send the username and
     // password to the server to check if it is in the DB
     $("#make_meal").click(() => {
