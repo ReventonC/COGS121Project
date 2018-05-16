@@ -37,7 +37,7 @@ $(document).ready(() => {
         }
     });
 
-    
+
     console.log("hello");
     $.ajax({
         type: 'GET',
@@ -48,7 +48,7 @@ $(document).ready(() => {
         }
     });
 
-    
+
     const pantryComponent = new Vue({
         el: "#app",
         data: {
@@ -99,9 +99,11 @@ $(document).ready(() => {
                     this.ingredients.push({ name: newName, category: newCategory, note: newNote });
                     //console.log(newName); //add this to the dataBase
                     //console.log(typeof(newName)); //is a string
+
                     const newestIngredients = { name: newName, category: newCategory, note: newNote };                    
                     const username = Cookies.get('user');
-                    console.log(newCategory);                    
+                    console.log(newCategory);  
+                    newestIngredients.user = username;                  
                     if(newCategory == ""){                        
                         alert("Please select a Category");
                         console.log(newName);
@@ -120,8 +122,8 @@ $(document).ready(() => {
                         closeModal();
                     }
                     
-                }                
-                
+                }        
+
             },
             removeIngredient: function (ingredient) {
                 console.log("Ingredients before" + JSON.stringify(this.ingredients));
