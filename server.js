@@ -50,6 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 // Object holding all the ingredients to be inserted into the DB
 const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 
@@ -83,12 +84,24 @@ app.post('/', (req, res) => {
             },
 
             (err, rows) => {
+                if(err){
+                  console.log("FAILED TO LOG IN");
+                }
                 console.log(rows);
                 if (rows.length == 1) {
+<<<<<<< HEAD
                     console.log("successfully logged in");  
                     //res.clearCookie("user");      
                     cookie.serialize ("user", username);           
                     //cookies = cookie.parse(req.headers.cookie || '');                  
+=======
+                    console.log("successfully logged in");
+                    //res.clearCookie("user");
+                    cookie.serialize ("user", username);
+                    cookies = cookie.parse(req.headers.cookie || '');
+                    console.log("successfully logged in");
+                    //res.clearCookie("user");
+>>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -120,7 +133,7 @@ app.post('/', (req, res) => {
 
             (err) => {
                 if (err) {
-                    console.log("There was an error inserting username and password")
+                    console.log("There was an error inserting username and password");
                 } else {
                     console.log("Successfully inserted new user into DB with username:", user, "and password:", pass);
                 }
@@ -130,7 +143,11 @@ app.post('/', (req, res) => {
 
 });
 
+<<<<<<< HEAD
 // Grab ingredients list and manipulate it
+=======
+// Add ideangredients to the DB OR display current user's ingredients
+>>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
 app.post('/kitchen', (req, res) => {
     //get the ingredients from the database
 
@@ -152,16 +169,96 @@ app.post('/kitchen', (req, res) => {
            $ingredient: newIngredient,
         },
 
+<<<<<<< HEAD
         (err) =>{
           if(err)
               console.log("error adding " + newIngredient);
           else
               console.log("successfully added " + newIngredient + " for " + username);
         } 
+=======
+    //Object with new ingredient
+    const myNewIngredient = req.body;
+
+    //Get type -- add ingredient or display ingredients
+    const type = req.body.type;
+
+    // The current user
+    const username = myNewIngredient.user;
+    delete myNewIngredient.user;
+    delete myNewIngredient.type;
+
+    // The ingredient name
+    const newIngredientName = req.body.name;
+
+
+    console.log(myNewIngredient);
+    console.log("User", username, "in kitchen, with new ingredient:", newIngredientName);
+
+    //First, find out if the user already has an entry in the DB for their ingredients
+    db.all(
+      'SELECT * FROM ingredients WHERE username=$user',
+      {
+        $user: username
+      },
+      (err, rows) => {
+        if(err){
+          console.log("FAILED GETTING TABLE ROW");
+        }
+        if (rows.length == 1){
+          if(type == 0){
+            const myCurrentIngredients = JSON.parse(rows[0].ingredients);
+            console.log("myCurrIng:", myCurrentIngredients)
+            res.send(myCurrentIngredients);
+          }else{
+            const myCurrentIngredients = JSON.parse(rows[0].ingredients);
+            const updatedIngredients = myCurrentIngredients.concat(myNewIngredient);
+            const updatedIngredientsString = JSON.stringify(updatedIngredients);
+
+            db.run(
+              'UPDATE ingredients SET ingredients=$ingredients WHERE username=$user',
+              {
+                $ingredients: updatedIngredientsString,
+                $user: username
+              },
+              (err) => {
+                if(err){
+                  console.log("There was an error updating ingredient:", myNewIngredient);
+                } else {
+                  console.log("Successfully upated ingredient,", newIngredientName, ", for user:", username);
+                }
+              }
+            );
+          }
+          //User already has ingredients in their kitchen, so we update the ingredients
+
+        //User is inserting ingredients into their kitchen for the first time
+        }else{
+          if(type == 0){
+            res.send({});
+          }else{
+            const myNewIngredientString = JSON.stringify(myNewIngredient);
+            db.run(
+              'INSERT INTO ingredients VALUES ($user, $ingredients)',
+              {
+                $user: username,
+                $ingredients: "[" + myNewIngredientString + "]"
+              },
+              (err) => {
+                if(err){
+                  console.log("There was an error inserting ingredient:", myNewIngredient);
+                } else {
+                  console.log("Successfully inserted ingredient,", newIngredientName, ", for user:", username);
+                }
+              }
+            );
+          }
+
+        }
+      }
+>>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
     );
 });
-
-
 
 // Grab all of the user recipes from the DB and send them to the users
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
@@ -241,12 +338,6 @@ app.post('/recipeList-bdszjfjfabjkcvbjkxzbcvjkblljdfbvjzbxcjklbvzcv', (req, res)
         });
 }
 );
-
-
-
-
-
-
 
 app.listen(3000, () => {
     console.log("Server started on http://localhost:3000/");
