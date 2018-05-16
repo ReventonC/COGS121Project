@@ -245,7 +245,8 @@ app.post('/recipeList', (req, res) => {
 
             console.log("The given ingredients list is:", ingredientsList);
             let ingredients = '';
-            const numResults = 2;
+            //CHANGE THIS NUM TO DISPLAY DIFFERENT AMOUNT OF RECIPE RESULTS
+            const numResults = 8;
             ingredientsList.forEach((i) => {
                 i.replace(" ", "+");
                 ingredients += i + "%2C";
@@ -277,7 +278,7 @@ app.post('/recipeList', (req, res) => {
                     //UNCOMMENT TO SHOW RESULTS
                     //console.log(result.status);   //it prints '200' -- what does status 200 mean?
                     //console.log(result.headers);   //it prints information about the request - useless?
-                    //console.log(result.body);   //print recipes    
+                    //console.log(result.body);   //print recipes
                     myRecipes = result.body;
 
                     console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
