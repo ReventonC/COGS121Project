@@ -108,42 +108,7 @@ $(document).ready(() => {
                         dataType: 'json',
                         data: newestIngredients
                     });
-                    //Belongs in the fridge
-                    // IDK what this does, Luke wrote it, Below 'if' statement commented out
-                    // so that modal closes successfully
-                    //  if(this.fridgeCategories.includes(newCategory)){
-                    //      console.log("we in da fridge");
-                    //      let user = $.ajax({
-                    //          type: {
-                    //              'GET': 'recipes.db'.run(
-                    //                  'SELECT DISTINCT username FROM users',
-                    //                  {
-                    //                      $user: username,
-                    //                  }
-                    //                  /*(err) => {
-                    //                      if (err) {
-                    //                          console.log("There was an error finding the user");
-                    //                      } else {
-                    //                          console.log("User: "  username);
-                    //                      }
-                    //                  }*/
-                    //
-                    //                  /*'INSERT INTO ingredients VALUES ($username, $fridge)',
-                    //                      {
-                    //                          fridge_list: newName,
-                    //                          $user: username,
-                    //                      }
-                    //                      (err) => {
-                    //                          if (err) {
-                    //                              console.log("There was an error inserting ingredients")
-                    //                          } else {
-                    //                              console.log("Successfully inserted " + newName + " into the fridge for " +  username);
-                    //                          }
-                    //                      }*/
-                    //                  )
-                    //              },
-                    //      });
-                    // }
+                    
                 }
                 this.newName = "";
                 this.newCategory = "";
