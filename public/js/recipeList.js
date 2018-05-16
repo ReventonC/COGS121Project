@@ -24,7 +24,11 @@ $(document).ready(() => {
     const resultListComponent = new Vue({
         el: "#resultList",
         data: {
-            recipeList: [
+            recipeList: []
+        },
+        mounted: function() {
+            // ajax call
+            this.recipeList= [
                 {
                     "id": 556470,
                     "title": "Apple fritters",
@@ -116,9 +120,6 @@ $(document).ready(() => {
                     "likes": 0
                 },
             ]
-        },
-        mounted: {
-            // ajax call
         }
 
     });
