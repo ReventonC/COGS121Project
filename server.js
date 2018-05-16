@@ -50,7 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+let username = '';
+let cookies = '';
 
 // Check the login credentials
 app.post('/', (req, res) => {
