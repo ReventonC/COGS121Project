@@ -84,9 +84,9 @@ app.post('/', (req, res) => {
             (err, rows) => {
                 console.log(rows);
                 if (rows.length == 1) {
-                    console.log("successfully logged in");  
-                    res.clearCookie("user");                 
-                    cookies = cookie.parse(req.headers.cookie || '');                  
+                    console.log("successfully logged in");
+                    res.clearCookie("user");
+                    cookies = cookie.parse(req.headers.cookie || '');
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -128,35 +128,69 @@ app.post('/', (req, res) => {
 
 });
 
-// Grab ingredients list and manipulate it
+// Add ingredients to the DB
 app.post('/kitchen', (req, res) => {
-    //get the ingredients from the database
 
-    // Object of all ingredient types
-    console.log(req.body);
-    console.log(JSON.stringify());
+    //Object with new ingredient
+    const myNewIngredient = req.body;
 
-    //console.log(cookie.username);
-    const username = cookies.username;
-    //console.log("hello");
-    console.log("user in kitchen ", username);
-    const newIngredient = req.body.name;
+    // The current user
+    const username = Cookies.get('user');
 
-    //run this when the add ingredient button is pressed
-    db.run(
-      'INSERT INTO ingredients VALUES ($user, $ingredient)',
-        { 
-           $user: username,
-           $ingredient: newIngredient,
-        },
+    // The ingredient name
+    const newIngredientName = req.body.name;
 
-        (err) =>{
-          if(err)
-              console.log("error adding " + newIngredient);
-          else
-              console.log("successfully added " + newIngredient + " for " + username);
-        } 
-    );
+
+    console.log(myNewIngredient);
+    console.log("User", username, "in kitchen, with new ingredient:", newIngredientName);
+
+    //First, find out if the user already has an entry in the DB for their ingredients
+    db.all(
+      'SELECT * FROM ingredients WHERE username=$user',
+      {
+        $user: username
+      },
+      (err, rows) => {
+        if (rows.length == 1){
+          //User already has ingredients in their kitchen, so we update the ingredients
+          const myCurrentIngredients = JSON.parse(rows[0].ingredients);
+          const updatedIngredients = myCurrentIngredients.concat(myNewIngredient);
+          const updatedIngredientsString = JSON.stringify(updatedIngredients);
+
+          db.run(
+            'UPDATE ingredients SET ingredients=$ingredients WHERE username=$user',
+            {
+              $ingredients: updatedIngredientsString,
+              $user: username
+            },
+            (err) => {
+              if(err){
+                console.log("There was an error updating ingredient:", myNewIngredient);
+              } else {
+                console.log("Successfully upated ingredient,", newIngredientName, ", for user:", username);
+              }
+            }
+          )
+        //User is inserting ingredients into their kitchen for the first time
+        }else{
+          const myNewIngredientString = JSON.stringify(myNewIngredient);
+          db.run(
+            'INSERT INTO ingredients VALUES ($user, $ingredients)',
+            {
+              $user: username,
+              $ingredients: "[" + myNewIngredientString + "]"
+            },
+            (err) => {
+              if(err){
+                console.log("There was an error inserting ingredient:", myNewIngredient);
+              } else {
+                console.log("Successfully inserted ingredient,", newIngredientName, ", for user:", username);
+              }
+            }
+          )
+        }
+      }
+    )
 });
 
 
