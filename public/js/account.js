@@ -42,7 +42,7 @@ $(document).ready(() => {
                 alert("Account Information Updated!");
             }
         },
-        mounted: {
+        mounted: function() {
             /* ajax call to load user data */
         }
     });
