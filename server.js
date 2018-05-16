@@ -217,8 +217,9 @@ app.post('/kitchen', (req, res) => {
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
-    let temp;
     let ingredientsList = [];
+    let myRecipes = [];
+
     // Grab the recipes from the list
     const username = req.body.user;
 
@@ -230,6 +231,7 @@ app.post('/recipeList', (req, res) => {
         },
 
         (err, rows) => {
+
             console.log('Grabbing ingredients for API call:', rows[0]);
             const myIngredientsList = JSON.parse(rows[0].ingredients);
             for(const myIngObj of myIngredientsList){
@@ -242,7 +244,6 @@ app.post('/recipeList', (req, res) => {
             //let ingredientsList = ['apple', 'ice cream'];
 
             console.log("The given ingredients list is:", ingredientsList);
-            temp = ingredientsList;
             let ingredients = '';
             const numResults = 2;
             ingredientsList.forEach((i) => {
@@ -273,8 +274,14 @@ app.post('/recipeList', (req, res) => {
                         id.push(i.id);
                     });
 
-                    //show the results
-                    console.log(result.status, result.headers, result.body);
+                    //UNCOMMENT TO SHOW RESULTS
+                    //console.log(result.status);   //it prints '200' -- what does status 200 mean?
+                    //console.log(result.headers);   //it prints information about the request - useless?
+                    //console.log(result.body);   //print recipes    
+                    myRecipes = result.body;
+
+                    console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
+                    res.send(myRecipes);
 
                     //store apiRecipe string here
                     apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
@@ -285,14 +292,15 @@ app.post('/recipeList', (req, res) => {
                         .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
                         .header("Accept", "application/json")
                         .end(function (result) {
-                            console.log(result.status, result.headers, result.body);
+                            //UNCOMMENT TO PRINT ALL THE INSTRUCTIONS!!!
+                            //console.log(result.status, result.headers, result.body);
                         });
 
 
                 });
-            //res.send(my_ingredients);
-            console.log("HEEEERE:", temp);
-            res.send({list: temp});
+            //TRY RETURNING HERE
+            //console.log("Bottom of API call:", myRecipes);
+            //res.send(myRecipes);
         });
 }
 );
