@@ -50,16 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
-// Object holding all the ingredients to be inserted into the DB
-const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 
-// The name of the user
-let username = '';
-let cookies = '';
-
-=======
->>>>>>> cd6b6b1f1df18bda4044cd5e0c095932a70009e9
 
 // Check the login credentials
 app.post('/', (req, res) => {
@@ -90,15 +81,12 @@ app.post('/', (req, res) => {
                 }
                 console.log(rows);
                 if (rows.length == 1) {
-<<<<<<< HEAD
-                    console.log("successfully logged in");  
-                    //res.clearCookie("user");      
-                    cookie.serialize ("user", username);           
-                    cookies = cookie.parse(req.headers.cookie || '');                  
-=======
                     console.log("successfully logged in");
                     //res.clearCookie("user");
->>>>>>> cd6b6b1f1df18bda4044cd5e0c095932a70009e9
+                    cookie.serialize ("user", username);
+                    cookies = cookie.parse(req.headers.cookie || '');
+                    console.log("successfully logged in");
+                    //res.clearCookie("user");
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
