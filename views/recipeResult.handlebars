@@ -10,6 +10,7 @@
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/js-cookie.js"></script>
     <script src="/js/recipeResult.js"></script>
+    <script src="/js/vue.js"></script>
 
 </head>
 
@@ -32,13 +33,14 @@
     <div class="content">
         <div id="recipe">
             <button class="backBtn" onclick="window.location='recipeList'">back</button>
-            
-            <div id="app"></div>
+            <div></div>
         </div>
     </div>
 
     <script>
-        
+        const recipeComponent = new Vue({
+
+        });
     </script>
 
 </body>

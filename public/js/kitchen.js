@@ -215,8 +215,9 @@ $(document).ready(() => {
                 closeModal();
             }
         },
-        /* mounted: function () {
-             this.ingredients = [
+        mounted: function () {
+            /* ajax call to load all the ingredients from database */
+            /*this.ingredients = [
                  {
                      name: "Pork Belly",
                      category: "Meat",
@@ -242,8 +243,8 @@ $(document).ready(() => {
                      category: "Sauce",
                      note: "1 bottle"
                  }
-             ];
-         }*/
+             ];*/
+        }
     });
 
 });
