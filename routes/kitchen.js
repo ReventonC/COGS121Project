@@ -3,9 +3,8 @@ const db = new sqlite3.Database('recipes.db');
 exports.view = function(req,res){
 	//console.log(req);
 	
-	const username = req.cookies.username;	
+	const username = req.cookies.user;	
 	let ingredientsDB = [];	
-
 	
 	db.all(
 		'SELECT * FROM ingredients WHERE username=$user' ,
@@ -16,10 +15,10 @@ exports.view = function(req,res){
 			if(err)
 				console.log("Couldn't get ingredients on the kitchen page");
 			else{
-				console.log("kitchen js file")
+				console.log(username + " is in the kitchen");
 				//console.log(rows);
 				ingredientsDB = rows.map(e => e.ingredients);
-				console.log("here are the ingredients we got from the db: " + ingredientsDB);			
+				console.log("here are the ingredients we got from the db: " + ingredientsDB);
 			}
 		}
 	);

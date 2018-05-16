@@ -85,10 +85,8 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");  
-
-                    cookie.serialize ("username", username);
+                    res.clearCookie("user");                 
                     cookies = cookie.parse(req.headers.cookie || '');                  
-                    console.log ("cookie: " + cookies.username);
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");

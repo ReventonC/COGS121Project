@@ -100,8 +100,8 @@ $(document).ready(() => {
                     //console.log(newName); //add this to the dataBase
                     //console.log(typeof(newName)); //is a string
                     const newestIngredients = { name: newName, category: newCategory, note: newNote };
-                    //let username = localStorage.getItem("username");
-                    const username = Cookies.get('user');
+                    console.log(cookies)
+                    const username = cookies.get('user');
                     console.log(this.ingredients);
                     $.ajax({
                         type: 'POST',
