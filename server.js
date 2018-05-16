@@ -50,14 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-// Object holding all the ingredients to be inserted into the DB
-const my_ingredients = { fridge: [], spices: [], cupboard: [] };
-
-// The name of the user
 let username = '';
 let cookies = '';
-
 
 // Check the login credentials
 app.post('/', (req, res) => {
@@ -69,7 +63,6 @@ app.post('/', (req, res) => {
     console.log("Username: " + user);
     console.log("Password: " + pass);
 
-    username = user;
 
     // This is a Sign-in Attempt
     if (type == 0) {
@@ -89,19 +82,12 @@ app.post('/', (req, res) => {
                 }
                 console.log(rows);
                 if (rows.length == 1) {
-<<<<<<< HEAD
-                    console.log("successfully logged in");  
-                    //res.clearCookie("user");      
-                    cookie.serialize ("user", username);           
-                    //cookies = cookie.parse(req.headers.cookie || '');                  
-=======
                     console.log("successfully logged in");
                     //res.clearCookie("user");
                     cookie.serialize ("user", username);
                     cookies = cookie.parse(req.headers.cookie || '');
                     console.log("successfully logged in");
                     //res.clearCookie("user");
->>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -143,40 +129,9 @@ app.post('/', (req, res) => {
 
 });
 
-<<<<<<< HEAD
-// Grab ingredients list and manipulate it
-=======
 // Add ideangredients to the DB OR display current user's ingredients
->>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
 app.post('/kitchen', (req, res) => {
-    //get the ingredients from the database
 
-    // Object of all ingredient types
-    console.log(req.body);
-    console.log(JSON.stringify());
-
-    //console.log(cookie.username);
-    const username = cookies.username;
-    //console.log("hello");
-    console.log("user in kitchen ", username);
-    const newIngredient = req.body.name;
-
-    //run this when the add ingredient button is pressed
-    db.run(
-      'INSERT INTO ingredients VALUES ($user, $ingredient)',
-        { 
-           $user: username,
-           $ingredient: newIngredient,
-        },
-
-<<<<<<< HEAD
-        (err) =>{
-          if(err)
-              console.log("error adding " + newIngredient);
-          else
-              console.log("successfully added " + newIngredient + " for " + username);
-        } 
-=======
     //Object with new ingredient
     const myNewIngredient = req.body;
 
@@ -256,7 +211,6 @@ app.post('/kitchen', (req, res) => {
 
         }
       }
->>>>>>> 8684041121e599c4a018da8e0f259cf19c3b5eb8
     );
 });
 
