@@ -6,8 +6,7 @@ exports.view = function(req,res){
 	const username = req.cookies.username;	
 	let ingredientsDB = [];	
 
-	res.render('kitchen');
-
+	
 	db.all(
 		'SELECT * FROM ingredients WHERE username=$user' ,
 		{
@@ -20,12 +19,15 @@ exports.view = function(req,res){
 				console.log("kitchen js file")
 				//console.log(rows);
 				ingredientsDB = rows.map(e => e.ingredients);
-				console.log("here are the ingredients we got from the db: " + ingredientsDB);				
+				console.log("here are the ingredients we got from the db: " + ingredientsDB);
+				res.render('kitchen', res.set('ingredientsDB'));						
 				
 			}
 		}
 
 	);
+	
+
 
 	//res.send(ingredientsDB,res.render('kitchen'));
 	/*res.render('kitchen', (err, html) => {
