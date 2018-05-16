@@ -407,15 +407,36 @@ header {
         }
     }
 
-    #accountSettings {
+    #accountSettings,#recipe, #resultList {
         width: 100vw;
-        margin-left: 2vw;
-        margin-right: 1vw;  
+        padding: 3vw;
+
+        .backBtn {
+            width: 100px;
+        }
+
+        #app {
+            padding: 2vw;
+        }
     }
 
-    #recipe {
-        width: 100%;
+    #accountSettings {
+        #avatarPic {
+            border: 3px solid #424242;
+        }
+        i {
+            cursor: pointer;
+        }
+
+        #updateBtn, #logOutBtn {
+            width: 150px
+        }
+
+        #logOutBtn {
+            background-color: $color-primary-lightBlue;
+        }
     }
+
 }
 
 #loginBox {

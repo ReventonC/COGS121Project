@@ -400,14 +400,33 @@ header #accountBox #avatarImg {
   width: 300px;
 }
 
-.content #accountSettings {
+.content #accountSettings, .content #recipe, .content #resultList {
   width: 100vw;
-  margin-left: 2vw;
-  margin-right: 1vw;
+  padding: 3vw;
 }
 
-.content #recipe {
-  width: 100%;
+.content #accountSettings .backBtn, .content #recipe .backBtn, .content #resultList .backBtn {
+  width: 100px;
+}
+
+.content #accountSettings #app, .content #recipe #app, .content #resultList #app {
+  padding: 2vw;
+}
+
+.content #accountSettings #avatarPic {
+  border: 3px solid #424242;
+}
+
+.content #accountSettings i {
+  cursor: pointer;
+}
+
+.content #accountSettings #updateBtn, .content #accountSettings #logOutBtn {
+  width: 150px;
+}
+
+.content #accountSettings #logOutBtn {
+  background-color: #9fd8e2;
 }
 
 #loginBox {
