@@ -50,7 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
 // Object holding all the ingredients to be inserted into the DB
 const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 
@@ -58,8 +57,6 @@ const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 let username = '';
 let cookies = '';
 
-=======
->>>>>>> cd6b6b1f1df18bda4044cd5e0c095932a70009e9
 
 // Check the login credentials
 app.post('/', (req, res) => {
@@ -71,6 +68,7 @@ app.post('/', (req, res) => {
     console.log("Username: " + user);
     console.log("Password: " + pass);
 
+    username = user;
 
     // This is a Sign-in Attempt
     if (type == 0) {
@@ -87,15 +85,10 @@ app.post('/', (req, res) => {
             (err, rows) => {
                 console.log(rows);
                 if (rows.length == 1) {
-<<<<<<< HEAD
                     console.log("successfully logged in");  
                     //res.clearCookie("user");      
                     cookie.serialize ("user", username);           
-                    cookies = cookie.parse(req.headers.cookie || '');                  
-=======
-                    console.log("successfully logged in");
-                    //res.clearCookie("user");
->>>>>>> cd6b6b1f1df18bda4044cd5e0c095932a70009e9
+                    //cookies = cookie.parse(req.headers.cookie || '');                  
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -137,70 +130,35 @@ app.post('/', (req, res) => {
 
 });
 
-// Add ingredients to the DB
+// Grab ingredients list and manipulate it
 app.post('/kitchen', (req, res) => {
+    //get the ingredients from the database
 
-    //Object with new ingredient
-    const myNewIngredient = req.body;
+    // Object of all ingredient types
+    console.log(req.body);
+    console.log(JSON.stringify());
 
-    // The current user
-    const username = myNewIngredient.user;
-    delete myNewIngredient.user;
+    //console.log(cookie.username);
+    const username = cookies.username;
+    //console.log("hello");
+    console.log("user in kitchen ", username);
+    const newIngredient = req.body.name;
 
-    // The ingredient name
-    const newIngredientName = req.body.name;
+    //run this when the add ingredient button is pressed
+    db.run(
+      'INSERT INTO ingredients VALUES ($user, $ingredient)',
+        { 
+           $user: username,
+           $ingredient: newIngredient,
+        },
 
-
-    console.log(myNewIngredient);
-    console.log("User", username, "in kitchen, with new ingredient:", newIngredientName);
-
-    //First, find out if the user already has an entry in the DB for their ingredients
-    db.all(
-      'SELECT * FROM ingredients WHERE username=$user',
-      {
-        $user: username
-      },
-      (err, rows) => {
-        if (rows.length == 1){
-          //User already has ingredients in their kitchen, so we update the ingredients
-          const myCurrentIngredients = JSON.parse(rows[0].ingredients);
-          const updatedIngredients = myCurrentIngredients.concat(myNewIngredient);
-          const updatedIngredientsString = JSON.stringify(updatedIngredients);
-
-          db.run(
-            'UPDATE ingredients SET ingredients=$ingredients WHERE username=$user',
-            {
-              $ingredients: updatedIngredientsString,
-              $user: username
-            },
-            (err) => {
-              if(err){
-                console.log("There was an error updating ingredient:", myNewIngredient);
-              } else {
-                console.log("Successfully upated ingredient,", newIngredientName, ", for user:", username);
-              }
-            }
-          )
-        //User is inserting ingredients into their kitchen for the first time
-        }else{
-          const myNewIngredientString = JSON.stringify(myNewIngredient);
-          db.run(
-            'INSERT INTO ingredients VALUES ($user, $ingredients)',
-            {
-              $user: username,
-              $ingredients: "[" + myNewIngredientString + "]"
-            },
-            (err) => {
-              if(err){
-                console.log("There was an error inserting ingredient:", myNewIngredient);
-              } else {
-                console.log("Successfully inserted ingredient,", newIngredientName, ", for user:", username);
-              }
-            }
-          )
-        }
-      }
-    )
+        (err) =>{
+          if(err)
+              console.log("error adding " + newIngredient);
+          else
+              console.log("successfully added " + newIngredient + " for " + username);
+        } 
+    );
 });
 
 
