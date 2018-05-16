@@ -19,20 +19,9 @@ exports.view = function(req,res){
 				console.log("kitchen js file")
 				//console.log(rows);
 				ingredientsDB = rows.map(e => e.ingredients);
-				console.log("here are the ingredients we got from the db: " + ingredientsDB);
-				res.render('kitchen', res.set('ingredientsDB'));						
-				
+				console.log("here are the ingredients we got from the db: " + ingredientsDB);			
 			}
 		}
-
 	);
-	
-
-
-	//res.send(ingredientsDB,res.render('kitchen'));
-	/*res.render('kitchen', (err, html) => {
-		//console.log(html);
-		res.send(ingredientsDB, html);
-	});*/
-		
+	res.render('kitchen');
 }
