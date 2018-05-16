@@ -18,9 +18,9 @@ exports.view = function(req,res){
 				console.log(username + " is in the kitchen");
 				//console.log(rows);
 				ingredientsDB = rows.map(e => e.ingredients);
-				console.log("here are the ingredients we got from the db: " + ingredientsDB);
+				console.log("here are the ingredients we got from the db: " + ingredientsDB);				
 			}
 		}
-	);
+	);	
 	res.render('kitchen');
 }

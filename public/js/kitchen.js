@@ -99,21 +99,29 @@ $(document).ready(() => {
                     this.ingredients.push({ name: newName, category: newCategory, note: newNote });
                     //console.log(newName); //add this to the dataBase
                     //console.log(typeof(newName)); //is a string
-                    const newestIngredients = { name: newName, category: newCategory, note: newNote };
-                    console.log(cookies)
-                    const username = cookies.get('user');
-                    console.log(this.ingredients);
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'json',
-                        data: newestIngredients
-                    });
+                    const newestIngredients = { name: newName, category: newCategory, note: newNote };                    
+                    const username = Cookies.get('user');
+                    console.log(newCategory);                    
+                    if(newCategory == ""){                        
+                        alert("Please select a Category");
+                        console.log(newName);
+                        $('#ingredientNameInput').value = newName;
+                        $('#ingredientNoteTextarea').value = newNote;
+                    }
+                    else{
+                        $.ajax({
+                            type: 'POST',
+                            dataType: 'json',
+                            data: newestIngredients
+                        });
+                        this.newName = "";
+                        this.newCategory = "";
+                        this.newNote = "";
+                        closeModal();
+                    }
                     
-                }
-                this.newName = "";
-                this.newCategory = "";
-                this.newNote = "";
-                closeModal();
+                }                
+                
             },
             removeIngredient: function (ingredient) {
                 console.log("Ingredients before" + JSON.stringify(this.ingredients));

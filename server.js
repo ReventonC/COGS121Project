@@ -55,6 +55,7 @@ const my_ingredients = { fridge: [], spices: [], cupboard: [] };
 
 // The name of the user
 let username = '';
+let cookies = '';
 
 
 // Check the login credentials
@@ -85,7 +86,8 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");  
-                    res.clearCookie("user");                 
+                    //res.clearCookie("user");      
+                    cookie.serialize ("user", username);           
                     cookies = cookie.parse(req.headers.cookie || '');                  
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
