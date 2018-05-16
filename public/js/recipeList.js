@@ -1,21 +1,4 @@
 $(document).ready(() => {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        success: (ingredients) => {
-            console.log(ingredients);
-            const list = ingredients['list'];
-            $("#print_test_data").html(list);
-
-            // const fridge_list = ingredients['fridge'];
-            // const spice_rack = ingredients['spices'];
-            // const cupboard = ingredients['cupboard'];
-            //
-            // $("#print_test_data").html(fridge_list + "      ");
-            // $("#print_test_data").append(spice_rack + "       ");
-            // $("#print_test_data").append(cupboard + "      ");
-        }
-    });
 
     $('.recipeBox').on('click', () => {
         window.location = "recipeResult";
@@ -27,7 +10,18 @@ $(document).ready(() => {
             recipeList: []
         },
         mounted: function() {
-            // ajax call
+            // Grab the current user's recipes
+            const username = Cookies.get('user');
+            $.ajax({
+                type: 'POST',
+                data: {user: username},
+                dataType: 'json',
+                success: (ingredients) => {
+                    console.log(ingredients);
+                }
+            });
+
+
             this.recipeList= [
                 {
                     "id": 556470,

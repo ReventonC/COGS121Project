@@ -208,7 +208,6 @@ app.post('/kitchen', (req, res) => {
               }
             );
           }
-
         }
       }
     );
@@ -217,10 +216,12 @@ app.post('/kitchen', (req, res) => {
 // Grab all of the user recipes from the DB and send them to the users
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
-app.post('/recipeList-bdszjfjfabjkcvbjkxzbcvjkblljdfbvjzbxcjklbvzcv', (req, res) => {
+app.post('/recipeList', (req, res) => {
     let temp;
     let ingredientsList = [];
     // Grab the recipes from the list
+    const username = req.body.user;
+
     db.all(
         'SELECT * FROM ingredients WHERE username=$user',
 
@@ -230,8 +231,11 @@ app.post('/recipeList-bdszjfjfabjkcvbjkxzbcvjkblljdfbvjzbxcjklbvzcv', (req, res)
 
         (err, rows) => {
             console.log('Grabbing ingredients for API call:', rows[0]);
-            ingredientsList = ((JSON.parse(rows[0].fridge_list)).
-                concat(JSON.parse(rows[0].spice_rack))).concat(JSON.parse(rows[0].cupboard));
+            const myIngredientsList = JSON.parse(rows[0].ingredients);
+            for(const myIngObj of myIngredientsList){
+              ingredientsList.push(myIngObj['name']);
+
+            }
 
             //TODO: find out how to break the api call into seperate strings
             //get the recipe information

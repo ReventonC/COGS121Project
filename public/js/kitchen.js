@@ -1,20 +1,4 @@
 $(document).ready(() => {
-    // When user clicks "Submit", send the username and
-    // password to the server to check if it is in the DB
-    $("#make_meal").click(() => {
-
-        //console.log(fridge_list);
-        // All ingredients
-        // const all_ingredients = [];
-        //
-        // const ingredients = { fridge: fridge_list, spices: spice_rack, cupboard: cupboard };
-        //
-        // $.ajax({
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     data: ingredients,
-        // });
-    });
 
     function openModal(e) {
         console.log("Open Modal");
