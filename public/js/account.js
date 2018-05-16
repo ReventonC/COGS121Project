@@ -1,4 +1,4 @@
-window.onload(()=> {
+$(document).ready(() => {
     const accountComponent = new Vue({
         el: "#app",
         data: {
@@ -41,6 +41,9 @@ window.onload(()=> {
             updateInfo: function() {
                 alert("Account Information Updated!");
             }
+        },
+        mounted: {
+            /* ajax call to load user data */
         }
     });
-})
+});
