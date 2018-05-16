@@ -247,6 +247,7 @@ body {
         margin: 20px 0 0 0;
         list-style: none;
         min-width: 330px;
+        max-width: 400px;
         padding: 10px;
         border: solid $color-primary-lightBlue 2px;
         border-radius: 10px;
@@ -460,6 +461,10 @@ body {
         #logOutBtn {
             background-color: $color-primary-lightBlue;
         }
+    }
+
+    #recipeInfo {
+        padding: 2vw;
     }
 
 }
