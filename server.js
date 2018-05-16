@@ -50,12 +50,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Object holding all the ingredients to be inserted into the DB
-const my_ingredients = { fridge: [], spices: [], cupboard: [] };
-
-// The name of the user
-let username = '';
-
 
 // Check the login credentials
 app.post('/', (req, res) => {
@@ -67,7 +61,6 @@ app.post('/', (req, res) => {
     console.log("Username: " + user);
     console.log("Password: " + pass);
 
-    username = user;
 
     // This is a Sign-in Attempt
     if (type == 0) {
@@ -85,8 +78,7 @@ app.post('/', (req, res) => {
                 console.log(rows);
                 if (rows.length == 1) {
                     console.log("successfully logged in");
-                    res.clearCookie("user");
-                    cookies = cookie.parse(req.headers.cookie || '');
+                    //res.clearCookie("user");
                     res.send({user: user, pass: pass, loginRes: 0});
                 } else {
                   console.log("username or password is incorrect");
@@ -135,7 +127,8 @@ app.post('/kitchen', (req, res) => {
     const myNewIngredient = req.body;
 
     // The current user
-    const username = Cookies.get('user');
+    const username = myNewIngredient.user;
+    delete myNewIngredient.user;
 
     // The ingredient name
     const newIngredientName = req.body.name;
