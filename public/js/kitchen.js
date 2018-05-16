@@ -100,17 +100,21 @@ $(document).ready(() => {
                     //console.log(newName); //add this to the dataBase
                     //console.log(typeof(newName)); //is a string
 
-                    const newestIngredients = { name: newName, category: newCategory, note: newNote };                    
+                    const newestIngredients = { name: newName, category: newCategory, note: newNote };
                     const username = Cookies.get('user');
-                    console.log(newCategory);  
-                    newestIngredients.user = username;                  
-                    if(newCategory == ""){                        
+                    console.log(newCategory);
+                    newestIngredients.user = username;
+                    if(newCategory == ""){
                         alert("Please select a Category");
                         console.log(newName);
                         $('#ingredientNameInput').value = newName;
                         $('#ingredientNoteTextarea').value = newNote;
                     }
                     else{
+                        newestIngredients.user = username;
+                        newestIngredients.type = 1;
+                        console.log(this.ingredients);
+                        console.log(newestIngredients);
                         $.ajax({
                             type: 'POST',
                             dataType: 'json',
@@ -121,8 +125,8 @@ $(document).ready(() => {
                         this.newNote = "";
                         closeModal();
                     }
-                    
-                }        
+
+                }
 
             },
             removeIngredient: function (ingredient) {
@@ -192,33 +196,18 @@ $(document).ready(() => {
         },
         mounted: function () {
             /* ajax call to load all the ingredients from database */
-            /*this.ingredients = [
-                 {
-                     name: "Pork Belly",
-                     category: "Meat",
-                     note: "2 pounds"
-                 }, {
-                     name: "Lettuce",
-                     category: "Vegetable",
-                     note: "1 pack"
-                 }, {
-                     name: "Salt",
-                     category: "Spice",
-                     note: "Sea Salt"
-                 }, {
-                     name: "Rice",
-                     category: "Grain",
-                     note: "Never buy this brand again"
-                 }, {
-                     name: "Beef Sirloin",
-                     category: "Meat",
-                     note: "1 pound from Ralphs"
-                 }, {
-                     name: "Soy Sauce",
-                     category: "Sauce",
-                     note: "1 bottle"
-                 }
-             ];*/
+            const user = {user: Cookies.get('user'), type: 0};
+            $.ajax({
+                type: 'POST',
+                data: user,
+                dataType: 'json',
+                success: (data) => {
+                  for(const ingredient of data){
+                    this.ingredients.push(ingredient);
+                  }
+
+                }
+            });
         }
     });
 
