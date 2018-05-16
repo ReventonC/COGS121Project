@@ -37,17 +37,17 @@ $(document).ready(() => {
         }
     });
 
-    $(document).ready(() => {
-        console.log("hello");
-        $.ajax({
-            type: 'GET',
-            dataType: 'json',
-            success: (ingredients, status) => {
-                console.log(status);
-                //this.ingredients.push({ name: newName, category: newCategory, note: newNote });
-            }
-        });
+    
+    console.log("hello");
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        success: (ingredients, status) => {
+            console.log(status);
+            //this.ingredients.push({ name: newName, category: newCategory, note: newNote });
+        }
     });
+
     
     const pantryComponent = new Vue({
         el: "#app",
