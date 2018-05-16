@@ -10,12 +10,13 @@
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/js-cookie.js"></script>
     <script src="/js/recipeList.js"></script>
+    <script src="/js/vue.js"></script>
 </head>
 
 <body>
     <header>
         <div id="brandBox">
-            <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:50px;height:31px;"/>
+            <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:50px;height:31px;" />
             <p id="appName">
                 <span style="color: #EA4622">Pan</span><span style="color: #9fd8e2">tr</span><span style="color: #F2847A">y</span>
             </p>
@@ -32,23 +33,123 @@
         <div id="resultList">
             <button class="backBtn" onclick="window.location='kitchen'">back</button>
             <div class="wrapper">
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-                <div class="recipeBox"></div>
-            </div>
-            <div id="print_test_data">
-              <p>List:</p>
+                <div v-for="recipe in recipeList" class="recipeBox">
+                    <img class="backgroundImg" :src="recipe.image"/>
+                    <h3 class="recipeName">\{{recipe.title}}</h3>
+                    <div>
+                        <div>Used: \{{recipe.usedIngredientCount}}</div>
+                        <div>Missed: \{{recipe.missedIngredientCount}}</div>
+                    </div>
+                    <div>Likes: \{{recipe.likes}}</div>
+                </div>
             </div>
         </div>
-
     </div>
+
+    <script>
+        const resultListComponent = new Vue({
+            el: "#resultList",
+            data: {
+                recipeList: [
+                    {
+                        "id": 556470,
+                        "title": "Apple fritters",
+                        "image": "https://spoonacular.com/recipeImages/556470-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 243
+                    },
+                    {
+                        "id": 47950,
+                        "title": "Cinnamon Apple Crisp",
+                        "image": "https://spoonacular.com/recipeImages/47950-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 35
+                    },
+                    {
+                        "id": 534573,
+                        "title": "Brown Butter Apple Crumble",
+                        "image": "https://spoonacular.com/recipeImages/534573-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 7
+                    },
+                    {
+                        "id": 47732,
+                        "title": "Apple Tart",
+                        "image": "https://spoonacular.com/recipeImages/47732-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 0
+                    },
+                    {
+                        "id": 47891,
+                        "title": "Apple Tart",
+                        "image": "https://spoonacular.com/recipeImages/47891-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 0
+                    },
+                    {
+                        "id": 556470,
+                        "title": "Apple fritters",
+                        "image": "https://spoonacular.com/recipeImages/556470-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 243
+                    },
+                    {
+                        "id": 47950,
+                        "title": "Cinnamon Apple Crisp",
+                        "image": "https://spoonacular.com/recipeImages/47950-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 35
+                    },
+                    {
+                        "id": 534573,
+                        "title": "Brown Butter Apple Crumble",
+                        "image": "https://spoonacular.com/recipeImages/534573-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 7
+                    },
+                    {
+                        "id": 47732,
+                        "title": "Apple Tart",
+                        "image": "https://spoonacular.com/recipeImages/47732-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 0
+                    },
+                    {
+                        "id": 47891,
+                        "title": "Apple Tart",
+                        "image": "https://spoonacular.com/recipeImages/47891-312x231.jpg",
+                        "imageType": "jpg",
+                        "usedIngredientCount": 3,
+                        "missedIngredientCount": 0,
+                        "likes": 0
+                    },
+                ]
+            },
+            mounted: {
+                // ajax call
+            }
+
+        });
+
+    </script>
 
 </body>
 

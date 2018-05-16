@@ -308,7 +308,7 @@ app.post('/kitchen', (req, res) => {
 // Grab all of the user recipes from the DB and send them to the users
 //TODO: once routes are implemented, can make this a Get request that triggers when page loads,
 // rather than having to make an ajax post request. then input the route name
-app.post('/recipeList', (req, res) => {
+app.post('/recipeList-bdszjfjfabjkcvbjkxzbcvjkblljdfbvjzbxcjklbvzcv', (req, res) => {
     let temp;
     let ingredientsList = [];
     // Grab the recipes from the list
