@@ -11,21 +11,22 @@ exports.view = function(req,res){
 	db.all(
 		'SELECT * FROM ingredients WHERE username=$user' ,
 		{
-			$user: username,
+			$user: username
 		},
 		(err, rows) => {
 			if(err)
 				console.log("Couldn't get ingredients on the kitchen page");
 			else{
-				//Aaron: idk why it prints double ingredients
-				console.log(rows);
+				console.log("kitchen js file")
+				//console.log(rows);
 				ingredientsDB = rows.map(e => e.ingredients);
-				console.log("here are the ingredients we got from the db: " + ingredientsDB);
-				//res.send(ingredientsDB);
+				console.log("here are the ingredients we got from the db: " + ingredientsDB);				
+				
 			}
 		}
 
 	);
+
 	//res.send(ingredientsDB,res.render('kitchen'));
 	/*res.render('kitchen', (err, html) => {
 		//console.log(html);
