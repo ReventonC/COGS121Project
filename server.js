@@ -306,6 +306,96 @@ app.post('/recipeList', (req, res) => {
 }
 );
 
+app.post('/recipeResult', (req, res) => {
+   let ingredientsList = [];
+    let myRecipes = [];
+
+   //get the username 
+  const username = req.body.user;
+  console.log("recipeList page");
+  db.all(
+        'SELECT * FROM ingredients WHERE username=$user',
+
+        {
+            $user: username
+        },
+
+        (err, rows) => {
+            console.log(rows);
+            console.log('Grabbing ingredients for API call:', rows[0]);
+            const myIngredientsList = JSON.parse(rows[0].ingredients);
+            for(const myIngObj of myIngredientsList){
+              ingredientsList.push(myIngObj['name']);
+
+            }
+
+
+            //let ingredientsList = ['apple', 'ice cream'];
+
+            console.log("The given ingredients list is:", ingredientsList);
+            let ingredients = '';
+            //CHANGE THIS NUM TO DISPLAY DIFFERENT AMOUNT OF RECIPE RESULTS
+            const numResults = 8;
+            ingredientsList.forEach((i) => {
+                i.replace(" ", "+");
+                ingredients += i + "%2C";
+            });
+            const apiCall = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients="
+                + ingredients + "&limitLicense=false&number=" + numResults + "&ranking=1";
+
+
+            //work with the actual recipe steps
+            let id = []; //make a list of ids
+            let apiRecipe = ''
+
+
+            //testing the api
+            //get gets all the parameters and sends it to the server for a request
+            //headers are used as authentication
+            //end specifies what to do with the request
+            //unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limit%2CLicense=false&number=5&ranking=1")
+            unirest.get(apiCall)
+                .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+                .header("Accept", "application/json")
+                .end(function (result) {
+
+                    //push the id numbers that would be used to find the recipeslater
+                    result.body.forEach((i) => {
+                        id.push(i.id);
+                    });
+
+                    //UNCOMMENT TO SHOW RESULTS
+                    //console.log(result.status);   //it prints '200' -- what does status 200 mean?
+                    //console.log(result.headers);   //it prints information about the request - useless?
+                    //console.log(result.body);   //print recipes
+                    myRecipes = result.body;
+
+                    //console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
+                    
+                    //store apiRecipe string here
+                    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+                    //get the actual recipe(gets info from recipe ID)
+
+                    //recipe instructions
+                    unirest.get(apiRecipe)
+                        .header("X-Mashape-Key", "ZRc27DkA72mshgJldUbTYfADBUgnp1YbkANjsnMBCxTNjW5Krf")
+                        .header("Accept", "application/json")
+                        .end(function (result) {
+                            //UNCOMMENT TO PRINT ALL THE INSTRUCTIONS!!!
+                            console.log(result.status, result.headers, result.body);
+                            res.send(result.body);
+                            //console.log(result.body);
+                        });
+
+
+                });
+            //TRY RETURNING HERE
+            //console.log("Bottom of API call:", myRecipes);
+            //res.send(myRecipes);
+        });
+
+});
+
 app.listen(3000, () => {
     console.log("Server started on http://localhost:3000/");
 });

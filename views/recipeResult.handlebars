@@ -501,15 +501,18 @@
                     "creditsText": "Feed Me Phoebe"
                 },
                 mounted: function () {
+                    const username = Cookies.get('user');
+                    //console.log(username);
                     $.ajax({
-                    type: 'GET',
-                    dataType: 'json',
-                    success: (instructions, status) => {
-                        console.log(status);
-                        //this.ingredients.push({ name: newName, category: newCategory, note: newNote });
+                        type: 'POST',
+                        data: {user: username},
+                        dataType: 'json',
+                        success: (instructions) => {
+                            console.log(instructions);
+                            
                         }
                     });
-                }
+                    }
 
             });
         })
