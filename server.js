@@ -84,8 +84,8 @@ app.post('/', (req, res) => {
                 if (rows.length == 1) {
                     console.log("successfully logged in");
                     //res.clearCookie("user");
-                    cookie.serialize ("user", username);
-                    cookies = cookie.parse(req.headers.cookie || '');
+                    //cookie.serialize ("user", username);
+                    //cookies = cookie.parse(req.headers.cookie || '');
                     console.log("successfully logged in");
                     //res.clearCookie("user");
                     res.send({user: user, pass: pass, loginRes: 0});
@@ -281,7 +281,7 @@ app.post('/recipeList', (req, res) => {
                     //console.log(result.body);   //print recipes
                     myRecipes = result.body;
 
-                    console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
+                    //console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
                     res.send(myRecipes);
 
                     //store apiRecipe string here
