@@ -63,6 +63,7 @@
             const recipeComponent = new Vue({
                 el: "#recipe",
                 data: {
+                    //recipeInfo: [],
                     "vegetarian": false,
                     "vegan": false,
                     "glutenFree": false,
@@ -509,10 +510,18 @@
                         dataType: 'json',
                         success: (instructions) => {
                             console.log(instructions);
+                            //console.log(Object.keys(instructions));
+                            //const recipeResults = JSON.parse(instructions);
+                            //console.log(instructions.vegetarian);
+                            console.log(this.vegetarian); //prints the data field in vue
+                            console.log(this);
+                            // for(const i of this.data){
+                            //     console.log(i);
+                            //  }
                             
                         }
                     });
-                    }
+                }
 
             });
         })

@@ -307,12 +307,13 @@ app.post('/recipeList', (req, res) => {
 );
 
 app.post('/recipeResult', (req, res) => {
+
    let ingredientsList = [];
     let myRecipes = [];
 
    //get the username 
   const username = req.body.user;
-  console.log("recipeList page");
+  console.log(username,  "in recipeList page");
   db.all(
         'SELECT * FROM ingredients WHERE username=$user',
 
@@ -382,7 +383,7 @@ app.post('/recipeResult', (req, res) => {
                         .header("Accept", "application/json")
                         .end(function (result) {
                             //UNCOMMENT TO PRINT ALL THE INSTRUCTIONS!!!
-                            console.log(result.status, result.headers, result.body);
+                            //console.log(result.status, result.headers, result.body);
                             res.send(result.body);
                             //console.log(result.body);
                         });
