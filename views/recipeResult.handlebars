@@ -63,30 +63,31 @@
             const recipeComponent = new Vue({
                 el: "#recipe",
                 data: {
-                    //recipeInfo: [],
-                    "vegetarian": false,
-                    "vegan": false,
-                    "glutenFree": false,
-                    "dairyFree": true,
-                    "veryHealthy": false,
-                    "cheap": false,
-                    "veryPopular": false,
-                    "sustainable": false,
-                    "weightWatcherSmartPoints": 9,
-                    "gaps": "no",
-                    "lowFodmap": false,
-                    "ketogenic": false,
-                    "whole30": false,
-                    "preparationMinutes": 10,
-                    "cookingMinutes": 10,
-                    "sourceUrl": "http://feedmephoebe.com/2013/11/job-food52s-pan-roasted-cauliflower/",
-                    "spoonacularSourceUrl": "https://spoonacular.com/on-the-job-pan-roasted-cauliflower-from-food52-479101",
-                    "aggregateLikes": 225,
-                    "spoonacularScore": 97,
-                    "healthScore": 46,
-                    "creditText": "Feed Me Phoebe",
-                    "sourceName": "Feed Me Phoebe",
-                    "pricePerServing": 199.25,
+                    basicRecipeInfo: [
+                        "vegetarian",
+                        "vegan",
+                        "glutenFree",
+                        "dairyFree",
+                        "veryHealthy",
+                        "cheap",
+                        "veryPopular",
+                        "sustainable",
+                        "weightWatcherSmartPoints",
+                        "gaps",
+                        "lowFodmap",
+                        "ketogenic",
+                        "whole30",
+                        "preparationMinutes",
+                        "cookingMinutes",
+                        "sourceUrl",
+                        "spoonacularSourceUrl",
+                        "aggregateLikes",
+                        "spoonacularScore",
+                        "healthScore",
+                        "creditText",
+                        "sourceName",
+                        "pricePerServing",
+                    ],
                     "extendedIngredients": [
                         {
                             "id": 18079,
@@ -511,13 +512,14 @@
                         success: (instructions) => {
                             console.log(instructions);
                             //console.log(Object.keys(instructions));
-                            //const recipeResults = JSON.parse(instructions);
+                            const recipeResults = JSON.parse(instructions);
                             //console.log(instructions.vegetarian);
                             console.log(this.vegetarian); //prints the data field in vue
                             console.log(this);
-                            // for(const i of this.data){
-                            //     console.log(i);
-                            //  }
+                            for(let i of this.basicRecipeInfo){
+                                //basicRecipeInfo.i = instructions[0];
+                                console.log(i);
+                             }
                             
                         }
                     });
