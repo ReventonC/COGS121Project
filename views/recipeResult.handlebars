@@ -62,292 +62,291 @@
         $(document).ready(() => {
             const recipeComponent = new Vue({
                 el: "#recipe",
-                data: {
-                    basicRecipeInfo: [
-                        "vegetarian",
-                        "vegan",
-                        "glutenFree",
-                        "dairyFree",
-                        "veryHealthy",
-                        "cheap",
-                        "veryPopular",
-                        "sustainable",
-                        "weightWatcherSmartPoints",
-                        "gaps",
-                        "lowFodmap",
-                        "ketogenic",
-                        "whole30",
-                        "preparationMinutes",
-                        "cookingMinutes",
-                        "sourceUrl",
-                        "spoonacularSourceUrl",
-                        "aggregateLikes",
-                        "spoonacularScore",
-                        "healthScore",
-                        "creditText",
-                        "sourceName",
-                        "pricePerServing",
-                    ],
-                    "extendedIngredients": [
-                        {
-                            "id": 18079,
-                            "aisle": "Pasta and Rice",
-                            "image": "breadcrumbs.jpg",
-                            "consitency": "solid",
-                            "name": "breadcrumbs",
-                            "original": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
-                            "originalString": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
-                            "originalName": null,
-                            "amount": 0.5,
-                            "unit": "cup",
-                            "meta": [
-                                "fresh",
-                                "(I used gluten-free!)"
-                            ],
-                            "metaInformation": [
-                                "fresh",
-                                "(I used gluten-free!)"
-                            ],
-                            "measures": {
-                                "us": {
-                                    "amount": 0.5,
-                                    "unitShort": "cups",
-                                    "unitLong": "cups"
-                                },
-                                "metric": {
-                                    "amount": 118.294,
-                                    "unitShort": "g",
-                                    "unitLong": "grams"
-                                }
-                            }
-                        },
-                        {
-                            "id": 11135,
-                            "aisle": "Produce",
-                            "image": "cauliflower.jpg",
-                            "consitency": "solid",
-                            "name": "cauliflower",
-                            "original": "1 head of cauliflower",
-                            "originalString": "1 head of cauliflower",
-                            "originalName": null,
-                            "amount": 1,
-                            "unit": "head",
-                            "meta": [],
-                            "metaInformation": [],
-                            "measures": {
-                                "us": {
-                                    "amount": 1,
-                                    "unitShort": "head",
-                                    "unitLong": "head"
-                                },
-                                "metric": {
-                                    "amount": 1,
-                                    "unitShort": "head",
-                                    "unitLong": "head"
-                                }
-                            }
-                        },
-                        {
-                            "id": 11297,
-                            "aisle": "Produce",
-                            "image": "parsley.jpg",
-                            "consitency": "solid",
-                            "name": "fresh parsley",
-                            "original": "1 handful parsley, chopped",
-                            "originalString": "1 handful parsley, chopped",
-                            "originalName": null,
-                            "amount": 1,
-                            "unit": "handful",
-                            "meta": [
-                                "chopped"
-                            ],
-                            "metaInformation": [
-                                "chopped"
-                            ],
-                            "measures": {
-                                "us": {
-                                    "amount": 1,
-                                    "unitShort": "handful",
-                                    "unitLong": "handful"
-                                },
-                                "metric": {
-                                    "amount": 1,
-                                    "unitShort": "handful",
-                                    "unitLong": "handful"
-                                }
-                            }
-                        },
-                        {
-                            "id": 2063,
-                            "aisle": "Produce",
-                            "image": "rosemary.jpg",
-                            "consitency": "solid",
-                            "name": "fresh rosemary",
-                            "original": "2 teaspoons fresh rosemary, chopped",
-                            "originalString": "2 teaspoons fresh rosemary, chopped",
-                            "originalName": null,
-                            "amount": 2,
-                            "unit": "teaspoons",
-                            "meta": [
-                                "fresh",
-                                "chopped"
-                            ],
-                            "metaInformation": [
-                                "fresh",
-                                "chopped"
-                            ],
-                            "measures": {
-                                "us": {
-                                    "amount": 2,
-                                    "unitShort": "tsps",
-                                    "unitLong": "teaspoons"
-                                },
-                                "metric": {
-                                    "amount": 2,
-                                    "unitShort": "tsps",
-                                    "unitLong": "teaspoons"
-                                }
-                            }
-                        },
-                        {
-                            "id": 9297,
-                            "aisle": "Dried Fruits;Produce;Baking",
-                            "image": "golden-raisins.jpg",
-                            "consitency": "liquid",
-                            "name": "golden raisins",
-                            "original": "1/4 cup golden raisins, chopped",
-                            "originalString": "1/4 cup golden raisins, chopped",
-                            "originalName": null,
-                            "amount": 0.25,
-                            "unit": "cup",
-                            "meta": [
-                                "chopped"
-                            ],
-                            "metaInformation": [
-                                "chopped"
-                            ],
-                            "measures": {
-                                "us": {
-                                    "amount": 0.25,
-                                    "unitShort": "cups",
-                                    "unitLong": "cups"
-                                },
-                                "metric": {
-                                    "amount": 59.147,
-                                    "unitShort": "g",
-                                    "unitLong": "grams"
-                                }
-                            }
-                        },
-                        {
-                            "id": 4053,
-                            "aisle": "Oil, Vinegar, Salad Dressing",
-                            "image": "olive-oil.jpg",
-                            "consitency": "liquid",
-                            "name": "olive oil",
-                            "original": "1/4 cup olive oil, divided",
-                            "originalString": "1/4 cup olive oil, divided",
-                            "originalName": null,
-                            "amount": 0.25,
-                            "unit": "cup",
-                            "meta": [
-                                "divided"
-                            ],
-                            "metaInformation": [
-                                "divided"
-                            ],
-                            "measures": {
-                                "us": {
-                                    "amount": 0.25,
-                                    "unitShort": "cups",
-                                    "unitLong": "cups"
-                                },
-                                "metric": {
-                                    "amount": 59.147,
-                                    "unitShort": "g",
-                                    "unitLong": "grams"
-                                }
-                            }
-                        },
-                        {
-                            "id": 12147,
-                            "aisle": "Produce;Baking",
-                            "image": "pine-nuts.jpg",
-                            "consitency": "solid",
-                            "name": "pine nuts",
-                            "original": "1/2 cup pine nuts",
-                            "originalString": "1/2 cup pine nuts",
-                            "originalName": null,
-                            "amount": 0.5,
-                            "unit": "cup",
-                            "meta": [],
-                            "metaInformation": [],
-                            "measures": {
-                                "us": {
-                                    "amount": 0.5,
-                                    "unitShort": "cups",
-                                    "unitLong": "cups"
-                                },
-                                "metric": {
-                                    "amount": 118.294,
-                                    "unitShort": "g",
-                                    "unitLong": "grams"
-                                }
-                            }
-                        },
-                        {
-                            "id": 1012047,
-                            "aisle": "Spices and Seasonings",
-                            "image": "salt.jpg",
-                            "consitency": "solid",
-                            "name": "sea salt",
-                            "original": "1 teaspoon sea salt",
-                            "originalString": "1 teaspoon sea salt",
-                            "originalName": null,
-                            "amount": 1,
-                            "unit": "teaspoon",
-                            "meta": [],
-                            "metaInformation": [],
-                            "measures": {
-                                "us": {
-                                    "amount": 1,
-                                    "unitShort": "tsp",
-                                    "unitLong": "teaspoon"
-                                },
-                                "metric": {
-                                    "amount": 1,
-                                    "unitShort": "tsp",
-                                    "unitLong": "teaspoon"
-                                }
-                            }
-                        },
-                        {
-                            "id": 10211111,
-                            "aisle": "Ethnic Foods;Spices and Seasonings",
-                            "image": "sumac.png",
-                            "consitency": "solid",
-                            "name": "sumac",
-                            "original": "1/2 teaspoon sumac",
-                            "originalString": "1/2 teaspoon sumac",
-                            "originalName": null,
-                            "amount": 0.5,
-                            "unit": "teaspoon",
-                            "meta": [],
-                            "metaInformation": [],
-                            "measures": {
-                                "us": {
-                                    "amount": 0.5,
-                                    "unitShort": "tsps",
-                                    "unitLong": "teaspoons"
-                                },
-                                "metric": {
-                                    "amount": 0.5,
-                                    "unitShort": "tsps",
-                                    "unitLong": "teaspoons"
-                                }
-                            }
-                        }
-                    ],
+                data: {                    
+                    vegetarian: '',
+                    vegan: '',
+                    glutenFree: '',
+                    dairyFree: '',
+                    veryHealthy: '',
+                    cheap: '',
+                    veryPopular: '',
+                    sustainable: '',
+                    weightWatcherSmartPoints: '',
+                    gaps: '',
+                    lowFodmap: '',
+                    ketogenic: '',
+                    whole30: '',
+                    preparationMinutes: '',
+                    cookingMinutes: '',
+                    sourceUrl: '',
+                    spoonacularSourceUrl: '',
+                    aggregateLikes: '',
+                    spoonacularScore: '',
+                    healthScore: '',
+                    creditText: '',
+                    sourceName: '',
+                    pricePerServing: '',
+                    extendedIngredients: [],                 
+                    // "extendedIngredients": [
+                    //     {
+                    //         "id": 18079,
+                    //         "aisle": "Pasta and Rice",
+                    //         "image": "breadcrumbs.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "breadcrumbs",
+                    //         "original": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
+                    //         "originalString": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
+                    //         "originalName": null,
+                    //         "amount": 0.5,
+                    //         "unit": "cup",
+                    //         "meta": [
+                    //             "fresh",
+                    //             "(I used gluten-free!)"
+                    //         ],
+                    //         "metaInformation": [
+                    //             "fresh",
+                    //             "(I used gluten-free!)"
+                    //         ],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 0.5,
+                    //                 "unitShort": "cups",
+                    //                 "unitLong": "cups"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 118.294,
+                    //                 "unitShort": "g",
+                    //                 "unitLong": "grams"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 11135,
+                    //         "aisle": "Produce",
+                    //         "image": "cauliflower.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "cauliflower",
+                    //         "original": "1 head of cauliflower",
+                    //         "originalString": "1 head of cauliflower",
+                    //         "originalName": null,
+                    //         "amount": 1,
+                    //         "unit": "head",
+                    //         "meta": [],
+                    //         "metaInformation": [],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "head",
+                    //                 "unitLong": "head"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "head",
+                    //                 "unitLong": "head"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 11297,
+                    //         "aisle": "Produce",
+                    //         "image": "parsley.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "fresh parsley",
+                    //         "original": "1 handful parsley, chopped",
+                    //         "originalString": "1 handful parsley, chopped",
+                    //         "originalName": null,
+                    //         "amount": 1,
+                    //         "unit": "handful",
+                    //         "meta": [
+                    //             "chopped"
+                    //         ],
+                    //         "metaInformation": [
+                    //             "chopped"
+                    //         ],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "handful",
+                    //                 "unitLong": "handful"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "handful",
+                    //                 "unitLong": "handful"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 2063,
+                    //         "aisle": "Produce",
+                    //         "image": "rosemary.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "fresh rosemary",
+                    //         "original": "2 teaspoons fresh rosemary, chopped",
+                    //         "originalString": "2 teaspoons fresh rosemary, chopped",
+                    //         "originalName": null,
+                    //         "amount": 2,
+                    //         "unit": "teaspoons",
+                    //         "meta": [
+                    //             "fresh",
+                    //             "chopped"
+                    //         ],
+                    //         "metaInformation": [
+                    //             "fresh",
+                    //             "chopped"
+                    //         ],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 2,
+                    //                 "unitShort": "tsps",
+                    //                 "unitLong": "teaspoons"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 2,
+                    //                 "unitShort": "tsps",
+                    //                 "unitLong": "teaspoons"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 9297,
+                    //         "aisle": "Dried Fruits;Produce;Baking",
+                    //         "image": "golden-raisins.jpg",
+                    //         "consitency": "liquid",
+                    //         "name": "golden raisins",
+                    //         "original": "1/4 cup golden raisins, chopped",
+                    //         "originalString": "1/4 cup golden raisins, chopped",
+                    //         "originalName": null,
+                    //         "amount": 0.25,
+                    //         "unit": "cup",
+                    //         "meta": [
+                    //             "chopped"
+                    //         ],
+                    //         "metaInformation": [
+                    //             "chopped"
+                    //         ],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 0.25,
+                    //                 "unitShort": "cups",
+                    //                 "unitLong": "cups"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 59.147,
+                    //                 "unitShort": "g",
+                    //                 "unitLong": "grams"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 4053,
+                    //         "aisle": "Oil, Vinegar, Salad Dressing",
+                    //         "image": "olive-oil.jpg",
+                    //         "consitency": "liquid",
+                    //         "name": "olive oil",
+                    //         "original": "1/4 cup olive oil, divided",
+                    //         "originalString": "1/4 cup olive oil, divided",
+                    //         "originalName": null,
+                    //         "amount": 0.25,
+                    //         "unit": "cup",
+                    //         "meta": [
+                    //             "divided"
+                    //         ],
+                    //         "metaInformation": [
+                    //             "divided"
+                    //         ],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 0.25,
+                    //                 "unitShort": "cups",
+                    //                 "unitLong": "cups"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 59.147,
+                    //                 "unitShort": "g",
+                    //                 "unitLong": "grams"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 12147,
+                    //         "aisle": "Produce;Baking",
+                    //         "image": "pine-nuts.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "pine nuts",
+                    //         "original": "1/2 cup pine nuts",
+                    //         "originalString": "1/2 cup pine nuts",
+                    //         "originalName": null,
+                    //         "amount": 0.5,
+                    //         "unit": "cup",
+                    //         "meta": [],
+                    //         "metaInformation": [],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 0.5,
+                    //                 "unitShort": "cups",
+                    //                 "unitLong": "cups"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 118.294,
+                    //                 "unitShort": "g",
+                    //                 "unitLong": "grams"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 1012047,
+                    //         "aisle": "Spices and Seasonings",
+                    //         "image": "salt.jpg",
+                    //         "consitency": "solid",
+                    //         "name": "sea salt",
+                    //         "original": "1 teaspoon sea salt",
+                    //         "originalString": "1 teaspoon sea salt",
+                    //         "originalName": null,
+                    //         "amount": 1,
+                    //         "unit": "teaspoon",
+                    //         "meta": [],
+                    //         "metaInformation": [],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "tsp",
+                    //                 "unitLong": "teaspoon"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 1,
+                    //                 "unitShort": "tsp",
+                    //                 "unitLong": "teaspoon"
+                    //             }
+                    //         }
+                    //     },
+                    //     {
+                    //         "id": 10211111,
+                    //         "aisle": "Ethnic Foods;Spices and Seasonings",
+                    //         "image": "sumac.png",
+                    //         "consitency": "solid",
+                    //         "name": "sumac",
+                    //         "original": "1/2 teaspoon sumac",
+                    //         "originalString": "1/2 teaspoon sumac",
+                    //         "originalName": null,
+                    //         "amount": 0.5,
+                    //         "unit": "teaspoon",
+                    //         "meta": [],
+                    //         "metaInformation": [],
+                    //         "measures": {
+                    //             "us": {
+                    //                 "amount": 0.5,
+                    //                 "unitShort": "tsps",
+                    //                 "unitLong": "teaspoons"
+                    //             },
+                    //             "metric": {
+                    //                 "amount": 0.5,
+                    //                 "unitShort": "tsps",
+                    //                 "unitLong": "teaspoons"
+                    //             }
+                    //         }
+                    //     }
+                    // ],
                     "id": 479101,
                     "title": "On the Job: Pan Roasted Cauliflower From Food52",
                     "readyInMinutes": 20,
@@ -512,15 +511,40 @@
                         success: (instructions) => {
                             console.log(instructions);
                             //console.log(Object.keys(instructions));
-                            const recipeResults = JSON.parse(instructions);
-                            //console.log(instructions.vegetarian);
-                            console.log(this.vegetarian); //prints the data field in vue
-                            console.log(this);
-                            for(let i of this.basicRecipeInfo){
-                                //basicRecipeInfo.i = instructions[0];
-                                console.log(i);
-                             }
                             
+                            console.log(instructions.vegetarian);
+                            //console.log(this.vegetarian); //prints the data field in vue
+                            this.vegetarian = instructions.vegetarian;
+                            //console.log(this.vegetarian); //works
+                            this.vegan = instructions.vegan;                            
+                            this.glutenFree = instructions.glutenFree;
+                            this.dairyFree = instructions.dairyFree;
+                            this.veryHealthy = instructions.veryHealthy;
+                            this.cheap = instructions.cheap;
+                            this.veryPopular = instructions.veryPopular;
+                            this.sustainable = instructions.sustainable;
+                            this.weightWatcherSmartPoints = instructions.weightWatcherSmartPoints;
+                            this.gaps = instructions.gaps;
+                            this.lowFodmap = instructions.lowFodmap;
+                            this.ketogenic = instructions.ketogenic;
+                            this.whole30 = instructions.whole30;
+                            this.preparationMinutes = instructions.preparationMinutes;
+                            this.cookingMinutes = instructions.cookingMinutes;
+                            this.sourceUrl = instructions.sourceUrl;
+                            this.spoonacularSourceUrl = instructions.spoonacularSourceUrl;
+                            this.aggregateLikes = instructions.aggregateLikes;
+                            this.spoonacularScore = instructions.spoonacularScore;
+                            this.healthScore = instructions.healthScore;
+                            this.creditText = instructions.creditText;
+                            this.sourceName = instructions.sourceName;
+                            this.pricePerServing = instructions.pricePerServing;
+                            console.log(instructions.extendedIngredients);  //just to see the format
+                            for(i of instructions.extendedIngredients){
+                                //console.log(i);
+                                this.extendedIngredients.push(i);
+                            }
+                            //console.log(this.extendedIngredients); //looks good
+                                   
                         }
                     });
                 }
