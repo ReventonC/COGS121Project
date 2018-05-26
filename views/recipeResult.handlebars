@@ -347,13 +347,13 @@
                     //         }
                     //     }
                     // ],
-                    "id": 479101,
-                    "title": "On the Job: Pan Roasted Cauliflower From Food52",
-                    "readyInMinutes": 20,
-                    "servings": 4,
-                    "image": "https://spoonacular.com/recipeImages/479101-556x370.jpg",
-                    "imageType": "jpg",
-                    "cuisines": [],
+                    id: '',
+                    title: '',
+                    readyInMinutes:'',
+                    servings: '',
+                    image: '',
+                    imageType: '',
+                    cuisines: '',
                     "dishTypes": [
                         "side dish"
                     ],
@@ -544,6 +544,16 @@
                                 this.extendedIngredients.push(i);
                             }
                             //console.log(this.extendedIngredients); //looks good
+                            this.id = instructions.id;
+                            this.title = instructions.title;
+                            this.readyInMinutes = instructions.readyInMinutes;
+                            this.servings = instructions.servings;
+                            this.image = instructions.image;
+                            this.imageType = instructions.imageType;
+                            for(i of instructions.cuisines){
+                                //cuisines is an array
+                                this.cuisines.push(i);
+                            }
                                    
                         }
                     });
