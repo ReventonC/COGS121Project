@@ -347,7 +347,8 @@ app.post('/recipeResult', (req, res) => {
 
             //work with the actual recipe steps
             let id = []; //make a list of ids
-            let apiRecipe = ''
+            let apiRecipe = '';
+            let chosenID = $(".backgroundImg").val();
 
 
             //testing the api
@@ -370,6 +371,8 @@ app.post('/recipeResult', (req, res) => {
                     //console.log(result.headers);   //it prints information about the request - useless?
                     //console.log(result.body);   //print recipes
                     myRecipes = result.body;
+                    // let chosenID = $(".backgroundImg").val();
+                    // console.log(chosenID);
 
                     //console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
                     
