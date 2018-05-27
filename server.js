@@ -348,7 +348,7 @@ app.post('/recipeResult', (req, res) => {
             //work with the actual recipe steps
             let id = []; //make a list of ids
             let apiRecipe = '';
-            let chosenID = $(".backgroundImg").val();
+            //let chosenID = $(".backgroundImg").val();
 
 
             //testing the api
