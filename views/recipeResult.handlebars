@@ -49,7 +49,7 @@
                 </ul>
                 <h2>Steps</h2>
                 <ul class="ingredientList">
-                    <li v-for="instruction in analyzedInstructions[0].steps" class="ingredient">
+                    <li v-for="instruction in analyzedInstructions" class="ingredient">
                         \{{instruction.step}}
                     </li>
                 </ul>
@@ -359,7 +359,7 @@
                     occasions: '' ,
                     winePairing: '', 
                     instructions: '',   
-                    analyzedInstructions: '',                  
+                    analyzedInstructions: [],                  
                     // "instructions": "Cut the florets off the stems and and then chop them into tiny florets. You can also chop up the stems into tiny pieces if you want. You should have about 6 cups of chopped cauliflower. In a large skillet heat 2 tablespoons of olive oil over medium-high heat. Add the cauliflower, 1 teaspoon of salt, rosemary, and sumac. Sauté until cauliflower is tender and starts to brown a bit, stirring as necessary, about 15 minutes. You can also add a bit of olive oil if the pan starts to get too dry or the cauliflower is starting to stick. Meanwhile, in a small skillet, toast the pinenuts over medium heat until golden brown. Set aside. Heat the remaining 2 tablespoons of olive oil in the same pan. Once oil is shimmering, toss in the breadcrumbs and stir, toasting the breadcrumbs. Season with a pinch of kosher salt and a few turns of freshly ground black pepper. Remove from the heat and toss in half of the chopped parsley. When cauliflower is done, remove from the heat and season to taste with freshly ground black pepper and a pinch or so of salt if necessary. Toss in the toasted pine nuts, the chopped raisins, and the remaining parsley. When ready to serve, sprinkle the top with the toasted breadcrumbs and some pecorino.",
                     // "analyzedInstructions": [
                     //     {
@@ -503,10 +503,10 @@
                         data: {user: username},
                         dataType: 'json',
                         success: (instructions) => {
-                            console.log(instructions);
+                            //console.log(instructions); //api information
                             //console.log(Object.keys(instructions));
                             
-                            console.log(instructions.vegetarian);
+                            //console.log(instructions.vegetarian);
                             //console.log(this.vegetarian); //prints the data field in vue
                             this.vegetarian = instructions.vegetarian;
                             //console.log(this.vegetarian); //works
@@ -552,8 +552,13 @@
                             this.occasions = instructions.occasions;
                             this.winePairing = instructions.winePairing;
                             this.instructions = instructions.instructions;
-                            console.log(instructions.analyzedInstructions[0]);
-                            this.analyzedInstructions = instructions.analyzedInstructions;
+                            //console.log(instructions.analyzedInstructions[0].steps);
+                            for(i of instructions.analyzedInstructions[0].steps){
+                                //this.analyzedInstructions = instructions.analyzedInstructions;
+                                //console.log(i)
+                                this.analyzedInstructions.push(i);
+                            }
+                            //this.analyzedInstructions = instructions.analyzedInstructions;
                             //console.log(this.analyzedInstructions);
                             
                             this.creditText = instructions.creditText;
