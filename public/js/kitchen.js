@@ -21,6 +21,8 @@ $(document).ready(() => {
         }
     });
 
+    $("#accountBoxUserName").html(Cookies.get("user"));
+
 
     console.log("hello");
     $.ajax({
@@ -47,7 +49,8 @@ $(document).ready(() => {
             selectedIngredientCategory: '',
             selectedIngredientNote: '',
             selectedIngredientTarget: null,
-            edit: false
+            edit: false,
+            checkedIngredients: []
         },
         computed: {
             fridgeItems() {
@@ -71,13 +74,24 @@ $(document).ready(() => {
                 if (this.edit) {
                     this.edit = false;
                     console.log("Editing from " + JSON.stringify({ name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote }));
+
                     $(this.selectedIngredientTarget).closest("li").find(".ingredientName").text(newName);
                     $(this.selectedIngredientTarget).closest("li").find(".ingredientCategory").text(newCategory);
                     $(this.selectedIngredientTarget).closest("li").find(".ingredientNote").text(newNote);
+
+                    for (i = 0; i < this.ingredients.length; i++) {
+                        if (this.selectedIngredientName === this.ingredients[i].name && this.selectedIngredientCategory === this.ingredients[i].category && this.selectedIngredientNote === this.ingredients[i].note) {
+                            this.ingredients[i].name = newName;
+                            this.ingredients[i].category = newCategory;
+                            this.ingredients[i].note = newNote;
+                        }
+                    }
                     this.selectedIngredientName = newName;
                     this.selectedIngredientCategory = newCategory;
                     this.selectedIngredientNote = newNote;
+
                     console.log("Editing to " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
+                    closeModal();
                 } else {
                     console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
                     this.ingredients.push({ name: newName, category: newCategory, note: newNote });
@@ -88,13 +102,13 @@ $(document).ready(() => {
                     const username = Cookies.get('user');
                     console.log(newCategory);
                     newestIngredients.user = username;
-                    if(newCategory == ""){
+                    if (newCategory == "") {
                         alert("Please select a Category");
                         console.log(newName);
                         $('#ingredientNameInput').value = newName;
                         $('#ingredientNoteTextarea').value = newNote;
                     }
-                    else{
+                    else {
                         newestIngredients.user = username;
                         newestIngredients.type = 1;
                         console.log(this.ingredients);
@@ -113,7 +127,7 @@ $(document).ready(() => {
                 }
 
             },
-            removeIngredient: function (ingredient) {
+            removeIngredient: function (e, ingredient) {
                 console.log("Ingredients before" + JSON.stringify(this.ingredients));
                 for (i = 0; i < this.ingredients.length; i++) {
                     if (ingredient.name === this.ingredients[i].name) {
@@ -122,6 +136,7 @@ $(document).ready(() => {
                     }
                 }
                 console.log("Ingredients after" + JSON.stringify(this.ingredients));
+                e.stopPropagation();
             },
             checkFridge: function () {
                 for (i = 0; i < this.ingredients.length; i++)
@@ -176,19 +191,38 @@ $(document).ready(() => {
             },
             closeModal: function (e) {
                 closeModal();
+            },
+            selectCheckBox: function (e) {
+                this.selectedIngredientTarget = e.target;
+                this.selectedIngredientName = $(e.target).closest('li').find(".ingredientName").text();
+                this.selectedIngredientCategory = $(e.target).closest('li').find(".ingredientCategory").text();
+                this.selectedIngredientNote = $(e.target).closest('li').find(".ingredientNote").text();
+
+                e.stopPropagation();
+            },
+            makeMeal: function (e) {
+                this.checkedIngredients = this.ingredients.filter(ingredient => {
+                    return ingredient.isChecked == true;
+                }).map(ingredient => ingredient.name);
+
+                if (this.checkedIngredients.length != 0) {
+                    window.location = 'recipeList';
+                } else {
+                    alert("Please select the ingredients you want to use!");
+                }
             }
         },
         mounted: function () {
             /* ajax call to load all the ingredients from database */
-            const user = {user: Cookies.get('user'), type: 0};
+            const user = { user: Cookies.get('user'), type: 0 };
             $.ajax({
                 type: 'POST',
                 data: user,
                 dataType: 'json',
                 success: (data) => {
-                  for(const ingredient of data){
-                    this.ingredients.push(ingredient);
-                  }
+                    for (const ingredient of data) {
+                        this.ingredients.push(ingredient);
+                    }
 
                 }
             });

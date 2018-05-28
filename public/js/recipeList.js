@@ -3,11 +3,17 @@ $(document).ready(() => {
     $('.recipeBox').on('click', () => {
         window.location = "recipeResult";
     })
+    $("#accountBoxUserName").html(Cookies.get("user"));
 
     const resultListComponent = new Vue({
         el: "#resultList",
         data: {
             recipeList: []
+        },
+        methods: {
+            isListEmpty: function (e) {
+                return true? this.recipeList.length == 0 : false;
+            }
         },
         mounted: function() {
             // Grab the current user's recipes

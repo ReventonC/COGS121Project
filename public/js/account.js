@@ -1,4 +1,7 @@
 $(document).ready(() => {
+
+    $("#accountBoxUserName").html(Cookies.get("user"));
+    
     const accountComponent = new Vue({
         el: "#app",
         data: {

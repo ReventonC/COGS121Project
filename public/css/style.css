@@ -248,7 +248,7 @@ body {
   padding: 10px;
   border: solid #9fd8e2 2px;
   border-radius: 10px;
-  background: white;
+  background: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -257,13 +257,13 @@ body {
 }
 
 .content .ingredientList .selected {
+  background-color: rgba(255, 255, 255, 0.8);
   width: 100%;
   padding: 11px 10px 12px 10px;
   min-height: 50px;
   border-radius: 5px;
   margin-bottom: 10px;
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
   flex-direction: column;
   border: rgba(128, 128, 128, 0.2) solid 2px;
@@ -307,6 +307,12 @@ body {
   background-color: #9fd8e2;
 }
 
+.content .ingredientList .selected .ingredientSelectCheckBox {
+  margin: 5px;
+  border-radius: 5px;
+  border-color: #F2847A;
+}
+
 .content .ingredientList .selected .ingredientDeleteBtn {
   display: none;
   border-radius: 50%;
@@ -320,6 +326,7 @@ body {
 }
 
 .content .ingredientList .ingredient {
+  background-color: rgba(255, 255, 255, 0.5);
   width: 100%;
   padding: 0 10px 0 10px;
   min-height: 50px;
@@ -369,6 +376,12 @@ body {
   background-color: #9fd8e2;
 }
 
+.content .ingredientList .ingredient .ingredientSelectCheckBox {
+  margin: 5px;
+  border-radius: 5px;
+  border-color: #F2847A;
+}
+
 .content .ingredientList .ingredient .ingredientDeleteBtn {
   display: none;
   border-radius: 50%;
@@ -387,11 +400,23 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-image: url("/img/fridgeClosed.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.content #fridge:hover {
+  background-image: url("/img/fridgeOpen.png");
 }
 
 .content #spiceRack {
   position: relative;
   top: 100px;
+  background-image: url("/img/spiceRack.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 250px;
   width: 100%;
   display: flex;

@@ -251,7 +251,7 @@ body {
         padding: 10px;
         border: solid $color-primary-lightBlue 2px;
         border-radius: 10px;
-        background: white;
+        background: rgba(white, 0.5);
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -259,18 +259,18 @@ body {
         overflow: auto;
 
         .selected {
+            background-color: rgba(white, 0.8);
             width: 100%;
             padding: 11px 10px 12px 10px;
             min-height: 50px;
             border-radius: 5px;
             margin-bottom: 10px;
             display: flex;
-            align-items: flex-start;
             justify-content: space-between;
             flex-direction: column;
             border: rgba(grey, 0.2) solid 2px;
             min-height: 100px;
-
+        
             .rowOne {
                 width: 100%;
                 display: flex;
@@ -286,7 +286,7 @@ body {
             &:hover {
                 border: $color-primary-flamingo solid 2px;
                 background-color: #efefef;
-                button {
+                button,{
                     display: inline;
                 }
             }
@@ -307,6 +307,13 @@ body {
                 }   
             }
 
+            .ingredientSelectCheckBox {
+                margin: 5px;
+                border-radius: 5px;
+                border-color: $color-primary-flamingo;
+            }
+
+            
             .ingredientDeleteBtn {
                 display: none;
                 border-radius: 50%;
@@ -321,6 +328,7 @@ body {
         }
         
         .ingredient {
+            background-color: rgba(white, 0.5);
             width: 100%;
             padding: 0 10px 0 10px;
             min-height: 50px;
@@ -347,7 +355,7 @@ body {
             &:hover {
                 border: $color-primary-flamingo solid 2px;
                 background-color: #efefef;
-                button {
+                button, {
                     display: inline;
                 }
             }
@@ -366,6 +374,12 @@ body {
                 &:hover {
                     background-color: $color-primary-lightBlue;                    
                 }   
+            }
+
+            .ingredientSelectCheckBox {
+                margin: 5px;
+                border-radius: 5px;
+                border-color: $color-primary-flamingo;
             }
 
             .ingredientDeleteBtn {
@@ -389,11 +403,23 @@ body {
         display: flex;
         align-items: center;
         flex-direction: column;
+        background-image: url("/img/fridgeClosed.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        &:hover {
+            background-image: url("/img/fridgeOpen.png");
+        }
     }
 
     #spiceRack {
         position: relative;
         top: 100px;
+
+        background-image: url("/img/spiceRack.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
 
         //border: solid orange 1px;
         height: 250px;

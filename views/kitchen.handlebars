@@ -35,11 +35,11 @@
         <div class="wrapperPantry">
             <div class="block">
                 <div id="fridge" class="pantryContainer">
-                    <h1>Fridge</h1>
                     <ul v-if="checkFridge()" class="ingredientList">
                         <li v-for="ingredient in fridgeItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
                                 <p>
+                                    <input v-on:click="selectCheckBox" type="checkbox" v-model="ingredient.isChecked" class="ingredientSelectCheckBox">
                                     <span class="ingredientName">\{{ingredient.name}}</span>
                                     <span class="ingredientHide">
                                         |
@@ -48,7 +48,7 @@
                                 </p>
                                 <div>
                                     <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
-                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                    <button v-on:click="removeIngredient($event, ingredient)" class="ingredientDeleteBtn">x</button>
                                 </div>
                             </div>
                             <p class="ingredientNote">\{{ingredient.note}}</p>
@@ -62,7 +62,7 @@
             <div class="block">
                 <div id="stove" class="pantryContainer">
                     <h1>Stove</h1>
-                    <button id="make_meal" onclick="window.location='recipeList'">Make a Meal!</button>
+                    <button id="make_meal" v-on:click="makeMeal">Make a Meal!</button>
                 </div>
             </div>
             <div class="block">
@@ -72,6 +72,7 @@
                         <li v-for="ingredient in spiceRackItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
                                 <p>
+                                    <input v-on:click="selectCheckBox" type="checkbox" v-model="ingredient.isChecked" class="ingredientSelectCheckBox">
                                     <span class="ingredientName">\{{ingredient.name}}</span>
                                     <span class="ingredientHide">
                                         |
@@ -80,7 +81,7 @@
                                 </p>
                                 <div>
                                     <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
-                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                    <button v-on:click="removeIngredient($event, ingredient)" class="ingredientDeleteBtn">x</button>
                                 </div>
                             </div>
                             <p class="ingredientNote">\{{ingredient.note}}</p>
@@ -97,6 +98,7 @@
                         <li v-for="ingredient in cupboardItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
                                 <p>
+                                    <input v-on:click="selectCheckBox" v-model="ingredient.isChecked" type="checkbox" class="ingredientSelectCheckBox">         
                                     <span class="ingredientName">\{{ingredient.name}}</span>
                                     <span class="ingredientHide">
                                         |
@@ -105,7 +107,7 @@
                                 </p>
                                 <div>
                                     <button v-on:click="editIngredient" class="ingredientEditBtn">Edit</button>
-                                    <button v-on:click="removeIngredient(ingredient)" class="ingredientDeleteBtn">x</button>
+                                    <button v-on:click="removeIngredient($event, ingredient)" class="ingredientDeleteBtn">x</button>
                                 </div>
                             </div>
                             <p class="ingredientNote">\{{ingredient.note}}</p>

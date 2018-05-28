@@ -32,7 +32,12 @@
     <div class="content">
         <div id="resultList">
             <button class="backBtn" onclick="window.location='kitchen'">back</button>
-            <div class="wrapper">
+            <div class="NoRecipeFoundDiv" v-if = "isListEmpty">
+                    <p>
+                        Ooops. No recipe is found. Try with some other ingredients!                        
+                    </p>
+                </div>
+            <div v-else class="wrapper">
                 <div v-for="recipe in recipeList" class="recipeBox" onclick="window.location='recipeResult'">
                     <img class="backgroundImg" :src="recipe.image"/>
                     <h3 class="recipeName">\{{recipe.title}}</h3>
