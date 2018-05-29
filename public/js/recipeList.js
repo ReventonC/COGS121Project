@@ -1,7 +1,18 @@
 $(document).ready(() => {
 
     $('.recipeBox').on('click', () => {
+      console.log(hello);
         window.location = "recipeResult";
+         $.ajax({
+                type: 'POST',
+                data: {user: username},
+                dataType: 'json',
+                success: (recipes) => {                  
+                  document.cookie = "id=" + recipes.id;
+                  let id = Cookies.get('id');
+                  console.log(id);
+                }
+        });
     })
     $("#accountBoxUserName").html(Cookies.get("user"));
 
