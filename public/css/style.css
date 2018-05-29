@@ -483,6 +483,56 @@ body {
   padding: 2vw;
 }
 
+.content #recipeInfo .titleBlock {
+  display: flex;
+}
+
+.content #recipeInfo .titleBlock .titleBlockLeft {
+  width: 500px;
+  margin: 10px;
+}
+
+.content #recipeInfo .titleBlock .titleBlockLeft h1 {
+  max-width: 500px;
+}
+
+.content #recipeInfo .titleBlock .titleBlockLeft .ingredientList {
+  min-width: 230px;
+  height: 400px;
+  margin: 10px;
+  justify-content: flex-start;
+}
+
+.content #recipeInfo .titleBlock .recipeImg {
+  margin: 10px;
+  padding: 10px;
+  object-fit: contain;
+  background-color: #aaaaaa4f;
+}
+
+.content #recipeInfo .ingredientBlock {
+  display: flex;
+}
+
+.content #recipeInfo .ingredientBlock .chartBlock {
+  margin: 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border: solid #9fd8e2 2px;
+  padding: 10px;
+}
+
+.content #recipeInfo .ingredientBlock .chartBlock, .content #recipeInfo .ingredientBlock .ingredientList {
+  min-height: 400px;
+  margin: 10px;
+  min-width: 500px;
+}
+
+.content #recipeInfo .stepBlock .ingredientList {
+  margin: 10px;
+  min-width: 1020px;
+}
+
 #loginBox {
   padding: 20px;
   min-width: 300px;

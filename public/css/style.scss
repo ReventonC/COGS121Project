@@ -491,6 +491,57 @@ body {
 
     #recipeInfo {
         padding: 2vw;
+
+        .titleBlock {
+            display: flex;
+            .titleBlockLeft {
+                width: 500px;
+                margin: 10px;
+                h1 {
+                    max-width: 500px;
+                }
+
+                .ingredientList {
+                    min-width: 230px;
+                    height: 400px;
+                    margin: 10px;
+                    justify-content: flex-start;
+                }
+            }
+            
+            .recipeImg {
+                margin: 10px; 
+                padding: 10px;
+                object-fit: contain;
+                background-color: #aaaaaa4f;
+            }
+        }
+        
+
+        .ingredientBlock {
+            display: flex;
+            .chartBlock {
+                margin: 10px;
+                border-radius: 10px;
+                background: rgba(white, 0.5);
+                
+                border: solid $color-primary-lightBlue 2px;
+                padding: 10px;
+            }
+
+            .chartBlock, .ingredientList {
+                min-height: 400px;
+                margin: 10px;
+                min-width: 500px;
+            }
+        }
+
+        .stepBlock {
+            .ingredientList {
+                margin: 10px;
+                min-width: 1020px;
+            }
+        }
     }
 
 }

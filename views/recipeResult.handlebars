@@ -11,6 +11,7 @@
     <script src="/js/js-cookie.js"></script>
     <script src="/js/recipeResult.js"></script>
     <script src="/js/vue.js"></script>
+    <script src="/js/canvasjs.min.js"></script>
 
 </head>
 
@@ -35,24 +36,53 @@
             <button class="backBtn" onclick="window.location='recipeList'">back</button>
 
             <div id="recipeInfo">
-                <h1>RecipeName: \{{title}}</h1>
-                <img :src="image">
-                <h2>Ingredients</h2>
-                <ul class="ingredientList">
-                    <li v-for="ingredient in extendedIngredients" class="ingredient">
-                        \{{ingredient.name}}
-                        <div>
-                            \{{ingredient.amount}}
-                            \{{ingredient.unit}}
+                <h1>\{{title}}</h1>
+                <div class="titleBlock">
+                    <div class="titleBlockLeft">
+                        <div style="display:flex">
+                            <ul class="ingredientList">
+                                <li class="ingredient">Price Per Serving: <span style="float:right">\{{(pricePerServing/100).toFixed(2)}}$</span></li>
+                                <li class="ingredient">Preparation: <span style="float:right">\{{preparationMinutes}} min</span></li>
+                                <li class="ingredient">Cooking: <span style="float:right">\{{cookingMinutes}} min</span></li>
+                            </ul>
+                            <ul class="ingredientList">
+                                <li class="ingredient">Vegetarian: <span style="float:right">\{{yesOrNo(vegetarian)}}</span></li>
+                                <li class="ingredient">Vegan: <span style="float:right">\{{yesOrNo(vegan)}}</span></li>
+                                <li class="ingredient">Gluten Free: <span style="float:right">\{{yesOrNo(glutenFree)}}</span></li>
+                                <li class="ingredient">Dairy Free: <span style="float:right">\{{yesOrNo(dairyFree)}}</span></li>
+                                <li class="ingredient">Low Fodmap: <span style="float:right">\{{yesOrNo(lowFodmap)}}</span></li>
+                                <li class="ingredient">Ketogenic: <span style="float:right">\{{yesOrNo(ketogenic)}}</span></li>
+                                <li class="ingredient">Whole30: <span style="float:right">\{{yesOrNo(whole30)}}</span></li>
+                            </ul>
                         </div>
-                    </li>
-                </ul>
+                    </div>
+                    <img class="recipeImg" :src="image" style=" width:500px; height:400px;">
+                </div>
+
+                <h2>Ingredients</h2>
+                <div class="ingredientBlock">
+                    <ul class="ingredientList">
+                        <li v-for="ingredient in extendedIngredients" class="ingredient">
+                            \{{ingredient.name}}
+                            <div>
+                                \{{ingredient.amount}} \{{ingredient.unit}}
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="chartBlock">
+                        <div id="chartContainer" style="height: 370px; max-width: 920px;"></div>
+                    </div>
+                </div>
+
                 <h2>Steps</h2>
-                <ul class="ingredientList">
-                    <li v-for="instruction in analyzedInstructions" class="ingredient">
-                        \{{instruction.step}}
-                    </li>
-                </ul>
+                <div class="stepBlock">
+                    <ul class="ingredientList">
+                        <li v-for="instruction in analyzedInstructions" class="ingredient">
+                            \{{instruction.step}}
+                        </li>
+                    </ul>
+                </div>
+
 
             </div>
         </div>
@@ -62,7 +92,7 @@
         $(document).ready(() => {
             const recipeComponent = new Vue({
                 el: "#recipe",
-                data: {                    
+                data: {
                     vegetarian: '',
                     vegan: '',
                     glutenFree: '',
@@ -86,431 +116,46 @@
                     creditText: '',
                     sourceName: '',
                     pricePerServing: '',
-                    extendedIngredients: [],                 
-                    // "extendedIngredients": [
-                    //     {
-                    //         "id": 18079,
-                    //         "aisle": "Pasta and Rice",
-                    //         "image": "breadcrumbs.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "breadcrumbs",
-                    //         "original": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
-                    //         "originalString": "1/2 cup fresh breadcrumbs (I used gluten-free!)",
-                    //         "originalName": null,
-                    //         "amount": 0.5,
-                    //         "unit": "cup",
-                    //         "meta": [
-                    //             "fresh",
-                    //             "(I used gluten-free!)"
-                    //         ],
-                    //         "metaInformation": [
-                    //             "fresh",
-                    //             "(I used gluten-free!)"
-                    //         ],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 0.5,
-                    //                 "unitShort": "cups",
-                    //                 "unitLong": "cups"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 118.294,
-                    //                 "unitShort": "g",
-                    //                 "unitLong": "grams"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 11135,
-                    //         "aisle": "Produce",
-                    //         "image": "cauliflower.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "cauliflower",
-                    //         "original": "1 head of cauliflower",
-                    //         "originalString": "1 head of cauliflower",
-                    //         "originalName": null,
-                    //         "amount": 1,
-                    //         "unit": "head",
-                    //         "meta": [],
-                    //         "metaInformation": [],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "head",
-                    //                 "unitLong": "head"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "head",
-                    //                 "unitLong": "head"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 11297,
-                    //         "aisle": "Produce",
-                    //         "image": "parsley.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "fresh parsley",
-                    //         "original": "1 handful parsley, chopped",
-                    //         "originalString": "1 handful parsley, chopped",
-                    //         "originalName": null,
-                    //         "amount": 1,
-                    //         "unit": "handful",
-                    //         "meta": [
-                    //             "chopped"
-                    //         ],
-                    //         "metaInformation": [
-                    //             "chopped"
-                    //         ],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "handful",
-                    //                 "unitLong": "handful"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "handful",
-                    //                 "unitLong": "handful"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 2063,
-                    //         "aisle": "Produce",
-                    //         "image": "rosemary.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "fresh rosemary",
-                    //         "original": "2 teaspoons fresh rosemary, chopped",
-                    //         "originalString": "2 teaspoons fresh rosemary, chopped",
-                    //         "originalName": null,
-                    //         "amount": 2,
-                    //         "unit": "teaspoons",
-                    //         "meta": [
-                    //             "fresh",
-                    //             "chopped"
-                    //         ],
-                    //         "metaInformation": [
-                    //             "fresh",
-                    //             "chopped"
-                    //         ],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 2,
-                    //                 "unitShort": "tsps",
-                    //                 "unitLong": "teaspoons"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 2,
-                    //                 "unitShort": "tsps",
-                    //                 "unitLong": "teaspoons"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 9297,
-                    //         "aisle": "Dried Fruits;Produce;Baking",
-                    //         "image": "golden-raisins.jpg",
-                    //         "consitency": "liquid",
-                    //         "name": "golden raisins",
-                    //         "original": "1/4 cup golden raisins, chopped",
-                    //         "originalString": "1/4 cup golden raisins, chopped",
-                    //         "originalName": null,
-                    //         "amount": 0.25,
-                    //         "unit": "cup",
-                    //         "meta": [
-                    //             "chopped"
-                    //         ],
-                    //         "metaInformation": [
-                    //             "chopped"
-                    //         ],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 0.25,
-                    //                 "unitShort": "cups",
-                    //                 "unitLong": "cups"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 59.147,
-                    //                 "unitShort": "g",
-                    //                 "unitLong": "grams"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 4053,
-                    //         "aisle": "Oil, Vinegar, Salad Dressing",
-                    //         "image": "olive-oil.jpg",
-                    //         "consitency": "liquid",
-                    //         "name": "olive oil",
-                    //         "original": "1/4 cup olive oil, divided",
-                    //         "originalString": "1/4 cup olive oil, divided",
-                    //         "originalName": null,
-                    //         "amount": 0.25,
-                    //         "unit": "cup",
-                    //         "meta": [
-                    //             "divided"
-                    //         ],
-                    //         "metaInformation": [
-                    //             "divided"
-                    //         ],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 0.25,
-                    //                 "unitShort": "cups",
-                    //                 "unitLong": "cups"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 59.147,
-                    //                 "unitShort": "g",
-                    //                 "unitLong": "grams"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 12147,
-                    //         "aisle": "Produce;Baking",
-                    //         "image": "pine-nuts.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "pine nuts",
-                    //         "original": "1/2 cup pine nuts",
-                    //         "originalString": "1/2 cup pine nuts",
-                    //         "originalName": null,
-                    //         "amount": 0.5,
-                    //         "unit": "cup",
-                    //         "meta": [],
-                    //         "metaInformation": [],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 0.5,
-                    //                 "unitShort": "cups",
-                    //                 "unitLong": "cups"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 118.294,
-                    //                 "unitShort": "g",
-                    //                 "unitLong": "grams"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 1012047,
-                    //         "aisle": "Spices and Seasonings",
-                    //         "image": "salt.jpg",
-                    //         "consitency": "solid",
-                    //         "name": "sea salt",
-                    //         "original": "1 teaspoon sea salt",
-                    //         "originalString": "1 teaspoon sea salt",
-                    //         "originalName": null,
-                    //         "amount": 1,
-                    //         "unit": "teaspoon",
-                    //         "meta": [],
-                    //         "metaInformation": [],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "tsp",
-                    //                 "unitLong": "teaspoon"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 1,
-                    //                 "unitShort": "tsp",
-                    //                 "unitLong": "teaspoon"
-                    //             }
-                    //         }
-                    //     },
-                    //     {
-                    //         "id": 10211111,
-                    //         "aisle": "Ethnic Foods;Spices and Seasonings",
-                    //         "image": "sumac.png",
-                    //         "consitency": "solid",
-                    //         "name": "sumac",
-                    //         "original": "1/2 teaspoon sumac",
-                    //         "originalString": "1/2 teaspoon sumac",
-                    //         "originalName": null,
-                    //         "amount": 0.5,
-                    //         "unit": "teaspoon",
-                    //         "meta": [],
-                    //         "metaInformation": [],
-                    //         "measures": {
-                    //             "us": {
-                    //                 "amount": 0.5,
-                    //                 "unitShort": "tsps",
-                    //                 "unitLong": "teaspoons"
-                    //             },
-                    //             "metric": {
-                    //                 "amount": 0.5,
-                    //                 "unitShort": "tsps",
-                    //                 "unitLong": "teaspoons"
-                    //             }
-                    //         }
-                    //     }
-                    // ],
+                    extendedIngredients: [],
                     id: '',
                     title: '',
-                    readyInMinutes:'',
+                    readyInMinutes: '',
                     servings: '',
                     image: '',
                     imageType: '',
                     cuisines: '',
                     dishTypes: '',
                     diets: '',
-                    occasions: '' ,
-                    winePairing: '', 
-                    instructions: '',   
-                    analyzedInstructions: [],                  
-                    // "instructions": "Cut the florets off the stems and and then chop them into tiny florets. You can also chop up the stems into tiny pieces if you want. You should have about 6 cups of chopped cauliflower. In a large skillet heat 2 tablespoons of olive oil over medium-high heat. Add the cauliflower, 1 teaspoon of salt, rosemary, and sumac. Sauté until cauliflower is tender and starts to brown a bit, stirring as necessary, about 15 minutes. You can also add a bit of olive oil if the pan starts to get too dry or the cauliflower is starting to stick. Meanwhile, in a small skillet, toast the pinenuts over medium heat until golden brown. Set aside. Heat the remaining 2 tablespoons of olive oil in the same pan. Once oil is shimmering, toss in the breadcrumbs and stir, toasting the breadcrumbs. Season with a pinch of kosher salt and a few turns of freshly ground black pepper. Remove from the heat and toss in half of the chopped parsley. When cauliflower is done, remove from the heat and season to taste with freshly ground black pepper and a pinch or so of salt if necessary. Toss in the toasted pine nuts, the chopped raisins, and the remaining parsley. When ready to serve, sprinkle the top with the toasted breadcrumbs and some pecorino.",
-                    // "analyzedInstructions": [
-                    //     {
-                    //         "name": "",
-                    //         "steps": [
-                    //             {
-                    //                 "number": 1,
-                    //                 "step": "Cut the florets off the stems and and then chop them into tiny florets. You can also chop up the stems into tiny pieces if you want. You should have about 6 cups of chopped cauliflower. In a large skillet heat 2 tablespoons of olive oil over medium-high heat.",
-                    //                 "ingredients": [
-                    //                     {
-                    //                         "id": 11135,
-                    //                         "name": "cauliflower",
-                    //                         "image": "cauliflower.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 4053,
-                    //                         "name": "olive oil",
-                    //                         "image": "olive-oil.jpg"
-                    //                     }
-                    //                 ],
-                    //                 "equipment": [
-                    //                     {
-                    //                         "id": 404645,
-                    //                         "name": "frying pan",
-                    //                         "image": "pan.png"
-                    //                     }
-                    //                 ]
-                    //             },
-                    //             {
-                    //                 "number": 2,
-                    //                 "step": "Add the cauliflower, 1 teaspoon of salt, rosemary, and sumac. Sauté until cauliflower is tender and starts to brown a bit, stirring as necessary, about 15 minutes. You can also add a bit of olive oil if the pan starts to get too dry or the cauliflower is starting to stick. Meanwhile, in a small skillet, toast the pinenuts over medium heat until golden brown. Set aside.",
-                    //                 "ingredients": [
-                    //                     {
-                    //                         "id": 11135,
-                    //                         "name": "cauliflower",
-                    //                         "image": "cauliflower.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 4053,
-                    //                         "name": "olive oil",
-                    //                         "image": "olive-oil.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 12147,
-                    //                         "name": "pine nuts",
-                    //                         "image": "pine-nuts.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 10211111,
-                    //                         "name": "sumac",
-                    //                         "image": "sumac.png"
-                    //                     },
-                    //                     {
-                    //                         "id": 2047,
-                    //                         "name": "salt",
-                    //                         "image": "salt.jpg"
-                    //                     }
-                    //                 ],
-                    //                 "equipment": [
-                    //                     {
-                    //                         "id": 404645,
-                    //                         "name": "frying pan",
-                    //                         "image": "pan.png"
-                    //                     }
-                    //                 ],
-                    //                 "length": {
-                    //                     "number": 15,
-                    //                     "unit": "minutes"
-                    //                 }
-                    //             },
-                    //             {
-                    //                 "number": 3,
-                    //                 "step": "Heat the remaining 2 tablespoons of olive oil in the same pan. Once oil is shimmering, toss in the breadcrumbs and stir, toasting the breadcrumbs. Season with a pinch of kosher salt and a few turns of freshly ground black pepper.",
-                    //                 "ingredients": [
-                    //                     {
-                    //                         "id": 18079,
-                    //                         "name": "breadcrumbs",
-                    //                         "image": "breadcrumbs.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 1082047,
-                    //                         "name": "kosher salt",
-                    //                         "image": "salt.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 4053,
-                    //                         "name": "olive oil",
-                    //                         "image": "olive-oil.jpg"
-                    //                     }
-                    //                 ],
-                    //                 "equipment": [
-                    //                     {
-                    //                         "id": 404645,
-                    //                         "name": "frying pan",
-                    //                         "image": "pan.png"
-                    //                     }
-                    //                 ]
-                    //             },
-                    //             {
-                    //                 "number": 4,
-                    //                 "step": "Remove from the heat and toss in half of the chopped parsley. When cauliflower is done, remove from the heat and season to taste with freshly ground black pepper and a pinch or so of salt if necessary. Toss in the toasted pine nuts, the chopped raisins, and the remaining parsley. When ready to serve, sprinkle the top with the toasted breadcrumbs and some pecorino.",
-                    //                 "ingredients": [
-                    //                     {
-                    //                         "id": 18079,
-                    //                         "name": "breadcrumbs",
-                    //                         "image": "breadcrumbs.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 11135,
-                    //                         "name": "cauliflower",
-                    //                         "image": "cauliflower.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 12147,
-                    //                         "name": "pine nuts",
-                    //                         "image": "pine-nuts.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 11297,
-                    //                         "name": "parsley",
-                    //                         "image": "parsley.jpg"
-                    //                     },
-                    //                     {
-                    //                         "id": 2047,
-                    //                         "name": "salt",
-                    //                         "image": "salt.jpg"
-                    //                     }
-                    //                 ],
-                    //                 "equipment": []
-                    //             }
-                    //         ]
-                    //     }
-                    // ],
+                    occasions: '',
+                    winePairing: '',
+                    instructions: '',
+                    analyzedInstructions: [],
                     creditsText: '',
+                },
+                methods: {
+                    yesOrNo: function(val) {
+                        if (val) return "Yes";
+                        return "No";
+                    }
                 },
                 mounted: function () {
                     const username = Cookies.get('user');
                     //console.log(username);
+                    const ingredientAmount = [];
+
                     $.ajax({
                         type: 'POST',
-                        data: {user: username},
+                        data: { user: username },
                         dataType: 'json',
                         success: (instructions) => {
                             //console.log(instructions); //api information
                             //console.log(Object.keys(instructions));
-                            
+
                             //console.log(instructions.vegetarian);
                             //console.log(this.vegetarian); //prints the data field in vue
                             this.vegetarian = instructions.vegetarian;
                             //console.log(this.vegetarian); //works
-                            this.vegan = instructions.vegan;                            
+                            this.vegan = instructions.vegan;
                             this.glutenFree = instructions.glutenFree;
                             this.dairyFree = instructions.dairyFree;
                             this.veryHealthy = instructions.veryHealthy;
@@ -553,24 +198,43 @@
                             this.winePairing = instructions.winePairing;
                             this.instructions = instructions.instructions;
                             //console.log(instructions.analyzedInstructions[0].steps);
-                            for(i of instructions.analyzedInstructions[0].steps){
+                            for (i of instructions.analyzedInstructions[0].steps) {
                                 //this.analyzedInstructions = instructions.analyzedInstructions;
                                 //console.log(i)
                                 this.analyzedInstructions.push(i);
                             }
                             //this.analyzedInstructions = instructions.analyzedInstructions;
                             //console.log(this.analyzedInstructions);
-                            
+
                             this.creditText = instructions.creditText;
-                            
-                            
-                    
-                 
-                                   
+
+                            for (i = 0; i < instructions.extendedIngredients.length; i++) {
+                                ingredientAmount.push({ y: instructions.extendedIngredients[i].measures.metric.amount, label: instructions.extendedIngredients[i].name });
+                            }
+                            chart.render();
+
                         }
                     });
-                }
 
+
+
+                    var chart = new CanvasJS.Chart("chartContainer", {
+                        animationEnabled: true,
+                        title: {
+                            text: "Ingredients Percentage (g)",
+                            horizontalAlign: "left"
+                        },
+                        data: [{
+                            type: "doughnut",
+                            startAngle: 60,
+                            //innerRadius: 60,
+                            indexLabelFontSize: 17,
+                            indexLabel: "{label} - #percent%",
+                            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+                            dataPoints: ingredientAmount
+                        }]
+                    });
+                }
             });
         })
 
