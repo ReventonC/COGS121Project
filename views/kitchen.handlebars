@@ -67,7 +67,6 @@
             </div>
             <div class="block">
                 <div id="spiceRack" class="pantryContainer">
-                    <h1>Spice Rack</h1>
                     <ul v-if="checkSpiceRack()" class="ingredientList">
                         <li v-for="ingredient in spiceRackItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
@@ -93,7 +92,6 @@
                 </div>
 
                 <div id="cupboard" class="pantryContainer">
-                    <h1>Cupboard</h1>
                     <ul v-if="checkCupboard()" class="ingredientList">
                         <li v-for="ingredient in cupboardItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
