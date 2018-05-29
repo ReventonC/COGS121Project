@@ -1,19 +1,21 @@
 $(document).ready(() => {
 
-    $('.recipeBox').on('click', () => {
-      console.log(hello);
-        window.location = "recipeResult";
-         $.ajax({
-                type: 'POST',
-                data: {user: username},
-                dataType: 'json',
-                success: (recipes) => {                  
-                  document.cookie = "id=" + recipes.id;
-                  let id = Cookies.get('id');
-                  console.log(id);
-                }
-        });
-    })
+    $(".content").on('click', '.recipeBox', function (){      
+       const username = Cookies.get('user');      
+       $.ajax({
+              type: 'POST',
+              data: {user: username},
+              dataType: 'json',
+              success: (recipes) => {
+              console.log(recipes);                  
+                document.cookie = "id=" + recipes.id;
+                console.log(document.cookie);
+                
+              }
+      });
+       //go to the recipeResult page through here
+       //window.location = "recipeResult";
+    });
     $("#accountBoxUserName").html(Cookies.get("user"));
 
     const resultListComponent = new Vue({
