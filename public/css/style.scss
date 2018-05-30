@@ -6,6 +6,8 @@
     font-family: Futura, Futura-Medium, "Futura Medium", "Century Gothic", CenturyGothic, "Apple Gothic", AppleGothic, "URW Gothic L", "Avant Garde", sans-serif;
 }
 
+$color-primary-green: #43E97C;
+
 $color-primary-red: #EA4622;
 $color-primary-lightBlue: #9fd8e2;
 $color-primary-flamingo: #F2847A;
@@ -82,13 +84,13 @@ button {
     position: fixed;
     height: 50px;
     right: 50px;
-    bottom: 50px;
-    background-color: rgba($color-primary-red, 0.0);
-    border: solid 1px $color-primary-red;
-    color: $color-primary-red;
+    top: 100px;
+    background-color: rgba($color-primary-green, 1.0);
+    border: solid 1px $color-primary-green;
+    color: white;
     &:hover {
         color: white;
-        background-color: rgba($color-primary-red, 1.0);
+        background-color: rgba($color-primary-green, 1.0);
     }
 }
 
@@ -127,7 +129,7 @@ header {
     align-content: center;
     height: 50px;
     padding: 0 20px 0 20px;
-    background-color: rgba(white, 0.6);
+    background-color: #4A4A4A;
 
     #brandBox {
         display: flex;
@@ -163,7 +165,7 @@ header {
         }
 
         #avatarImg {
-            border: solid black 2px;
+            //border: solid black 2px;
             border-radius: 50%;
             margin-left: 10px;
         }
@@ -454,20 +456,26 @@ body {
     }
 
     #stove {
-        position: relative;
+        position: flex;
         top: 350px;
 
         //border: orange solid 1px;
-        height: 350px;
+
+        height: 375px;
         display: flex;
         align-items: center;
         flex-direction: column;
+        background-image: url("/img/mixingBowl.png");
+        background-size: 200px;
+        background-repeat: no-repeat;
+        background-position: bottom;
 
         button {
-            font-size: 30px;
+            background-color: $color-primary-green;
+            font-size: 24px;
             margin-top: 100px;
-            height: 200px;
-            width: 300px;
+            height: 75px;
+            width: 200px;
         }
     }
 
