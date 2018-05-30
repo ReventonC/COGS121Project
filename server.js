@@ -141,7 +141,21 @@ app.post('/kitchen', (req, res) => {
     //Get type -- add ingredient or display ingredients
     // type 0: display ingredients
     // type 1: add ingredient
+    // type 2: remove ingredient
+    // type 3: edit ingredient
     const type = req.body.type;
+    let oldIng = {};
+    if(type == 3){
+      oldIng.name = myNewIngredient.oldName;
+      oldIng.category = myNewIngredient.oldCategory;
+      oldIng.note = myNewIngredient.oldNote;
+
+      console.log("OLD ING",oldIng);
+      delete myNewIngredient.oldName;
+      delete myNewIngredient.oldCategory;
+      delete myNewIngredient.oldNote;
+
+    }
 
     // The current user
     const username = myNewIngredient.user;
@@ -193,14 +207,20 @@ app.post('/kitchen', (req, res) => {
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             const myNewIngredientStr = JSON.stringify(myNewIngredient);
             myCurrentIngredients.forEach((val, index) => {
-              if(myNewIngredientStr === JSON.stringify(val)){
-                if(type == 2){
+
+              if(type == 2){
+                if(myNewIngredientStr === JSON.stringify(val)){
                   myCurrentIngredients.splice(index, 1);
-                }else if(type == 3){
+                }
+              } else if(type == 3) {
+                console.log("HERE",oldIng);
+
+                const myOldIng = JSON.stringify(oldIng);
+                if(myOldIng === JSON.stringify(val)){
                   myCurrentIngredients[index] = myNewIngredient;
                 }
-                return;
               }
+              return;
             });
             const newIngList = JSON.stringify(myCurrentIngredients);
 
@@ -212,9 +232,9 @@ app.post('/kitchen', (req, res) => {
               },
               (err) => {
                 if(err){
-                  console.log("There was an error removing ingredient:", myNewIngredient);
+                  console.log("There was an error removing or editing ingredient:", myNewIngredient);
                 } else {
-                  console.log("Successfully removed ingredient,", newIngredientName, ", for user:", username);
+                  console.log("Successfully edited or removed ingredient,", newIngredientName, ", for user:", username);
                 }
               }
             );
@@ -405,7 +425,7 @@ app.post('/recipeResult', (req, res) => {
                     //console.log(result.headers);   //it prints information about the request - useless?
                     //console.log(result.body);   //print recipes
                     myRecipes = result.body;
-                    
+
                     //get the id of the specific recipe
                     //console.log(req.cookies.id);
                     idNumber = req.cookies.id;

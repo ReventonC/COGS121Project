@@ -73,7 +73,8 @@ $(document).ready(() => {
             addIngredient: function (newName, newCategory, newNote) {
                 if (this.edit) {
                     this.edit = false;
-                    console.log("Editing from " + JSON.stringify({ name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote }));
+                    const oldIngredient = { name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote };
+                    console.log("Editing from " + JSON.stringify(oldIngredient));
 
                     $(this.selectedIngredientTarget).closest("li").find(".ingredientName").text(newName);
                     $(this.selectedIngredientTarget).closest("li").find(".ingredientCategory").text(newCategory);
@@ -95,6 +96,11 @@ $(document).ready(() => {
                     const username = Cookies.get('user');
                     editedIngredient.user = username;
                     editedIngredient.type = 3;
+                    editedIngredient.oldName = oldIngredient.name;
+                    editedIngredient.oldCategory = oldIngredient.category;
+                    editedIngredient.oldNote = oldIngredient.note;
+
+                    console.log("MY OBJECT",editedIngredient);
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
