@@ -100,7 +100,6 @@ $(document).ready(() => {
                     editedIngredient.oldCategory = oldIngredient.category;
                     editedIngredient.oldNote = oldIngredient.note;
 
-                    console.log("MY OBJECT",editedIngredient);
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
@@ -228,6 +227,7 @@ $(document).ready(() => {
                 }).map(ingredient => ingredient.name);
 
                 if (this.checkedIngredients.length != 0) {
+                    Cookies.set('checked_ingredients', this.checkedIngredients);
                     window.location = 'recipeList';
                 } else {
                     alert("Please select the ingredients you want to use!");

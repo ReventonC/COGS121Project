@@ -273,6 +273,8 @@ app.post('/kitchen', (req, res) => {
 app.post('/recipeList', (req, res) => {
     let ingredientsList = [];
     let myRecipes = [];
+    const checkedIngredients = JSON.parse(req.body.checked);
+    console.log("MY CHECKED Ingredients:",checkedIngredients);
 
     // Grab the recipes from the list
     const username = req.body.user;
@@ -301,6 +303,8 @@ app.post('/recipeList', (req, res) => {
             let ingredients = '';
             //CHANGE THIS NUM TO DISPLAY DIFFERENT AMOUNT OF RECIPE RESULTS
             const numResults = 8;
+            //Uncomment the following line, to get ALL ingredients for user, rather than checked ones
+            ingredientsList = checkedIngredients;
             ingredientsList.forEach((i) => {
                 i.replace(" ", "+");
                 ingredients += i + "%2C";
