@@ -5,9 +5,12 @@ const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
 const path = require('path');
 const sqlite3 = require('sqlite3');
+const createDB = require('./create_db.js');
 const app = express();
 const hbs = exphbs.create();
+createDB.createDB();
 const db = new sqlite3.Database('recipes.db');
+
 
 //for cookie
 const cookie = require('cookie');
@@ -186,12 +189,16 @@ app.post('/kitchen', (req, res) => {
                 }
               }
             );
-          } else if(type == 2) {
+          } else {
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             const myNewIngredientStr = JSON.stringify(myNewIngredient);
             myCurrentIngredients.forEach((val, index) => {
               if(myNewIngredientStr === JSON.stringify(val)){
-                myCurrentIngredients.splice(index, 1);
+                if(type == 2){
+                  myCurrentIngredients.splice(index, 1);
+                }else if(type == 3){
+                  myCurrentIngredients[index] = myNewIngredient;
+                }
                 return;
               }
             });
