@@ -55,7 +55,7 @@
                         </li>
                     </ul>
                     <ul v-else class="ingredientList">
-                        <p class="emptyText">Oops! Nothing is in your Fridge D:</p>
+                        <p class="emptyText">Oops, your Fridge is empty!</p>
                     </ul>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                         </li>
                     </ul>
                     <ul v-else class="ingredientList">
-                        <p class="emptyText">Oops! Nothing is in your Spice Rack D:</p>
+                        <p class="emptyText">Oops, your Spice Rack is empty!</p>
                     </ul>
                 </div>
 
@@ -96,7 +96,7 @@
                         <li v-for="ingredient in cupboardItems" class="ingredient" v-on:click="selectIngredient">
                             <div class="rowOne">
                                 <p>
-                                    <input v-on:click="selectCheckBox" v-model="ingredient.isChecked" type="checkbox" class="ingredientSelectCheckBox">         
+                                    <input v-on:click="selectCheckBox" v-model="ingredient.isChecked" type="checkbox" class="ingredientSelectCheckBox">
                                     <span class="ingredientName">\{{ingredient.name}}</span>
                                     <span class="ingredientHide">
                                         |
@@ -112,12 +112,12 @@
                         </li>
                     </ul>
                     <ul v-else class="ingredientList">
-                        <p class="emptyText">Oops! Nothing is in your Cupboard D:</p>
+                        <p class="emptyText">Oops, your Cupboard is empty!</p>
                     </ul>
                 </div>
             </div>
         </div>
-        <button id="addIngredientBtn" v-on:click="openAddModal">Add ingredient!</button>
+        <button id="addIngredientBtn" v-on:click="openAddModal">Add Ingredient</button>
 
         <div id="addIngredientModal" class="modal is-hidden is-visuallyHidden">
             <div class="modal-content">
