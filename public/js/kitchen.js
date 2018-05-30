@@ -90,7 +90,16 @@ $(document).ready(() => {
                     this.selectedIngredientCategory = newCategory;
                     this.selectedIngredientNote = newNote;
 
-                    console.log("Editing to " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
+                    const editedIngredient = { name: newName, category: newCategory, note: newNote };
+                    console.log("Editing to " + JSON.stringify(editedIngredient));
+                    const username = Cookies.get('user');
+                    editedIngredient.user = username;
+                    editedIngredient.type = 3;
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'json',
+                        data: editedIngredient
+                    });
                     closeModal();
                 } else {
                     console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
