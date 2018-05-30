@@ -23,7 +23,7 @@ button {
     border: none;
     color: white;
     border-radius: 6.18px;
-    background-color: $color-primary-red;
+    background-color: $color-primary-green;
 }
 
 .modal {
@@ -160,7 +160,7 @@ header {
             font-size: 20px;
 
             #accountBoxUserName {
-                color: $color-primary-red;
+                color: $color-primary-green;
             }
         }
 
@@ -324,7 +324,7 @@ body {
                 width: $button-ingredient-close-width-height;
                 
                 &:hover {
-                    background-color: $color-primary-red;                    
+                    background-color: $color-primary-green;                    
                 }   
             }
         }
@@ -392,7 +392,7 @@ body {
                 width: $button-ingredient-close-width-height;
                 
                 &:hover {
-                    background-color: $color-primary-red;                    
+                    background-color: $color-primary-green;                    
                 }   
             }
         }
@@ -505,7 +505,7 @@ body {
         }
 
         #logOutBtn {
-            background-color: $color-primary-lightBlue;
+            background-color: $color-primary-green;
         }
     }
 

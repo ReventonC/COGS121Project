@@ -17,7 +17,7 @@ button {
   border: none;
   color: white;
   border-radius: 6.18px;
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .modal {
@@ -160,7 +160,7 @@ header #accountBox p {
 }
 
 header #accountBox p #accountBoxUserName {
-  color: #EA4622;
+  color: #43E97C;
 }
 
 header #accountBox #avatarImg {
@@ -316,7 +316,7 @@ header #accountBox #avatarImg {
 }
 
 .content .ingredientList .selected .ingredientDeleteBtn:hover {
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .content .ingredientList .ingredient {
@@ -385,7 +385,7 @@ header #accountBox #avatarImg {
 }
 
 .content .ingredientList .ingredient .ingredientDeleteBtn:hover {
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .content #fridge {
@@ -487,7 +487,7 @@ header #accountBox #avatarImg {
 }
 
 .content #accountSettings #logOutBtn {
-  background-color: #9fd8e2;
+  background-color: #43E97C;
 }
 
 .content #recipeInfo {
