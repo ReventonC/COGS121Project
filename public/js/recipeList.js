@@ -1,5 +1,9 @@
 $(document).ready(() => {
     const username = Cookies.get('user'); 
+    $(".content").on('click', '.recipeBox', function (){ 
+       //go to the recipeResult page through here
+       window.location = "recipeResult";
+    });
       //  $.ajax({
       //     type: 'POST',
       //     data: {user: username},
@@ -34,7 +38,8 @@ $(document).ready(() => {
                 return true? this.recipeList.length == 0 : false;
             },
             getId: function(id) {
-              console.log(id);
+              document.cookie = "id=" + id;
+              //console.log(Cookies.get('id')); //works
             },
         },
         mounted: function() {

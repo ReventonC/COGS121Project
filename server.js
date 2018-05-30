@@ -372,10 +372,14 @@ app.post('/recipeResult', (req, res) => {
                     //console.log(result.body);   //print recipes
                     myRecipes = result.body;
                     
+                    //get the id of the specific recipe
+                    //console.log(req.cookies.id);
+                    idNumber = req.cookies.id;
+
                     //console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
                     
                     //store apiRecipe string here
-                    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + id[1] + '/information?includeNutrition=false'; //string for api recipe
+                    apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + idNumber + '/information?includeNutrition=false'; //string for api recipe
                     //get the actual recipe(gets info from recipe ID)
 
                     //recipe instructions

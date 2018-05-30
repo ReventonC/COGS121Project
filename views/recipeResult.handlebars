@@ -33,7 +33,7 @@
 
     <div class="content">
         <div id="recipe">
-            <button class="backBtn" onclick="window.location='recipeList'">back</button>
+            <button class="backBtn" onclick="window.location='recipeList'" v-on:click="clearID">back</button>
 
             <div id="recipeInfo">
                 <h1>\{{title}}</h1>
@@ -136,7 +136,12 @@
                     yesOrNo: function(val) {
                         if (val) return "Yes";
                         return "No";
-                    }
+                    },
+
+                    clearID: function(){
+                        //clear cookie
+                        document.cookie = id + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    },
                 },
                 mounted: function () {
                     const username = Cookies.get('user');
@@ -198,14 +203,23 @@
                             this.winePairing = instructions.winePairing;
                             this.instructions = instructions.instructions;
                             //console.log(instructions.analyzedInstructions[0].steps);
-                            for (i of instructions.analyzedInstructions[0].steps) {
-                                //this.analyzedInstructions = instructions.analyzedInstructions;
-                                //console.log(i)
-                                this.analyzedInstructions.push(i);
+                            if(instructions.analyzedInstructions[0] == undefined){
+                                const recipeLink = instructions.spoonacularSourceUrl;
+                                $(".ingredientList").html("<center><b>Instructions could not be loaded D:</b></br>Please check out "+ recipeLink.link(instructions.spoonacularSourceUrl) + " for more details</center>"); 
+                                console.log("no instructions");
                             }
-                            //this.analyzedInstructions = instructions.analyzedInstructions;
-                            //console.log(this.analyzedInstructions);
+                            else{
+                                for (i of instructions.analyzedInstructions[0].steps) {
+                                    //this.analyzedInstructions = instructions.analyzedInstructions;
+                                    //console.log(i)
+                                    this.analyzedInstructions.push(i);
+                                }
+                                //this.analyzedInstructions = instructions.analyzedInstructions;
+                                //console.log(this.analyzedInstructions);
+                            }
 
+
+                            //chart rendering
                             this.creditText = instructions.creditText;
 
                             for (i = 0; i < instructions.extendedIngredients.length; i++) {
@@ -215,7 +229,6 @@
 
                         }
                     });
-
 
 
                     var chart = new CanvasJS.Chart("chartContainer", {
