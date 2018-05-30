@@ -7,11 +7,11 @@ $(document).ready(() => {
               data: {user: username},
               dataType: 'json',
               success: (recipes) => {
-              console.log(recipes);                  
-                document.cookie = "id=" + recipes.id;
-                console.log(document.cookie);
-                
-              }
+              console.log(recipes[0].id);                  
+              // document.cookie = "id=" + recipes.id;
+              // console.log(document.cookie);
+              
+            }
       });
        //go to the recipeResult page through here
        window.location = "recipeResult";
