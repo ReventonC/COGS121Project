@@ -136,6 +136,8 @@ app.post('/kitchen', (req, res) => {
     const myNewIngredient = req.body;
 
     //Get type -- add ingredient or display ingredients
+    // type 0: display ingredients
+    // type 1: add ingredient
     const type = req.body.type;
 
     // The current user
@@ -165,7 +167,7 @@ app.post('/kitchen', (req, res) => {
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             console.log("myCurrIng:", myCurrentIngredients)
             res.send(myCurrentIngredients);
-          }else{
+          } else if(type == 1){
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             const updatedIngredients = myCurrentIngredients.concat(myNewIngredient);
             const updatedIngredientsString = JSON.stringify(updatedIngredients);
@@ -180,7 +182,32 @@ app.post('/kitchen', (req, res) => {
                 if(err){
                   console.log("There was an error updating ingredient:", myNewIngredient);
                 } else {
-                  console.log("Successfully upated ingredient,", newIngredientName, ", for user:", username);
+                  console.log("Successfully updated ingredient,", newIngredientName, ", for user:", username);
+                }
+              }
+            );
+          } else if(type == 2) {
+            const myCurrentIngredients = JSON.parse(rows[0].ingredients);
+            const myNewIngredientStr = JSON.stringify(myNewIngredient);
+            myCurrentIngredients.forEach((val, index) => {
+              if(myNewIngredientStr === JSON.stringify(val)){
+                myCurrentIngredients.splice(index, 1);
+                return;
+              }
+            });
+            const newIngList = JSON.stringify(myCurrentIngredients);
+
+            db.run(
+              'UPDATE ingredients SET ingredients=$ingredients WHERE username=$user',
+              {
+                $ingredients: newIngList,
+                $user: username
+              },
+              (err) => {
+                if(err){
+                  console.log("There was an error removing ingredient:", myNewIngredient);
+                } else {
+                  console.log("Successfully removed ingredient,", newIngredientName, ", for user:", username);
                 }
               }
             );
@@ -188,7 +215,7 @@ app.post('/kitchen', (req, res) => {
           //User already has ingredients in their kitchen, so we update the ingredients
 
         //User is inserting ingredients into their kitchen for the first time
-        }else{
+        } else {
           if(type == 0){
             res.send({});
           }else{
@@ -311,7 +338,7 @@ app.post('/recipeResult', (req, res) => {
    let ingredientsList = [];
     let myRecipes = [];
 
-   //get the username 
+   //get the username
   const username = req.body.user;
   console.log(username,  "in recipeList page");
   db.all(
@@ -376,8 +403,9 @@ app.post('/recipeResult', (req, res) => {
                     //console.log(req.cookies.id);
                     idNumber = req.cookies.id;
 
+
                     //console.log("Recipes (API call):", myRecipes);  //PRINTS THE RECIPES!!!
-                    
+
                     //store apiRecipe string here
                     apiRecipe = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/' + idNumber + '/information?includeNutrition=false'; //string for api recipe
                     //get the actual recipe(gets info from recipe ID)
