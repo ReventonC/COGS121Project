@@ -17,7 +17,7 @@ button {
   border: none;
   color: white;
   border-radius: 6.18px;
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .modal {
@@ -78,15 +78,15 @@ button {
   position: fixed;
   height: 50px;
   right: 50px;
-  bottom: 50px;
-  background-color: rgba(234, 70, 34, 0);
-  border: solid 1px #EA4622;
-  color: #EA4622;
+  top: 100px;
+  background-color: #43e97c;
+  border: solid 1px #43E97C;
+  color: white;
 }
 
 #addIngredientBtn:hover {
   color: white;
-  background-color: #ea4622;
+  background-color: #43e97c;
 }
 
 #addIngredientModalContent {
@@ -126,7 +126,7 @@ header {
   align-content: center;
   height: 50px;
   padding: 0 20px 0 20px;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: #4A4A4A;
 }
 
 header #brandBox {
@@ -160,18 +160,12 @@ header #accountBox p {
 }
 
 header #accountBox p #accountBoxUserName {
-  color: #EA4622;
+  color: #43E97C;
 }
 
 header #accountBox #avatarImg {
-  border: solid black 2px;
   border-radius: 50%;
   margin-left: 10px;
-}
-
-body {
-  background-image: url("/img/palm-leaf.png");
-  background-repeat: repeat;
 }
 
 .content {
@@ -322,7 +316,7 @@ body {
 }
 
 .content .ingredientList .selected .ingredientDeleteBtn:hover {
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .content .ingredientList .ingredient {
@@ -391,7 +385,7 @@ body {
 }
 
 .content .ingredientList .ingredient .ingredientDeleteBtn:hover {
-  background-color: #EA4622;
+  background-color: #43E97C;
 }
 
 .content #fridge {
@@ -447,19 +441,24 @@ body {
 }
 
 .content #stove {
-  position: relative;
+  position: flex;
   top: 350px;
-  height: 350px;
+  height: 375px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-image: url("/img/mixingBowl.png");
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 .content #stove button {
-  font-size: 30px;
+  background-color: #43E97C;
+  font-size: 24px;
   margin-top: 100px;
-  height: 200px;
-  width: 300px;
+  height: 75px;
+  width: 200px;
 }
 
 .content #accountSettings, .content #recipe, .content #resultList {
@@ -488,7 +487,7 @@ body {
 }
 
 .content #accountSettings #logOutBtn {
-  background-color: #9fd8e2;
+  background-color: #43E97C;
 }
 
 .content #recipeInfo {
@@ -579,5 +578,5 @@ body {
 }
 
 #loginBox #signup_btn {
-  background-color: #9fd8e2;
+  background-color: #43E97C;
 }
