@@ -20,7 +20,7 @@
         <div id="brandBox">
             <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:50px;height:31px;" />
             <p id="appName">
-                <span style="color: #EA4622">Pan</span><span style="color: #9fd8e2">tr</span><span style="color: #F2847A">y</span>
+                <span style="color: #43E97C">pan</span><span style="color: #3AF7CA">try</span>
             </p>
         </div>
         <div id="accountBox" onclick="window.location='account'">
@@ -205,7 +205,7 @@
                             //console.log(instructions.analyzedInstructions[0].steps);
                             if(instructions.analyzedInstructions[0] == undefined){
                                 const recipeLink = instructions.spoonacularSourceUrl;
-                                $("#instructions").html("<center><b>Instructions could not be loaded D:</b></br>Please check out "+ recipeLink.link(instructions.spoonacularSourceUrl) + " for more details</center>"); 
+                                $("#instructions").html("<center><b>Instructions could not be loaded D:</b></br>Please check out "+ recipeLink.link(instructions.spoonacularSourceUrl) + " for more details</center>");
                                 console.log("no instructions");
                             }
                             else{

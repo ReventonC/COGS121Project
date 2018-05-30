@@ -19,7 +19,7 @@
         <div id="brandBox">
             <img onclick="window.location='kitchen'" id="logo" src="/img/logo.png" alt="logo" style="width:50px;height:31px;" />
             <p id="appName">
-                <span style="color: #EA4622">Pan</span><span style="color: #9fd8e2">tr</span><span style="color: #F2847A">y</span>
+                <span style="color: #43E97C">pan</span><span style="color: #3AF7CA">try</span>
             </p>
         </div>
         <div id="accountBox" onclick="window.location='account'">
@@ -54,9 +54,9 @@
                         No preference.
                     </li>
                 </ul>
-                <h2>Alergies</h2>
+                <h2>Allergies</h2>
                 <label>
-                    Add Alergy:
+                    Add Allergy:
                 </label>
                 <input v-model="newAlergy" placeholder="Add alergy..." v-on:keyup.enter="addAlergy(newAlergy)" />
                 <ul v-if="isAEmpty()">
