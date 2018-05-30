@@ -42,7 +42,7 @@ $(document).ready(() => {
             newCategory: '',
             newNote: '',
             ingredients: [],
-            fridgeCategories: ["Meat", "Vegetable", "Diary", "Fruit", "Drinks"],
+            fridgeCategories: ["Meat", "Vegetable", "Dairy", "Fruit", "Drinks"],
             spiceRackCategories: ["Spice", "Oil", "Sauce"],
             cupboardCategories: ["Grain", "Misc"],
             selectedIngredientName: '',
@@ -133,6 +133,13 @@ $(document).ready(() => {
                     if (ingredient.name === this.ingredients[i].name) {
                         console.log("Removing " + JSON.stringify(ingredient));
                         this.ingredients.splice(i, 1);
+                        ingredient.user = Cookies.get('user');;
+                        ingredient.type = 2;
+                        $.ajax({
+                          type: 'POST',
+                          dataType: 'json',
+                          data: ingredient
+                        });
                     }
                 }
                 console.log("Ingredients after" + JSON.stringify(this.ingredients));
