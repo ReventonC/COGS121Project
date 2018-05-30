@@ -8,12 +8,13 @@ $(document).ready(() => {
               //set up a different click handler for each recipe
               for(i in recipes){
                   $(".content").on('click', '.recipeBox', function (){ 
-                       document.cookie = "id=" + recipes.id;
+                       document.cookie = "id=" + recipes[i].id;
                     console.log(document.cookie);
+                     window.location = "recipeResult";
                        
               });
               //go to the recipeResult page through here
-              window.location = "recipeResult";
+             
           };
 
           //console.log(recipes[0].id);                  
