@@ -14,7 +14,7 @@ $(document).ready(() => {
               }
       });
        //go to the recipeResult page through here
-       //window.location = "recipeResult";
+       window.location = "recipeResult";
     });
     $("#accountBoxUserName").html(Cookies.get("user"));
 
