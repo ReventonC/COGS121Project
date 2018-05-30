@@ -168,11 +168,6 @@ header #accountBox #avatarImg {
   margin-left: 10px;
 }
 
-body {
-  background-image: url("/img/palm-leaf.png");
-  background-repeat: repeat;
-}
-
 .content {
   top: 50px;
   height: 100%;
