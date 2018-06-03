@@ -25,7 +25,7 @@
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.11",
     "js-cookie": "^2.2.0",
-    "nodemon": "^1.17.3",
+    "nodemon": "^1.17.5",
     "simplebar": "^2.6.1",
     "sqlite": "^2.9.1",
     "sqlite3": "^4.0.0",

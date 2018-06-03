@@ -1,16 +1,16 @@
 $(document).ready(() => {
 
     $("#accountBoxUserName").html(Cookies.get("user"));
-    
+
     const accountComponent = new Vue({
         el: "#app",
         data: {
-            userName: "Test",
+            userName: "test",
             avatarImgLink: "https://api.adorable.io/avatars/285/abott@adorable.png",
             newPreference: "",
-            preferenceList: ["Vegetarian", "Vegan"],
+            preferenceList: ["Beef"],
             newAlergy: "",
-            alergyList: ["Egg", "Nut", "Soy"]
+            alergyList: ["Peanut", "Soy"]
         },
         methods: {
             addPreference: function (preference) {

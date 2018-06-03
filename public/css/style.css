@@ -466,16 +466,16 @@ header #accountBox #avatarImg {
   padding: 3vw;
 }
 
+.content #accountSettings ul, .content #recipe ul, .content #resultList ul {
+  list-style-type: none;
+}
+
 .content #accountSettings .backBtn, .content #recipe .backBtn, .content #resultList .backBtn {
   width: 100px;
 }
 
 .content #accountSettings #app, .content #recipe #app, .content #resultList #app {
   padding: 2vw;
-}
-
-.content #accountSettings #avatarPic {
-  border: 3px solid #424242;
 }
 
 .content #accountSettings i {

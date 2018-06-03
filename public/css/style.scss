@@ -482,6 +482,7 @@ body {
     #accountSettings,#recipe, #resultList {
         width: 100vw;
         padding: 3vw;
+        ul{ list-style-type: none; }
 
         .backBtn {
             width: 100px;
@@ -494,14 +495,14 @@ body {
 
     #accountSettings {
         #avatarPic {
-            border: 3px solid #424242;
+            //border: 3px solid #424242;
         }
         i {
             cursor: pointer;
         }
 
         #updateBtn, #logOutBtn {
-            width: 150px
+            width: 150px;
         }
 
         #logOutBtn {

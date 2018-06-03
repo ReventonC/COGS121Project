@@ -12,6 +12,7 @@
     <script src="/js/js-cookie.js"></script>
     <script src="/js/account.js"></script>
     <script src="/js/vue.js"></script>
+
 </head>
 
 <body>
@@ -23,7 +24,7 @@
             </p>
         </div>
         <div id="accountBox" onclick="window.location='account'">
-            <p>Hello,
+            <p><span style="color: white">Hello,</span>
                 <span id="accountBoxUserName">userName</span>
             </p>
             <img id="avatarImg" src="/img/avatar.png" alt="avatar" style="width:35px; height:35px" />
@@ -35,18 +36,23 @@
             <button class="backBtn" onclick="window.location='kitchen'">back</button>
             <div id="app">
                 <h1>Account Settings</h1>
-                <img id="avatarPic" :src=avatarImgLink style="width:200px; height:200px" />
+                <img id="avatarPic" src="/img/camera.png" style="width:100px; height:100px"/>
+                <br></br>
                 <h2>User Name</h2>
                 <input v-model="userName">
+                <br></br>
                 <h2>Preferences</h2>
                 <label>
-                    Add Preference:
+                    Do not show me recipes that contain any of these ingredients:
                 </label>
-                <input v-model="newPreference" placeholder="Add preference..." v-on:keyup.enter="addPreference(newPreference)" />
+                <input v-model="newPreference" placeholder="Add preference" v-on:keyup.enter="addPreference(newPreference)"/>
+                <img id="addBtn" src="/img/add.png" style="width:12px; height:12px"/>
                 <ul v-if="isPEmpty()">
                     <li v-for="preference in preferenceList">
                         \{{preference}}
-                        <i v-on:click="removePreference(preference)">x</i>
+                        <i v-on:click="removePreference(preference)">
+                          <img id="deleteBtn" src="/img/delete.png" style="width:12px; height:12px"/>
+                        </i>
                     </li>
                 </ul>
                 <ul v-else>
@@ -54,22 +60,27 @@
                         No preference.
                     </li>
                 </ul>
+                <br>
                 <h2>Allergies</h2>
                 <label>
-                    Add Allergy:
+                    Warn me when a recipe contains one or more of the following ingredients:
                 </label>
-                <input v-model="newAlergy" placeholder="Add alergy..." v-on:keyup.enter="addAlergy(newAlergy)" />
+                <input v-model="newAlergy" placeholder="Add allergy" v-on:keyup.enter="addAlergy(newAlergy)" />
+                <img id="addBtn" src="/img/add.png" style="width:12px; height:12px"/>
                 <ul v-if="isAEmpty()">
                     <li v-for="alergy in alergyList">
                         \{{alergy}}
-                        <i v-on:click="removeAlergy(alergy)">x</i>
+                        <i v-on:click="removeAlergy(alergy)">
+                          <img id="deleteBtn" src="/img/delete.png" style="width:12px; height:12px"/>
+                        </i>
                     </li>
                 </ul>
                  <ul v-else>
                     <li>
-                        No alergy.
+                        No allergy.
                     </li>
                 </ul>
+                <br>
                 <button id="updateBtn" v-on:click="updateInfo">Update Changes</button>
                 <button id="logOutBtn" onclick="window.location='/'">Log out</button>
             </div>
