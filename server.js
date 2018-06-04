@@ -85,25 +85,13 @@ app.post('/', (req, res) => {
                 }
                 console.log(rows);
                 if (rows.length == 1) {
-                    console.log("successfully logged in");
-                    //res.clearCookie("user");
-                    //cookie.serialize ("user", username);
-                    //cookies = cookie.parse(req.headers.cookie || '');
-                    console.log("successfully logged in");
-                    //res.clearCookie("user");
+                    console.log("successfully logged in");                 
                     res.send({user: user, pass: pass, loginRes: 0});
+                    
                 } else {
-                  console.log("username or password is incorrect");
-                  //console.log(user);
+                  console.log("username or password is incorrect");             
                   res.send({user: 0, pass: 0, loginRes: 1});
-                  //res.cookie('username', username).send('cookie set');
-                  //console.log(req..username);
 
-                  //cookie.serialize ("username", username);
-                  //var cookies = cookie.parse(req.headers.cookie || '');
-                  //Get the visitor name set in the cookie
-                  //console.log(cookie.username);
-                  //res.send({user: 0, pass: 0, loginRes: 1});
                 }
             }
         );
@@ -180,10 +168,13 @@ app.post('/kitchen', (req, res) => {
           console.log("FAILED GETTING TABLE ROW");
         }
         if (rows.length == 1){
+           // Get all of current user's ingredients to display them in kitchen
           if(type == 0){
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             console.log("myCurrIng:", myCurrentIngredients)
             res.send(myCurrentIngredients);
+              
+           // Added new ingredient to DB  
           } else if(type == 1){
             const myCurrentIngredients = JSON.parse(rows[0].ingredients);
             const updatedIngredients = myCurrentIngredients.concat(myNewIngredient);
@@ -209,12 +200,13 @@ app.post('/kitchen', (req, res) => {
             myCurrentIngredients.forEach((val, index) => {
 
               if(type == 2){
+                // Remove an ingredient from the DB
                 if(myNewIngredientStr === JSON.stringify(val)){
                   myCurrentIngredients.splice(index, 1);
                 }
               } else if(type == 3) {
-                console.log("HERE",oldIng);
-
+                
+                // Edit ingredient in DB
                 const myOldIng = JSON.stringify(oldIng);
                 if(myOldIng === JSON.stringify(val)){
                   myCurrentIngredients[index] = myNewIngredient;
@@ -224,6 +216,7 @@ app.post('/kitchen', (req, res) => {
             });
             const newIngList = JSON.stringify(myCurrentIngredients);
 
+            // Run the command to edit or remove ingredient
             db.run(
               'UPDATE ingredients SET ingredients=$ingredients WHERE username=$user',
               {
@@ -239,7 +232,7 @@ app.post('/kitchen', (req, res) => {
               }
             );
           }
-          //User already has ingredients in their kitchen, so we update the ingredients
+          
 
         //User is inserting ingredients into their kitchen for the first time
         } else {
@@ -268,15 +261,13 @@ app.post('/kitchen', (req, res) => {
 });
 
 // Grab all of the user recipes from the DB and send them to the users
-//TODO: once routes are implemented, can make this a Get request that triggers when page loads,
-// rather than having to make an ajax post request. then input the route name
 app.post('/recipeList', (req, res) => {
     let ingredientsList = [];
     let myRecipes = [];
     const checkedIngredients = JSON.parse(req.body.checked);
     console.log("MY CHECKED Ingredients:",checkedIngredients);
 
-    // Grab the recipes from the list
+    // Grab the recipes from the list to use in API call to display all recipe results
     const username = req.body.user;
 
     db.all(
@@ -295,10 +286,7 @@ app.post('/recipeList', (req, res) => {
 
             }
 
-            //TODO: find out how to break the api call into seperate strings
-            //get the recipe information
-            //let ingredientsList = ['apple', 'ice cream'];
-
+            // Everything below is API call
             console.log("The given ingredients list is:", ingredientsList);
             let ingredients = '';
             //CHANGE THIS NUM TO DISPLAY DIFFERENT AMOUNT OF RECIPE RESULTS
@@ -357,13 +345,12 @@ app.post('/recipeList', (req, res) => {
 
 
                 });
-            //TRY RETURNING HERE
-            //console.log("Bottom of API call:", myRecipes);
-            //res.send(myRecipes);
+
         });
 }
 );
 
+// Grab all recipes for API call, only for one single recipe that you click on
 app.post('/recipeResult', (req, res) => {
 
    let ingredientsList = [];
@@ -388,8 +375,6 @@ app.post('/recipeResult', (req, res) => {
 
             }
 
-
-            //let ingredientsList = ['apple', 'ice cream'];
 
             console.log("The given ingredients list is:", ingredientsList);
             let ingredients = '';
@@ -454,13 +439,13 @@ app.post('/recipeResult', (req, res) => {
 
 
                 });
-            //TRY RETURNING HERE
-            //console.log("Bottom of API call:", myRecipes);
-            //res.send(myRecipes);
+
         });
 
 });
 
+
+// Start the server
 app.listen(3000, () => {
     console.log("Server started on http://localhost:3000/");
 });
