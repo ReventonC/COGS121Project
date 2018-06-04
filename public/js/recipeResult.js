@@ -65,6 +65,7 @@ $(document).ready(() => {
             //console.log(username);
             const ingredientAmount = [];
 
+            // AJAX call to make API call and obtain the one recipe that the user clicked on
             $.ajax({
                 type: 'POST',
                 data: { user: username },
