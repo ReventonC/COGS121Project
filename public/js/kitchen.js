@@ -30,16 +30,6 @@ $(document).ready(() => {
     $("#accountBoxUserName").html(Cookies.get("user"));
 
 
-    console.log("hello");
-    $.ajax({
-        type: 'GET',
-        dataType: 'json',
-        success: (ingredients, status) => {
-            console.log(status);
-            //this.ingredients.push({ name: newName, category: newCategory, note: newNote });
-        }
-    });
-
 
     const pantryComponent = new Vue({
         el: "#app",
@@ -78,6 +68,8 @@ $(document).ready(() => {
         methods: {
             addIngredient: function (newName, newCategory, newNote) {
                 if (this.edit) {
+                    
+                    // Edit the currently selected ingredient
                     this.edit = false;
                     const oldIngredient = { name: this.selectedIngredientName, category: this.selectedIngredientCategory, note: this.selectedIngredientNote };
                     console.log("Editing from " + JSON.stringify(oldIngredient));
@@ -106,6 +98,7 @@ $(document).ready(() => {
                     editedIngredient.oldCategory = oldIngredient.category;
                     editedIngredient.oldNote = oldIngredient.note;
 
+                    // AJAX call to change the new edited ingredient in the DB
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
@@ -113,6 +106,8 @@ $(document).ready(() => {
                     });
                     closeModal();
                 } else {
+                    
+                    // ADD A NEW INGREDIENT TO THE USER'S DB
                     console.log("Adding " + JSON.stringify({ name: newName, category: newCategory, note: newNote }));
                     this.ingredients.push({ name: newName, category: newCategory, note: newNote });
                     //console.log(newName); //add this to the dataBase
@@ -133,6 +128,8 @@ $(document).ready(() => {
                         newestIngredients.type = 1;
                         console.log(this.ingredients);
                         console.log(newestIngredients);
+                        
+                        // AJAX call to add new ingredient to DB
                         $.ajax({
                             type: 'POST',
                             dataType: 'json',
@@ -148,6 +145,8 @@ $(document).ready(() => {
 
             },
             removeIngredient: function (e, ingredient) {
+                
+                // Make AJAX call to remove an ingredient from the DB
                 console.log("Ingredients before" + JSON.stringify(this.ingredients));
                 for (i = 0; i < this.ingredients.length; i++) {
                     if (ingredient.name === this.ingredients[i].name) {
@@ -241,7 +240,7 @@ $(document).ready(() => {
             }
         },
         mounted: function () {
-            /* ajax call to load all the ingredients from database */
+            /* ajax call to load all the ingredients from database and render them on frontend */
             const user = { user: Cookies.get('user'), type: 0 };
             $.ajax({
                 type: 'POST',
