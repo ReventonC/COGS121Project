@@ -1,6 +1,7 @@
 (**Feel free to add stuff to what you did or the rest of the MD file, this is just an outline before final turn in **)
 
 (It says paragraphs or bullet points ?)
+
 Yahav Erlich - Backend + Database
 Zehua Chen - Frontend Data Rendering
 Aaron Wong - Backend + API
