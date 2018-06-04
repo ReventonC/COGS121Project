@@ -1,14 +1,12 @@
 
 
-// run each database statement *serially* one after another
-// (if you don't do this, then all statements will run in parallel,
-//  which we don't want)
+
 module.exports = {
    createDB: function() {
      const sqlite3 = require('sqlite3');
      const db = new sqlite3.Database('recipes.db');
-  //   db.serialize(() => {
-       // create a new database table:
+  
+       // create a new database table for users if it does not already exist
        db.all(
          'SELECT name FROM sqlite_master WHERE type=\'table\' AND name=\'users\'',
          {},
@@ -23,6 +21,7 @@ module.exports = {
          }
        );
 
+       // create new table for ingredients if it does not already exists
        db.all(
          'SELECT name FROM sqlite_master WHERE type=\'table\' AND name=\'ingredients\'',
          {},
@@ -36,7 +35,7 @@ module.exports = {
            }
          }
        );
-  //   });
+  
 
      db.close();
    }
