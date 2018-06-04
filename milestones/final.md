@@ -3,8 +3,11 @@
 (It says paragraphs or bullet points ?)
 
 Yahav Erlich - Backend + Database
+
 Zehua Chen - Frontend Data Rendering
+
 Aaron Wong - Backend + API
+
 Erika Nunotani - Frontend Design
 
 server.js -- runs the server, does user account login checking, does all database stores and reads. Does all API calls and sends data
