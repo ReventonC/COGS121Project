@@ -41,7 +41,7 @@ const kitchen = require('./routes/kitchen');
 const recipeList = require('./routes/recipeList');
 const recipeResult = require('./routes/recipeResult');
 
-app.get('/', login.view)
+app.get('/', login.view);
 app.get('/account', account.view);
 app.get('/kitchen', kitchen.view);
 app.get('/recipeList', recipeList.view);
