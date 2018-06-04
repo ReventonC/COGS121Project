@@ -6,11 +6,11 @@
 
 Yahav Erlich - Backend + Database
 
-Zehua Chen - Frontend Data Rendering
+Zehua Chen - Frontend Design + Data Rendering
 
 Aaron Wong - Backend + API
 
-Erika Nunotani - Frontend Design
+Erika Nunotani - Frontend Design + Graphic Design
 
 server.js -- runs the server, does user account login checking, does all database stores and reads. Does all API calls and sends data
              to frontend for rendering by checking for HTTP reqeusts and sending back data accordingly.
