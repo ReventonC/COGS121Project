@@ -1,5 +1,4 @@
-## Demo Video
-Video - https://www.youtube.com/watch?v=HnHVM_ScGYY&feature=youtu.be
+## Demo Video https://www.youtube.com/watch?v=HnHVM_ScGYY&feature=youtu.be
 
 ## Team
 Yahav Erlich - Backend + Database
