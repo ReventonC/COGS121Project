@@ -1,3 +1,9 @@
+/*
+    Renders a vue instance of the kitchen, visualize all the ingredients a user has. 
+    Use ajax call in the "mounted" block to grab data from the backend api call,
+    and render the data to the frontend.
+*/
+
 $(document).ready(() => {
 
     function openModal(e) {

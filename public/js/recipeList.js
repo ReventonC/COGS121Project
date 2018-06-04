@@ -1,3 +1,9 @@
+/*
+    Renders a vue instance of a recipe list. 
+    Use ajax call in the "mounted" block to grab data from the backend api call,
+    and render the data to the frontend.
+*/
+
 $(document).ready(() => {
     const username = Cookies.get('user');
     $(".content").on('click', '.recipeBox', function (){

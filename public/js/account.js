@@ -1,3 +1,9 @@
+/*
+    Renders a vue instance of the account informations. 
+    Use ajax call in the "mounted" block to grab data from the backend api call,
+    and render the data to the frontend. The preference list and alergy lists are
+    only implemented in the frontend.
+*/
 $(document).ready(() => {
 
     $("#accountBoxUserName").html(Cookies.get("user"));
