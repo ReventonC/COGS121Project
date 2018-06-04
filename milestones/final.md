@@ -1,8 +1,4 @@
-(**Feel free to add stuff to what you did or the rest of the MD file, this is just an outline before final turn in **)
-
-(* ADD DEMO VIDEO LINK HERE *)
-
-(It says paragraphs or bullet points ?)
+Demo Video: https://www.youtube.com/watch?v=HnHVM_ScGYY&feature=youtu.be
 
 Yahav Erlich - Backend + Database
 
